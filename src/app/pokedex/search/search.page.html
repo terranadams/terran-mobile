@@ -14,11 +14,11 @@
       <ion-card-title>{{this.pokemon.name}}</ion-card-title>
       <ion-grid>
         <ion-row>
-          <ion-col [size]="!this.pokemon.shinySprite ? 12 : 6" >
+          <ion-col [sizeSm]="!this.pokemon.shinySprite ? 12 : 6">
             <ion-img [src]="this.pokemon.defaultSprite"></ion-img>
           </ion-col>
           <ion-col *ngIf="this.pokemon.shinySprite" size="6">
-            <ion-img [src]="this.pokemon.shinySprite"></ion-img>
+            <ion-img class="img-hor" [src]="this.pokemon.shinySprite"></ion-img>
           </ion-col>
         </ion-row>
       </ion-grid>
