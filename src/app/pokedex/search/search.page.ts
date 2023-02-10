@@ -31,12 +31,11 @@ export class SearchPage implements OnInit {
         this.pokeData.name.charAt(0).toUpperCase() +
         this.pokeData.name.slice(1);
       this.pokemon.defaultSprite = this.pokeData?.sprites?.front_default
-      this.pokemon.shinySprite = this?.pokeData?.sprites?.shiny_default
-      this.pokemon.types = this.pokeData?.types
+      this.pokemon.shinySprite = this?.pokeData?.sprites?.front_shiny
+      this.pokemon.types = this.pokeData.types.map((x: any) => x.type.name)
       this.pokemon.description = this.pokeData?.description
       console.log(this.pokemon)
     });
   }
-  // ionViewWillEnter() {
-  //   });
+  // ionViewWillEnter() {}
 }

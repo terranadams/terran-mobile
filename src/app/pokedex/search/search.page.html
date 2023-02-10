@@ -9,10 +9,19 @@
 
 <ion-content class="ion-text-center ion-padding">
   <ion-button (click)="newPokemon()">Find something else</ion-button>
-  <ion-card *ngIf="pokeData">
+  <ion-card *ngIf="pokemon.name">
     <ion-card-header>
       <ion-card-title>{{this.pokemon.name}}</ion-card-title>
-      <ion-img [src]="pokeData?.sprites?.front_default"></ion-img>
+      <ion-grid>
+        <ion-row>
+          <ion-col [size]="!this.pokemon.shinySprite ? 12 : 6" >
+            <ion-img [src]="this.pokemon.defaultSprite"></ion-img>
+          </ion-col>
+          <ion-col *ngIf="this.pokemon.shinySprite" size="6">
+            <ion-img [src]="this.pokemon.shinySprite"></ion-img>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-header>
   </ion-card>
 </ion-content>
