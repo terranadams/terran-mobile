@@ -7,7 +7,7 @@ import { PokedexService } from '../pokedex.service';
   styleUrls: ['./search.page.scss'],
 })
 export class SearchPage implements OnInit {
-  currentPokemon!: any;
+  pokeData!: any;
   name!: string;
 
   constructor(private pokeService: PokedexService) {}
@@ -16,9 +16,9 @@ export class SearchPage implements OnInit {
 
   newPokemon() {
     this.pokeService.fetchMeSomething().subscribe((resData) => {
-      this.currentPokemon = resData;
-      console.log(this.currentPokemon);
-      this.name = this.currentPokemon.name.charAt(0).toUpperCase() + this.currentPokemon.name.slice(1)
+      this.pokeData = resData;
+      console.log(this.pokeData);
+      this.name = this.pokeData.name.charAt(0).toUpperCase() + this.pokeData.name.slice(1)
     });
   }
   // ionViewWillEnter() {
