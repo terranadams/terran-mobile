@@ -11,7 +11,7 @@
   <ion-button (click)="newPokemon()">Find something else</ion-button>
   <ion-card *ngIf="pokeData">
     <ion-card-header>
-      <ion-card-title>{{this.name}}</ion-card-title>
+      <ion-card-title>{{this.pokemon.name}}</ion-card-title>
       <ion-img [src]="pokeData?.sprites?.front_default"></ion-img>
     </ion-card-header>
   </ion-card>
