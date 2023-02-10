@@ -8,6 +8,7 @@ import { PokedexService } from '../pokedex.service';
 })
 export class SearchPage implements OnInit {
   currentPokemon!: any;
+  name!: string;
 
   constructor(private pokeService: PokedexService) {}
 
@@ -16,13 +17,15 @@ export class SearchPage implements OnInit {
   newPokemon() {
     this.pokeService.fetchMeSomething().subscribe((resData) => {
       this.currentPokemon = resData;
+      console.log(this.currentPokemon);
+      this.name = this.currentPokemon.name.charAt(0).toUpperCase() + this.currentPokemon.name.slice(1)
     });
   }
-
-  ionViewWillEnter() {
-    // this makes it so this runs every time the component shows up, instead of when it loads for just the first time
-    this.pokeService.fetchMeSomething().subscribe((resData) => {
-      this.currentPokemon = resData;
-    });
-  }
+  // ionViewWillEnter() {
+  //   // this makes it so this runs every time the component shows up, instead of when it loads for just the first time
+  //   this.pokeService.fetchMeSomething().subscribe((resData) => {
+  //     this.currentPokemon = resData;
+  //     console.log(resData)
+  //     // this.name = resData.name
+  //   });
 }

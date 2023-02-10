@@ -7,11 +7,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-text-center">
+<ion-content class="ion-text-center ion-padding">
   <ion-button (click)="newPokemon()">Find something else</ion-button>
-  <ion-card>
+  <ion-card *ngIf="currentPokemon">
     <ion-card-header>
-      <ion-card-title>{{currentPokemon?.name}}</ion-card-title>
+      <ion-card-title>{{this.name}}</ion-card-title>
       <ion-img [src]="currentPokemon?.sprites?.front_default"></ion-img>
     </ion-card-header>
   </ion-card>
