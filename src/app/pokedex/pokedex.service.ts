@@ -10,6 +10,8 @@ export class PokedexService {
   constructor(private http: HttpClient) { }
 
   fetchMeSomething() {
-    return this.http.get(`https://pokeapi.co/api/v2/pokemon/${Math.floor(Math.random() * 1008) + 1}`)
+    return this.http.get(`https://pokeapi.co/api/v2/pokemon/${Math.floor(Math.random() * 1008) + 1}`).pipe(tap(resData => {
+      
+    }))
   }
 }
