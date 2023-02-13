@@ -34,7 +34,7 @@ export class SearchPage implements OnInit {
       this.pokemon.shinySprite = this?.pokeData?.sprites?.front_shiny
       this.pokemon.types = this.pokeData.types.map((x: any) => x.type.name)
       this.pokemon.description = this.pokeData?.description
-      console.log(this.pokemon)
+      // console.log(this.pokemon)
     });
   }
   // ionViewWillEnter() {}
