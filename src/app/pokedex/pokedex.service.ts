@@ -8,7 +8,7 @@ import { Pokemon } from './pokemon';
 })
 export class PokedexService {
   pokeData!: any;
-  currentPokemon: Pokemon = {
+  _currentPokemon: Pokemon = {
     id: 0,
     name: '',
     defaultSprite: '',
@@ -19,6 +19,10 @@ export class PokedexService {
   pokeList!: Pokemon[];
 
   constructor(private http: HttpClient) {}
+
+  get currentPokemon() {
+    return this._currentPokemon
+  }
 
   fetchMeSomething() {
     return this.http
@@ -31,15 +35,15 @@ export class PokedexService {
         tap((resData) => {
           this.pokeData = resData;
           // console.log(this.pokeData);
-          this.currentPokemon.id = this.pokeData.id;
-          this.currentPokemon.name =
+          this._currentPokemon.id = this.pokeData.id;
+          this._currentPokemon.name =
             this.pokeData.name.charAt(0).toUpperCase() +
             this.pokeData.name.slice(1);
-          this.currentPokemon.defaultSprite = this.pokeData?.sprites?.front_default;
-          this.currentPokemon.shinySprite = this?.pokeData?.sprites?.front_shiny;
-          this.currentPokemon.types = this.pokeData.types.map((x: any) => x.type.name);
-          this.currentPokemon.description = this.pokeData?.description;
-          console.log(this.currentPokemon)
+          this._currentPokemon.defaultSprite = this.pokeData?.sprites?.front_default;
+          this._currentPokemon.shinySprite = this?.pokeData?.sprites?.front_shiny;
+          this._currentPokemon.types = this.pokeData.types.map((x: any) => x.type.name);
+          this._currentPokemon.description = this.pokeData?.description;
+          // console.log(this._currentPokemon)
         })
       );
   }

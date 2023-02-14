@@ -8,6 +8,11 @@ import { Pokemon } from '../pokemon';
   styleUrls: ['./search.page.scss'],
 })
 export class SearchPage implements OnInit {
+  constructor(private pokeService: PokedexService) {}
+
+  ngOnInit() {}
+
+  
   pokeData!: any;
   pokemon: Pokemon = {
     id: 0,
@@ -17,23 +22,18 @@ export class SearchPage implements OnInit {
     types: [],
     description: '',
   };
-
-  constructor(private pokeService: PokedexService) {}
-
-  ngOnInit() {}
-
   newPokemon() {
     this.pokeService.fetchMeSomething().subscribe((resData) => {
       this.pokeData = resData;
       // console.log(this.pokeData);
-      this.pokemon.id = this.pokeData.id
+      this.pokemon.id = this.pokeData.id;
       this.pokemon.name =
         this.pokeData.name.charAt(0).toUpperCase() +
         this.pokeData.name.slice(1);
-      this.pokemon.defaultSprite = this.pokeData?.sprites?.front_default
-      this.pokemon.shinySprite = this?.pokeData?.sprites?.front_shiny
-      this.pokemon.types = this.pokeData.types.map((x: any) => x.type.name)
-      this.pokemon.description = this.pokeData?.description
+      this.pokemon.defaultSprite = this.pokeData?.sprites?.front_default;
+      this.pokemon.shinySprite = this?.pokeData?.sprites?.front_shiny;
+      this.pokemon.types = this.pokeData.types.map((x: any) => x.type.name);
+      this.pokemon.description = this.pokeData?.description;
       // console.log(this.pokemon)
     });
   }

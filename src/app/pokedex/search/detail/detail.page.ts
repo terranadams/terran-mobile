@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PokedexService } from '../../pokedex.service';
+import { Pokemon } from '../../pokemon';
 
 @Component({
   selector: 'app-detail',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailPage implements OnInit {
 
-  constructor() { }
+  pokemon!: Pokemon
+
+  constructor(private pokeService: PokedexService) { }
 
   ngOnInit() {
+    this.pokemon = this.pokeService.currentPokemon
   }
 
 }
