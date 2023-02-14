@@ -9,7 +9,7 @@
 
 <ion-content class="ion-text-center ion-padding">
   <ion-button (click)="newPokemon()">Generate a random pokemon :)</ion-button>
-  <ion-card *ngIf="pokemon.name" [routerLink]="['./', pokemon.id]">
+  <ion-card *ngIf="pokemon.name" [routerLink]="['./', 'detail']">
     <ion-card-header>
       <ion-card-title>{{this.pokemon.name}}</ion-card-title>
       <ion-grid>

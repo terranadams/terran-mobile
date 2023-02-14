@@ -9,7 +9,7 @@ const routes: Routes = [
     component: SearchPage
   },
   {
-    path: ':pokeId',
+    path: 'detail',
     loadChildren: () => import('./detail/detail.module').then( m => m.DetailPageModule)
   }
 ];
