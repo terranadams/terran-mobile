@@ -12,7 +12,7 @@ export class SearchPage implements OnInit {
 
   ngOnInit() {}
 
-  
+
   pokeData!: any;
   pokemon: Pokemon = {
     id: 0,
