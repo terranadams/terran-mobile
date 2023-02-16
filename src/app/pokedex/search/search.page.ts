@@ -12,7 +12,7 @@ export class SearchPage implements OnInit {
 
   ngOnInit() {}
 
-
+  method!: string;
   pokeData!: any;
   pokemon: Pokemon = {
     id: 0,
@@ -37,5 +37,10 @@ export class SearchPage implements OnInit {
       // console.log(this.pokemon)
     });
   }
-  // ionViewWillEnter() {}
+
+  methodToggle(event: any) {
+    // console.log(event.detail.value)
+    this.method = event.detail.value
+  }
+
 }

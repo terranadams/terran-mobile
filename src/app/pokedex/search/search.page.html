@@ -8,6 +8,14 @@
 </ion-header>
 
 <ion-content class="ion-text-center ion-padding">
+  <ion-segment (ionChange)="methodToggle($event)" value="random" style="margin-bottom: 20px;">
+    <ion-segment-button value="random">
+      <ion-label>Random</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="search">
+      <ion-label>Search</ion-label>
+    </ion-segment-button>
+  </ion-segment>
   <ion-button (click)="newPokemon()">Generate a random pokemon :)</ion-button>
   <ion-card *ngIf="pokemon.name" [routerLink]="['./', 'detail']">
     <ion-card-header>
