@@ -8,7 +8,11 @@
 </ion-header>
 
 <ion-content class="ion-text-center ion-padding">
-  <ion-segment (ionChange)="methodToggle($event)" value="random" style="margin-bottom: 20px;">
+  <ion-segment
+    (ionChange)="methodToggle($event)"
+    value="random"
+    style="margin-bottom: 20px"
+  >
     <ion-segment-button value="random">
       <ion-label>Random</ion-label>
     </ion-segment-button>
@@ -16,20 +20,30 @@
       <ion-label>Search</ion-label>
     </ion-segment-button>
   </ion-segment>
-  <ion-button (click)="newPokemon()">Generate a random pokemon :)</ion-button>
-  <ion-card *ngIf="pokemon.name" [routerLink]="['./', 'detail']">
-    <ion-card-header>
-      <ion-card-title>{{this.pokemon.name}}</ion-card-title>
-      <ion-grid>
-        <ion-row>
-          <ion-col [sizeSm]="!this.pokemon.shinySprite ? 12 : 6" sizeLg="3" offsetLg="3">
-            <ion-img [src]="this.pokemon.defaultSprite"></ion-img>
-          </ion-col>
-          <ion-col *ngIf="this.pokemon.shinySprite" size="6" sizeLg="3" >
-            <ion-img class="img-hor" [src]="this.pokemon.shinySprite"></ion-img>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-header>
-  </ion-card>
+
+  <div>
+    <ion-button (click)="newPokemon()">Generate a random pokemon :)</ion-button>
+    <ion-card *ngIf="pokemon.name" [routerLink]="['./', 'detail']">
+      <ion-card-header>
+        <ion-card-title>{{this.pokemon.name}}</ion-card-title>
+        <ion-grid>
+          <ion-row>
+            <ion-col
+              [sizeSm]="!this.pokemon.shinySprite ? 12 : 6"
+              sizeLg="3"
+              offsetLg="3"
+            >
+              <ion-img [src]="this.pokemon.defaultSprite"></ion-img>
+            </ion-col>
+            <ion-col *ngIf="this.pokemon.shinySprite" size="6" sizeLg="3">
+              <ion-img
+                class="img-hor"
+                [src]="this.pokemon.shinySprite"
+              ></ion-img>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-header>
+    </ion-card>
+  </div>
 </ion-content>
