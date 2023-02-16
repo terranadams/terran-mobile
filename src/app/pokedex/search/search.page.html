@@ -22,7 +22,9 @@
   </ion-segment>
 
   <div *ngIf="method === 'random'">
-    <ion-button (click)="newPokemon()">Generate a random pokemon :)</ion-button>
+    <ion-button (click)="newPokemon()" color="primary"
+      >Generate a random pokemon :)</ion-button
+    >
     <ion-card *ngIf="pokemon.name" [routerLink]="['./', 'detail']">
       <ion-card-header>
         <ion-card-title>{{this.pokemon.name}}</ion-card-title>
@@ -45,5 +47,9 @@
         </ion-grid>
       </ion-card-header>
     </ion-card>
+  </div>
+
+  <div *ngIf="method === 'search'">
+    <p>helloworld</p>
   </div>
 </ion-content>
