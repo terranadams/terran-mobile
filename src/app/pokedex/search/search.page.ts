@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
 import { PokedexService } from '../pokedex.service';
 import { Pokemon } from '../pokemon';
 
@@ -8,7 +9,10 @@ import { Pokemon } from '../pokemon';
   styleUrls: ['./search.page.scss'],
 })
 export class SearchPage implements OnInit {
-  constructor(private pokeService: PokedexService) {}
+  constructor(
+    private pokeService: PokedexService,
+    private loadingCtrl: LoadingController
+  ) {}
 
   ngOnInit() {}
 
@@ -23,24 +27,27 @@ export class SearchPage implements OnInit {
     description: '',
   };
   newPokemon() {
-    this.pokeService.fetchMeSomething().subscribe((resData) => {
-      this.pokeData = resData;
-      // console.log(this.pokeData);
-      this.pokemon.id = this.pokeData.id;
-      this.pokemon.name =
-        this.pokeData.name.charAt(0).toUpperCase() +
-        this.pokeData.name.slice(1);
-      this.pokemon.defaultSprite = this.pokeData?.sprites?.front_default;
-      this.pokemon.shinySprite = this?.pokeData?.sprites?.front_shiny;
-      this.pokemon.types = this.pokeData.types.map((x: any) => x.type.name);
-      this.pokemon.description = this.pokeData?.description;
-      // console.log(this.pokemon)
+    this.loadingCtrl.create({ message: 'Generating...' }).then((loadingEl) => {
+      loadingEl.present();
+      this.pokeService.fetchMeSomething().subscribe((resData) => {
+        this.pokeData = resData;
+        // console.log(this.pokeData);
+        this.pokemon.id = this.pokeData.id;
+        this.pokemon.name =
+          this.pokeData.name.charAt(0).toUpperCase() +
+          this.pokeData.name.slice(1);
+        this.pokemon.defaultSprite = this.pokeData?.sprites?.front_default;
+        this.pokemon.shinySprite = this?.pokeData?.sprites?.front_shiny;
+        this.pokemon.types = this.pokeData.types.map((x: any) => x.type.name);
+        this.pokemon.description = this.pokeData?.description;
+        // console.log(this.pokemon)
+        loadingEl.dismiss()
+      });
     });
   }
 
   methodToggle(event: any) {
     // console.log(event.detail.value)
-    this.method = event.detail.value
+    this.method = event.detail.value;
   }
-
 }
