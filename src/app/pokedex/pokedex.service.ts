@@ -24,6 +24,13 @@ export class PokedexService {
     return this._currentPokemon
   }
 
+  fetchSpecificPokemon(name: string) {
+    return this.http.get(`https://pokeapi.co.api/v2/pokemon/${name}`)
+    .pipe(tap(resData => {
+      
+    }))
+  }
+
   fetchMeSomething() {
     return this.http
       .get(
