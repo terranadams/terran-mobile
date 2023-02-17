@@ -63,6 +63,30 @@
           </ion-col>
           <ion-button type="submit" color="medium"> Search </ion-button>
         </ion-row>
+        <ion-row>
+          <ion-card *ngIf="searchedPokemon.name" [routerLink]="['./', 'detail']">
+            <ion-card-header>
+              <ion-card-title>{{this.searchedPokemon.name}}</ion-card-title>
+              <ion-grid>
+                <ion-row>
+                  <ion-col
+                    [sizeSm]="!this.searchedPokemon.shinySprite ? 12 : 6"
+                    sizeLg="3"
+                    offsetLg="3"
+                  >
+                    <ion-img [src]="this.searchedPokemon.defaultSprite"></ion-img>
+                  </ion-col>
+                  <ion-col *ngIf="this.searchedPokemon.shinySprite" size="6" sizeLg="3">
+                    <ion-img
+                      class="img-hor"
+                      [src]="this.searchedPokemon.shinySprite"
+                    ></ion-img>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-header>
+          </ion-card>
+        </ion-row>
       </ion-grid>
     </form>
   </div>
