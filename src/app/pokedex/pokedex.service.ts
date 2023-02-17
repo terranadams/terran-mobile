@@ -34,7 +34,7 @@ export class PokedexService {
   }
 
   fetchSpecificPokemon(name: string) {
-    return this.http.get(`https://pokeapi.co.api/v2/pokemon/${name}`).pipe(
+    return this.http.get(`https://pokeapi.co/api/v2/pokemon/${name}`).pipe(
       tap((resData) => {
         this.searchedPokeData = resData;
         // console.log(this.searchedPokeData);

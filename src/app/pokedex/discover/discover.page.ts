@@ -53,7 +53,15 @@ export class DiscoverPage implements OnInit {
   }
 
   onSubmit(f: NgForm) {
-    // console.log(f.form.value)
-    this.loadingCtrl.create({message: 'Generating...'})
+    console.log(f.form.value.name)
+    // this.loadingCtrl.create({message: 'Generating...'}).then(loadingEl => {
+    //   loadingEl.present()
+    //   this.pokeService.fetchSpecificPokemon(f.form.value.name).subscribe(resData => {
+    //     console.log(resData)
+    //     loadingEl.dismiss()
+    //   })
+    // })
+
+    this.pokeService.fetchSpecificPokemon(f.form.value.name).subscribe(resData => console.log(resData))
   }
 }
