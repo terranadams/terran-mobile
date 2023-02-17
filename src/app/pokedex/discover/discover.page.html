@@ -63,7 +63,8 @@
           </ion-col>
           <ion-button type="submit" color="medium"> Search </ion-button>
         </ion-row>
-        <ion-row>
+        <ion-row class="ion-text-center">
+          <ion-col>
           <ion-card *ngIf="searchedPokemon.name" [routerLink]="['./', 'detail']">
             <ion-card-header>
               <ion-card-title>{{this.searchedPokemon.name}}</ion-card-title>
@@ -86,6 +87,7 @@
               </ion-grid>
             </ion-card-header>
           </ion-card>
+        </ion-col>
         </ion-row>
       </ion-grid>
     </form>
