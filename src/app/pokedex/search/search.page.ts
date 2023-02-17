@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { LoadingController } from '@ionic/angular';
 import { PokedexService } from '../pokedex.service';
 import { Pokemon } from '../pokemon';
@@ -49,5 +50,9 @@ export class SearchPage implements OnInit {
   methodToggle(event: any) {
     // console.log(event.detail.value)
     this.method = event.detail.value;
+  }
+
+  onSubmit(f: NgForm) {
+    console.log(f.form.value)
   }
 }
