@@ -53,6 +53,7 @@ export class DiscoverPage implements OnInit {
   }
 
   onSubmit(f: NgForm) {
-    console.log(f.form.value)
+    // console.log(f.form.value)
+    this.loadingCtrl.create({message: 'Generating...'})
   }
 }

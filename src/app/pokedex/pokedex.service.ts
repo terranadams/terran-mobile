@@ -7,8 +7,17 @@ import { Pokemon } from './pokemon';
   providedIn: 'root',
 })
 export class PokedexService {
-  pokeData!: any;
-  _currentPokemon: Pokemon = {
+  randomPokeData!: any;
+  searchedPokeData!: any;
+  _randomPokemon: Pokemon = {
+    id: 0,
+    name: '',
+    defaultSprite: '',
+    shinySprite: '',
+    types: [],
+    description: '',
+  };
+  _searchedPokemon: Pokemon = {
     id: 0,
     name: '',
     defaultSprite: '',
@@ -21,14 +30,28 @@ export class PokedexService {
   constructor(private http: HttpClient) {}
 
   get currentPokemon() {
-    return this._currentPokemon
+    return this._randomPokemon;
   }
 
   fetchSpecificPokemon(name: string) {
-    return this.http.get(`https://pokeapi.co.api/v2/pokemon/${name}`)
-    .pipe(tap(resData => {
-      
-    }))
+    return this.http.get(`https://pokeapi.co.api/v2/pokemon/${name}`).pipe(
+      tap((resData) => {
+        this.searchedPokeData = resData;
+        // console.log(this.searchedPokeData);
+        this._searchedPokemon.id = this.searchedPokeData.id;
+        this._searchedPokemon.name =
+          this.searchedPokeData.name.charAt(0).toUpperCase() +
+          this.searchedPokeData.name.slice(1);
+        this._searchedPokemon.defaultSprite =
+          this.searchedPokeData?.sprites?.front_default;
+        this._searchedPokemon.shinySprite =
+          this?.searchedPokeData?.sprites?.front_shiny;
+        this._searchedPokemon.types = this.searchedPokeData.types.map(
+          (x: any) => x.type.name
+        );
+        this._searchedPokemon.description = this.searchedPokeData?.description;
+      })
+    );
   }
 
   fetchMeSomething() {
@@ -40,17 +63,20 @@ export class PokedexService {
       )
       .pipe(
         tap((resData) => {
-          this.pokeData = resData;
-          // console.log(this.pokeData);
-          this._currentPokemon.id = this.pokeData.id;
-          this._currentPokemon.name =
-            this.pokeData.name.charAt(0).toUpperCase() +
-            this.pokeData.name.slice(1);
-          this._currentPokemon.defaultSprite = this.pokeData?.sprites?.front_default;
-          this._currentPokemon.shinySprite = this?.pokeData?.sprites?.front_shiny;
-          this._currentPokemon.types = this.pokeData.types.map((x: any) => x.type.name);
-          this._currentPokemon.description = this.pokeData?.description;
-          // console.log(this._currentPokemon)
+          this.randomPokeData = resData;
+          // console.log(this.randomPokeData);
+          this._randomPokemon.id = this.randomPokeData.id;
+          this._randomPokemon.name =
+            this.randomPokeData.name.charAt(0).toUpperCase() +
+            this.randomPokeData.name.slice(1);
+          this._randomPokemon.defaultSprite =
+            this.randomPokeData?.sprites?.front_default;
+          this._randomPokemon.shinySprite =
+            this?.randomPokeData?.sprites?.front_shiny;
+          this._randomPokemon.types = this.randomPokeData.types.map(
+            (x: any) => x.type.name
+          );
+          this._randomPokemon.description = this.randomPokeData?.description;
         })
       );
   }
