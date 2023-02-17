@@ -6,10 +6,10 @@ import { Pokemon } from '../pokemon';
 
 @Component({
   selector: 'app-search',
-  templateUrl: './search.page.html',
-  styleUrls: ['./search.page.scss'],
+  templateUrl: './discover.page.html',
+  styleUrls: ['./discover.page.scss'],
 })
-export class SearchPage implements OnInit {
+export class DiscoverPage implements OnInit {
   constructor(
     private pokeService: PokedexService,
     private loadingCtrl: LoadingController

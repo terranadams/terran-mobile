@@ -14,9 +14,9 @@ const routes: Routes = [
           import('./list/list.module').then((m) => m.ListPageModule),
       },
       {
-        path: 'search',
+        path: 'discover',
         loadChildren: () =>
-          import('./search/search.module').then((m) => m.SearchPageModule),
+          import('./discover/discover.module').then((m) => m.DiscoverPageModule),
       },
     ],
   },
