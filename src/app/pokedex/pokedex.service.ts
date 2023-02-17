@@ -7,6 +7,7 @@ import { Pokemon } from './pokemon';
   providedIn: 'root',
 })
 export class PokedexService {
+  _method = 'random'
   randomPokeData!: any;
   searchedPokeData!: any;
   _randomPokemon: Pokemon = {
@@ -30,7 +31,12 @@ export class PokedexService {
   constructor(private http: HttpClient) {}
 
   get currentPokemon() {
-    return this._randomPokemon;
+    if (this._method === 'random') return this._randomPokemon;
+    else return this._searchedPokemon
+  }
+
+  changeMethod(method: string) {
+    this._method = method
   }
 
   fetchSpecificPokemon(name: string) {

@@ -59,6 +59,7 @@ export class DiscoverPage implements OnInit {
   methodToggle(event: any) {
     // console.log(event.detail.value)
     this.method = event.detail.value;
+    this.pokeService.changeMethod(event.detail.value)
   }
 
   onSubmit(f: NgForm) {
