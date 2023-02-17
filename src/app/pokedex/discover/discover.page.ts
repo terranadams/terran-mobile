@@ -18,8 +18,17 @@ export class DiscoverPage implements OnInit {
   ngOnInit() {}
 
   method = 'random';
-  pokeData!: any;
-  pokemon: Pokemon = {
+  randomPokeData!: any;
+  searchedPokeData: any;
+  randomPokemon: Pokemon = {
+    id: 0,
+    name: '',
+    defaultSprite: '',
+    shinySprite: '',
+    types: [],
+    description: '',
+  };
+  searchedPokemon: Pokemon = {
     id: 0,
     name: '',
     defaultSprite: '',
@@ -31,17 +40,17 @@ export class DiscoverPage implements OnInit {
     this.loadingCtrl.create({ message: 'Generating...' }).then((loadingEl) => {
       loadingEl.present();
       this.pokeService.fetchMeSomething().subscribe((resData) => {
-        this.pokeData = resData;
-        // console.log(this.pokeData);
-        this.pokemon.id = this.pokeData.id;
-        this.pokemon.name =
-          this.pokeData.name.charAt(0).toUpperCase() +
-          this.pokeData.name.slice(1);
-        this.pokemon.defaultSprite = this.pokeData?.sprites?.front_default;
-        this.pokemon.shinySprite = this?.pokeData?.sprites?.front_shiny;
-        this.pokemon.types = this.pokeData.types.map((x: any) => x.type.name);
-        this.pokemon.description = this.pokeData?.description;
-        // console.log(this.pokemon)
+        this.randomPokeData = resData;
+        // console.log(this.randomPokeData);
+        this.randomPokemon.id = this.randomPokeData.id;
+        this.randomPokemon.name =
+          this.randomPokeData.name.charAt(0).toUpperCase() +
+          this.randomPokeData.name.slice(1);
+        this.randomPokemon.defaultSprite = this.randomPokeData?.sprites?.front_default;
+        this.randomPokemon.shinySprite = this?.randomPokeData?.sprites?.front_shiny;
+        this.randomPokemon.types = this.randomPokeData.types.map((x: any) => x.type.name);
+        this.randomPokemon.description = this.randomPokeData?.description;
+        // console.log(this.randomPokemon)
         loadingEl.dismiss()
       });
     });
@@ -53,15 +62,22 @@ export class DiscoverPage implements OnInit {
   }
 
   onSubmit(f: NgForm) {
-    console.log(f.form.value.name)
-    // this.loadingCtrl.create({message: 'Generating...'}).then(loadingEl => {
-    //   loadingEl.present()
-    //   this.pokeService.fetchSpecificPokemon(f.form.value.name).subscribe(resData => {
-    //     console.log(resData)
-    //     loadingEl.dismiss()
-    //   })
-    // })
-
-    this.pokeService.fetchSpecificPokemon(f.form.value.name).subscribe(resData => console.log(resData))
+    // console.log(f.form.value.name)
+    this.loadingCtrl.create({message: 'Generating...'}).then(loadingEl => {
+      loadingEl.present()
+      this.pokeService.fetchSpecificPokemon(f.form.value.name).subscribe(resData => {
+        this.searchedPokeData = resData
+        // console.log(this.searchedPokeData)
+        this.searchedPokemon.id = this.searchedPokeData.id;
+        this.searchedPokemon.name =
+          this.searchedPokeData.name.charAt(0).toUpperCase() +
+          this.searchedPokeData.name.slice(1);
+        this.searchedPokemon.defaultSprite = this.searchedPokeData?.sprites?.front_default;
+        this.searchedPokemon.shinySprite = this?.searchedPokeData?.sprites?.front_shiny;
+        this.searchedPokemon.types = this.searchedPokeData.types.map((x: any) => x.type.name);
+        this.searchedPokemon.description = this.searchedPokeData?.description;
+        loadingEl.dismiss()
+      })
+    })
   }
 }

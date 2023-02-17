@@ -25,22 +25,22 @@
     <ion-button (click)="newPokemon()" color="primary"
       >Generate a random pokemon :)</ion-button
     >
-    <ion-card *ngIf="pokemon.name" [routerLink]="['./', 'detail']">
+    <ion-card *ngIf="randomPokemon.name" [routerLink]="['./', 'detail']">
       <ion-card-header>
-        <ion-card-title>{{this.pokemon.name}}</ion-card-title>
+        <ion-card-title>{{this.randomPokemon.name}}</ion-card-title>
         <ion-grid>
           <ion-row>
             <ion-col
-              [sizeSm]="!this.pokemon.shinySprite ? 12 : 6"
+              [sizeSm]="!this.randomPokemon.shinySprite ? 12 : 6"
               sizeLg="3"
               offsetLg="3"
             >
-              <ion-img [src]="this.pokemon.defaultSprite"></ion-img>
+              <ion-img [src]="this.randomPokemon.defaultSprite"></ion-img>
             </ion-col>
-            <ion-col *ngIf="this.pokemon.shinySprite" size="6" sizeLg="3">
+            <ion-col *ngIf="this.randomPokemon.shinySprite" size="6" sizeLg="3">
               <ion-img
                 class="img-hor"
-                [src]="this.pokemon.shinySprite"
+                [src]="this.randomPokemon.shinySprite"
               ></ion-img>
             </ion-col>
           </ion-row>
