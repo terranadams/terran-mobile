@@ -66,7 +66,7 @@ export class DiscoverPage implements OnInit {
     // console.log(f.form.value.name)
     this.loadingCtrl.create({message: 'Generating...', duration: 2000}).then(loadingEl => {
       loadingEl.present()
-      this.pokeService.fetchSpecificPokemon(f.form.value.name).subscribe(resData => {
+      this.pokeService.fetchSpecificPokemon(f.form.value.name.toLowerCase()).subscribe(resData => {
         this.searchedPokeData = resData
         // console.log(this.searchedPokeData)
         this.searchedPokemon.id = this.searchedPokeData.id;
