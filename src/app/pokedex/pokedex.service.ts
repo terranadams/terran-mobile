@@ -7,7 +7,7 @@ import { Pokemon } from './pokemon';
   providedIn: 'root',
 })
 export class PokedexService {
-  _method = 'random'
+  _method = 'random';
   randomPokeData!: any;
   searchedPokeData!: any;
   _randomPokemon: Pokemon = {
@@ -27,16 +27,17 @@ export class PokedexService {
     description: '',
   };
   pokeList!: Pokemon[];
+  descData!: any;
 
   constructor(private http: HttpClient) {}
 
   get currentPokemon() {
     if (this._method === 'random') return this._randomPokemon;
-    else return this._searchedPokemon
+    else return this._searchedPokemon;
   }
 
   changeMethod(method: string) {
-    this._method = method
+    this._method = method;
   }
 
   fetchSpecificPokemon(name: string) {
@@ -71,6 +72,14 @@ export class PokedexService {
         tap((resData) => {
           this.randomPokeData = resData;
           // console.log(this.randomPokeData);
+
+          this.getDescription(this.randomPokeData.id).subscribe((resData) => {
+            this.descData = resData;
+            console.log(this.descData.flavor_text_entries)
+          });
+
+
+
           this._randomPokemon.id = this.randomPokeData.id;
           this._randomPokemon.name =
             this.randomPokeData.name.charAt(0).toUpperCase() +
@@ -82,8 +91,12 @@ export class PokedexService {
           this._randomPokemon.types = this.randomPokeData.types.map(
             (x: any) => x.type.name
           );
-          this._randomPokemon.description = this.randomPokeData?.description;
+          // this._randomPokemon.description = this.randomPokeData?.description;
         })
       );
+  }
+
+  getDescription(id: string) {
+    return this.http.get(`https://pokeapi.co/api/v2/pokemon-species/${id}/`);
   }
 }
