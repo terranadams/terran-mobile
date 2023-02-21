@@ -8,13 +8,13 @@ import { Pokemon } from '../../pokemon';
   styleUrls: ['./detail.page.scss'],
 })
 export class DetailPage implements OnInit {
+  pokemon!: Pokemon;
 
-  pokemon!: Pokemon
-
-  constructor(private pokeService: PokedexService) { }
+  constructor(private pokeService: PokedexService) {}
 
   ngOnInit() {
-    this.pokemon = this.pokeService.currentPokemon
+    this.pokemon = this.pokeService.currentPokemon;
   }
+
 
 }
