@@ -28,7 +28,7 @@ export class PokedexService {
   };
   pokeList!: Pokemon[];
   descData!: any;
-  filteredFlavors!: any[]
+  filteredFlavors!: any[];
 
   constructor(private http: HttpClient) {}
 
@@ -76,12 +76,14 @@ export class PokedexService {
 
           this.getDescription(this.randomPokeData.id).subscribe((resData) => {
             this.descData = resData;
-            this.filteredFlavors = this.descData.flavor_text_entries.filter((entry: any) => entry.language.name === 'en' )
-            console.log(this.filteredFlavors[0]?.flavor_text)
-            this._randomPokemon.description = this.filteredFlavors[0].flavor_text
+            this.filteredFlavors = this.descData.flavor_text_entries.filter(
+              (entry: any) => entry.language.name === 'en'
+            );
+            console.log(this.filteredFlavors[0]?.flavor_text);
+            if (this.filteredFlavors)
+              this._randomPokemon.description =
+                this.filteredFlavors[0].flavor_text;
           });
-
-
 
           this._randomPokemon.id = this.randomPokeData.id;
           this._randomPokemon.name =
