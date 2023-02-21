@@ -28,7 +28,8 @@ export class PokedexService {
   };
   pokeList!: Pokemon[];
   descData!: any;
-  filteredFlavors!: any[];
+  randomFilteredFlavors!: any[];
+  searchedFilteredFlavors!: any[];
 
   constructor(private http: HttpClient) {}
 
@@ -46,6 +47,19 @@ export class PokedexService {
       tap((resData) => {
         this.searchedPokeData = resData;
         // console.log(this.searchedPokeData);
+
+        this.getDescription(this.searchedPokeData.id).subscribe((resData) => {
+          this.descData = resData;
+          this.searchedFilteredFlavors =
+            this.descData.flavor_text_entries.filter(
+              (entry: any) => entry.language.name === 'en'
+            );
+          // console.log(this.searchedFilteredFlavors[0]?.flavor_text);
+          if (this.searchedFilteredFlavors)
+            this._searchedPokemon.description =
+              this.searchedFilteredFlavors[0].flavor_text;
+        });
+
         this._searchedPokemon.id = this.searchedPokeData.id;
         this._searchedPokemon.name =
           this.searchedPokeData.name.charAt(0).toUpperCase() +
@@ -76,13 +90,14 @@ export class PokedexService {
 
           this.getDescription(this.randomPokeData.id).subscribe((resData) => {
             this.descData = resData;
-            this.filteredFlavors = this.descData.flavor_text_entries.filter(
-              (entry: any) => entry.language.name === 'en'
-            );
-            // console.log(this.filteredFlavors[0]?.flavor_text);
-            if (this.filteredFlavors)
+            this.randomFilteredFlavors =
+              this.descData.flavor_text_entries.filter(
+                (entry: any) => entry.language.name === 'en'
+              );
+            // console.log(this.randomFilteredFlavors[0]?.flavor_text);
+            if (this.randomFilteredFlavors)
               this._randomPokemon.description =
-                this.filteredFlavors[0].flavor_text;
+                this.randomFilteredFlavors[0].flavor_text;
           });
 
           this._randomPokemon.id = this.randomPokeData.id;
@@ -96,7 +111,7 @@ export class PokedexService {
           this._randomPokemon.types = this.randomPokeData.types.map(
             (x: any) => x.type.name
           );
-          // this._randomPokemon.description = this.filteredFlavors[0].;
+          // this._randomPokemon.description = this.randomFilteredFlavors[0].;
         })
       );
   }
