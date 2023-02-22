@@ -16,5 +16,8 @@ export class DetailPage implements OnInit {
     this.pokemon = this.pokeService.currentPokemon;
   }
 
+  catch() {
+    console.log('Just caught ' + this.pokemon.name)
+  }
 
 }
