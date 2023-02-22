@@ -26,7 +26,7 @@ export class PokedexService {
     types: [],
     description: '',
   };
-  pokeList!: Pokemon[];
+  pokeList: Pokemon[] = [];
   descData!: any;
   randomFilteredFlavors!: any[];
   searchedFilteredFlavors!: any[];
@@ -121,6 +121,6 @@ export class PokedexService {
   }
 
   addPokemon(pokemon: Pokemon) {
-    // this.pokeList.push(pokemon)
+    this.pokeList = [...this.pokeList, pokemon]
   }
 }
