@@ -119,4 +119,8 @@ export class PokedexService {
   getDescription(id: string) {
     return this.http.get(`https://pokeapi.co/api/v2/pokemon-species/${id}/`);
   }
+
+  addPokemon(pokemon: Pokemon) {
+    // this.pokeList.push(pokemon)
+  }
 }

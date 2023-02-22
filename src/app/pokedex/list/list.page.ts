@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PokedexService } from '../pokedex.service';
+import { Pokemon } from '../pokemon';
 
 @Component({
   selector: 'app-list',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListPage implements OnInit {
 
-  constructor() { }
+  pokeList!: Pokemon[]
+
+  constructor(private pokeService: PokedexService) { }
 
   ngOnInit() {
+
+  }
+
+  ionViewWillEnter() {
+    this.pokeList = this.pokeService.pokeList
   }
 
 }
