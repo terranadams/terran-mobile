@@ -46,6 +46,7 @@
           </ion-row>
         </ion-grid>
       </ion-card-header>
+      <ion-card-content>{{this.randomPokemon.description}}</ion-card-content>
     </ion-card>
   </div>
 
@@ -65,29 +66,41 @@
         </ion-row>
         <ion-row class="ion-text-center">
           <ion-col>
-          <ion-card *ngIf="searchedPokemon.name" [routerLink]="['./', 'detail']">
-            <ion-card-header>
-              <ion-card-title>{{this.searchedPokemon.name}}</ion-card-title>
-              <ion-grid>
-                <ion-row>
-                  <ion-col
-                    [sizeSm]="!this.searchedPokemon.shinySprite ? 12 : 6"
-                    sizeLg="3"
-                    offsetLg="3"
-                  >
-                    <ion-img [src]="this.searchedPokemon.defaultSprite"></ion-img>
-                  </ion-col>
-                  <ion-col *ngIf="this.searchedPokemon.shinySprite" size="6" sizeLg="3">
-                    <ion-img
-                      class="img-hor"
-                      [src]="this.searchedPokemon.shinySprite"
-                    ></ion-img>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </ion-card-header>
-          </ion-card>
-        </ion-col>
+            <ion-card
+              *ngIf="searchedPokemon.name"
+              [routerLink]="['./', 'detail']"
+            >
+              <ion-card-header>
+                <ion-card-title>{{this.searchedPokemon.name}}</ion-card-title>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col
+                      [sizeSm]="!this.searchedPokemon.shinySprite ? 12 : 6"
+                      sizeLg="3"
+                      offsetLg="3"
+                    >
+                      <ion-img
+                        [src]="this.searchedPokemon.defaultSprite"
+                      ></ion-img>
+                    </ion-col>
+                    <ion-col
+                      *ngIf="this.searchedPokemon.shinySprite"
+                      size="6"
+                      sizeLg="3"
+                    >
+                      <ion-img
+                        class="img-hor"
+                        [src]="this.searchedPokemon.shinySprite"
+                      ></ion-img>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-card-header>
+              <ion-card-content
+                >{{this.searchedPokemon.description}}</ion-card-content
+              >
+            </ion-card>
+          </ion-col>
         </ion-row>
       </ion-grid>
     </form>

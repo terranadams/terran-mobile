@@ -49,7 +49,7 @@ export class DiscoverPage implements OnInit {
         this.randomPokemon.defaultSprite = this.randomPokeData?.sprites?.front_default;
         this.randomPokemon.shinySprite = this?.randomPokeData?.sprites?.front_shiny;
         this.randomPokemon.types = this.randomPokeData.types.map((x: any) => x.type.name);
-        this.randomPokemon.description = this.randomPokeData?.description;
+        this.randomPokemon.description = this.pokeService._randomPokemon.description
         // console.log(this.randomPokemon)
         loadingEl.dismiss()
       });
@@ -76,7 +76,7 @@ export class DiscoverPage implements OnInit {
         this.searchedPokemon.defaultSprite = this.searchedPokeData?.sprites?.front_default;
         this.searchedPokemon.shinySprite = this?.searchedPokeData?.sprites?.front_shiny;
         this.searchedPokemon.types = this.searchedPokeData.types.map((x: any) => x.type.name);
-        this.searchedPokemon.description = this.searchedPokeData?.description;
+        this.searchedPokemon.description = this.pokeService._searchedPokemon.description;
         loadingEl.dismiss()
       })
     })
