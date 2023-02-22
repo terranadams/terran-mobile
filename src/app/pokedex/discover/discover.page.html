@@ -46,7 +46,13 @@
           </ion-row>
         </ion-grid>
       </ion-card-header>
-      <ion-card-content>{{this.randomPokemon.id}}</ion-card-content>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row class="ion-text-center" *ngFor="let type of this.randomPokemon.types">
+            <ion-col>{{type.charAt(0).toUpperCase() + type.slice(1)}}</ion-col>
+          </ion-row>
+       </ion-grid>
+      </ion-card-content>
     </ion-card>
   </div>
 
@@ -96,9 +102,13 @@
                   </ion-row>
                 </ion-grid>
               </ion-card-header>
-              <ion-card-content
-                >{{this.searchedPokemon.id}}</ion-card-content
-              >
+              <ion-card-content>
+               <ion-grid>
+                  <ion-row class="ion-text-center" *ngFor="let type of this.searchedPokemon.types">
+                    <ion-col>{{type.charAt(0).toUpperCase() + type.slice(1)}}</ion-col>
+                  </ion-row>
+               </ion-grid>
+              </ion-card-content>
             </ion-card>
           </ion-col>
         </ion-row>
