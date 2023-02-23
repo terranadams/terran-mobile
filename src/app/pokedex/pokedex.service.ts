@@ -121,6 +121,7 @@ export class PokedexService {
   }
 
   addPokemon(pokemon: Pokemon) {
-    this.pokeList.push(pokemon)
+    let newPokemon: Pokemon = pokemon
+    this.pokeList.push(newPokemon)
   }
 }
