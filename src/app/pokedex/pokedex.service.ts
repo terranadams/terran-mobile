@@ -134,7 +134,7 @@ export class PokedexService {
 
   addPokemon(pokemon: Pokemon) {
     console.log(pokemon)
-    this.pokeList.push(pokemon) // this isn't working properly
+    this.pokeList.push({...pokemon}) // this isn't working properly
 
     // let currentList = this.pokeList;
     // console.log('Current List: ');
