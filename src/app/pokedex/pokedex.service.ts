@@ -29,7 +29,7 @@ export class PokedexService {
   descData!: any;
   randomFilteredFlavors!: any[];
   searchedFilteredFlavors!: any[];
-  
+
   pokeList: Pokemon[] = [
     {
       id: 644,
@@ -133,9 +133,14 @@ export class PokedexService {
   }
 
   addPokemon(pokemon: Pokemon) {
-    let myList = this.pokeList;
-    let myNewList = [...this.pokeList, pokemon];
-    console.log(myList);
-    console.log(myNewList);
+    this.pokeList.push(pokemon) // this isn't working properly
+
+    // let currentList = this.pokeList;
+    // console.log('Current List: ');
+    // console.log(currentList);
+    // let myNewList = [...currentList, pokemon];
+    // console.log('Updated List: ');
+    // console.log(myNewList);
+    // this.pokeList = myNewList
   }
 }
