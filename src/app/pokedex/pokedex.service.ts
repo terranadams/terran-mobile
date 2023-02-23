@@ -134,14 +134,7 @@ export class PokedexService {
 
   addPokemon(pokemon: Pokemon) {
     console.log(pokemon)
-    this.pokeList.push({...pokemon}) // this isn't working properly
+    this.pokeList.unshift({...pokemon}) // had to spread the object out within the method in order to get this to work right
 
-    // let currentList = this.pokeList;
-    // console.log('Current List: ');
-    // console.log(currentList);
-    // let myNewList = [...currentList, pokemon];
-    // console.log('Updated List: ');
-    // console.log(myNewList);
-    // this.pokeList = myNewList
   }
 }
