@@ -26,7 +26,19 @@ export class PokedexService {
     types: [],
     description: '',
   };
-  pokeList: Pokemon[] = [];
+  pokeList: Pokemon[] = [
+    {
+      id: 644,
+      name: 'Zekrom',
+      defaultSprite:
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/644.png',
+      shinySprite:
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/644.png',
+      types: [],
+      description:
+        'Concealing itself in lightning clouds,\nit flies throughout the Unova region.\nIt creates electricity in its tail.',
+    },
+  ];
   descData!: any;
   randomFilteredFlavors!: any[];
   searchedFilteredFlavors!: any[];
@@ -121,7 +133,9 @@ export class PokedexService {
   }
 
   addPokemon(pokemon: Pokemon) {
-    let newPokemon: Pokemon = pokemon
-    this.pokeList.push(newPokemon)
+    let myList = this.pokeList;
+    let myNewList = [...this.pokeList, pokemon];
+    console.log(myList);
+    console.log(myNewList);
   }
 }
