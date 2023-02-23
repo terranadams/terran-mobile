@@ -8,9 +8,19 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <!-- <ion-list>
     <ion-item *ngFor="let pokemon of this.pokeList">
       {{pokemon.name}}
     </ion-item>
-  </ion-list>
+  </ion-list> -->
+  <ion-grid>
+    <ion-row *ngFor="let pokemon of this.pokeList">
+      <ion-col>
+        <ion-card class="ion-text-center ion-padding">
+          <ion-img [src]="pokemon.defaultSprite"></ion-img>
+          <ion-card-title>{{pokemon.name}}</ion-card-title>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
