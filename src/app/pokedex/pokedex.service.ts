@@ -38,7 +38,7 @@ export class PokedexService {
         'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/644.png',
       shinySprite:
         'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/644.png',
-      types: [],
+      types: ['dragon', 'electric'],
       description:
         'Concealing itself in lightning clouds,\nit flies throughout the Unova region.\nIt creates electricity in its tail.',
     },
@@ -133,6 +133,7 @@ export class PokedexService {
   }
 
   addPokemon(pokemon: Pokemon) {
+    console.log(pokemon)
     this.pokeList.push(pokemon) // this isn't working properly
 
     // let currentList = this.pokeList;
