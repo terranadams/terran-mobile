@@ -26,6 +26,10 @@ export class PokedexService {
     types: [],
     description: '',
   };
+  descData!: any;
+  randomFilteredFlavors!: any[];
+  searchedFilteredFlavors!: any[];
+  
   pokeList: Pokemon[] = [
     {
       id: 644,
@@ -39,10 +43,6 @@ export class PokedexService {
         'Concealing itself in lightning clouds,\nit flies throughout the Unova region.\nIt creates electricity in its tail.',
     },
   ];
-  descData!: any;
-  randomFilteredFlavors!: any[];
-  searchedFilteredFlavors!: any[];
-
   constructor(private http: HttpClient) {}
 
   get currentPokemon() {
@@ -52,40 +52,6 @@ export class PokedexService {
 
   changeMethod(method: string) {
     this._method = method;
-  }
-
-  fetchSpecificPokemon(name: string) {
-    return this.http.get(`https://pokeapi.co/api/v2/pokemon/${name}`).pipe(
-      tap((resData) => {
-        this.searchedPokeData = resData;
-        // console.log(this.searchedPokeData);
-
-        this.getDescription(this.searchedPokeData.id).subscribe((resData) => {
-          this.descData = resData;
-          this.searchedFilteredFlavors =
-            this.descData.flavor_text_entries.filter(
-              (entry: any) => entry.language.name === 'en'
-            );
-          // console.log(this.searchedFilteredFlavors[0]?.flavor_text);
-          if (this.searchedFilteredFlavors)
-            this._searchedPokemon.description =
-              this.searchedFilteredFlavors[0].flavor_text;
-        });
-
-        this._searchedPokemon.id = this.searchedPokeData.id;
-        this._searchedPokemon.name =
-          this.searchedPokeData.name.charAt(0).toUpperCase() +
-          this.searchedPokeData.name.slice(1);
-        this._searchedPokemon.defaultSprite =
-          this.searchedPokeData?.sprites?.front_default;
-        this._searchedPokemon.shinySprite =
-          this?.searchedPokeData?.sprites?.front_shiny;
-        this._searchedPokemon.types = this.searchedPokeData.types.map(
-          (x: any) => x.type.name
-        );
-        this._searchedPokemon.description = this.searchedPokeData?.description;
-      })
-    );
   }
 
   fetchMeSomething() {
@@ -126,6 +92,40 @@ export class PokedexService {
           // this._randomPokemon.description = this.randomFilteredFlavors[0].;
         })
       );
+  }
+
+  fetchSpecificPokemon(name: string) {
+    return this.http.get(`https://pokeapi.co/api/v2/pokemon/${name}`).pipe(
+      tap((resData) => {
+        this.searchedPokeData = resData;
+        // console.log(this.searchedPokeData);
+
+        this.getDescription(this.searchedPokeData.id).subscribe((resData) => {
+          this.descData = resData;
+          this.searchedFilteredFlavors =
+            this.descData.flavor_text_entries.filter(
+              (entry: any) => entry.language.name === 'en'
+            );
+          // console.log(this.searchedFilteredFlavors[0]?.flavor_text);
+          if (this.searchedFilteredFlavors)
+            this._searchedPokemon.description =
+              this.searchedFilteredFlavors[0].flavor_text;
+        });
+
+        this._searchedPokemon.id = this.searchedPokeData.id;
+        this._searchedPokemon.name =
+          this.searchedPokeData.name.charAt(0).toUpperCase() +
+          this.searchedPokeData.name.slice(1);
+        this._searchedPokemon.defaultSprite =
+          this.searchedPokeData?.sprites?.front_default;
+        this._searchedPokemon.shinySprite =
+          this?.searchedPokeData?.sprites?.front_shiny;
+        this._searchedPokemon.types = this.searchedPokeData.types.map(
+          (x: any) => x.type.name
+        );
+        this._searchedPokemon.description = this.searchedPokeData?.description;
+      })
+    );
   }
 
   getDescription(id: string) {
