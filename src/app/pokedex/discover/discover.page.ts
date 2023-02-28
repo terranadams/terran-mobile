@@ -16,7 +16,7 @@ export class DiscoverPage implements OnInit {
   ) {}
 
   ngOnInit() {}
-
+  inputValue: string = 'Charizard'
   method = 'random';
   randomPokeData!: any;
   searchedPokeData: any;
