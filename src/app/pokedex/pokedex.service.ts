@@ -31,17 +31,17 @@ export class PokedexService {
   searchedFilteredFlavors!: any[];
 
   pokeList: Pokemon[] = [
-    {
-      id: 644,
-      name: 'Zekrom',
-      defaultSprite:
-        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/644.png',
-      shinySprite:
-        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/644.png',
-      types: ['dragon', 'electric'],
-      description:
-        'Concealing itself in lightning clouds,\nit flies throughout the Unova region.\nIt creates electricity in its tail.',
-    },
+    // {
+    //   id: 644,
+    //   name: 'Zekrom',
+    //   defaultSprite:
+    //     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/644.png',
+    //   shinySprite:
+    //     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/644.png',
+    //   types: ['dragon', 'electric'],
+    //   description:
+    //     'Concealing itself in lightning clouds,\nit flies throughout the Unova region.\nIt creates electricity in its tail.',
+    // },
   ];
   constructor(private http: HttpClient) {}
 
