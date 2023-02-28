@@ -10,8 +10,10 @@
 <ion-content>
   <ion-grid>
     <ion-row class="ion-text-center">
-      <ion-col *ngFor="let pokemon of this.pokeList" sizeSm="4">
-        <img [src]="pokemon.defaultSprite"
+      <ion-col sizeSm="4">
+        <img
+          *ngFor="let pokemon of this.pokeList"
+          [src]="pokemon.defaultSprite"
       /></ion-col>
     </ion-row>
   </ion-grid>
