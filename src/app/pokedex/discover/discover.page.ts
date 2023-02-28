@@ -77,6 +77,7 @@ export class DiscoverPage implements OnInit {
         this.searchedPokemon.shinySprite = this?.searchedPokeData?.sprites?.front_shiny;
         this.searchedPokemon.types = this.searchedPokeData.types.map((x: any) => x.type.name);
         this.searchedPokemon.description = this.pokeService._searchedPokemon.description;
+        this.inputValue = ''
         loadingEl.dismiss()
       })
     })
