@@ -8,12 +8,21 @@
 </ion-header>
 
 <ion-content>
+  <ion-grid>
+    <ion-row class="ion-text-center">
+      <ion-col *ngFor="let pokemon of this.pokeList" sizeSm="4">
+        <img [src]="pokemon.defaultSprite"
+      /></ion-col>
+    </ion-row>
+  </ion-grid>
+
   <!-- <ion-list>
     <ion-item *ngFor="let pokemon of this.pokeList">
       {{pokemon.name}}
     </ion-item>
   </ion-list> -->
-  <ion-grid>
+
+  <!-- <ion-grid>
     <ion-row *ngFor="let pokemon of this.pokeList">
       <ion-col>
         <ion-card class="ion-text-center ion-padding">
@@ -22,5 +31,5 @@
         </ion-card>
       </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
 </ion-content>
