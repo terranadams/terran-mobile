@@ -9,7 +9,7 @@ const routes: Routes = [
     component: ListPage
   },
   {
-    path: 'caught-detail',
+    path: ':pokeIndex',
     loadChildren: () => import('./caught-detail/caught-detail.module').then( m => m.CaughtDetailPageModule)
   }
 ];
