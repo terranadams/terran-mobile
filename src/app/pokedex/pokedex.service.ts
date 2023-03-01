@@ -133,8 +133,11 @@ export class PokedexService {
   }
 
   addPokemon(pokemon: Pokemon) {
-    console.log(pokemon)
-    this.pokeList.unshift({...pokemon}) // had to spread the object out within the method in order to get this to work right
+    console.log(pokemon);
+    this.pokeList.unshift({ ...pokemon }); // had to spread the object out within the method in order to get this to work right
+  }
 
+  removePokemon(index: number) {
+    // this.pokeService.pokeList = this.pokeService.pokeList.splice(index, 0)
   }
 }
