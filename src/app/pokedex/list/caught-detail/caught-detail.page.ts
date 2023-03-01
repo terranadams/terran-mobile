@@ -24,6 +24,8 @@ export class CaughtDetailPage implements OnInit {
     })
   }
 
+
+
   release() {
     this.pokeService.removePokemon(this.pokeIndex)
     this.navCtrl.navigateBack('/pokedex/list')
