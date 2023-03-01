@@ -138,6 +138,9 @@ export class PokedexService {
   }
 
   removePokemon(index: number) {
+    console.log(`The selected index is ${index}, but nothing happened.`)
     // this.pokeService.pokeList = this.pokeService.pokeList.splice(index, 0)
+    // ^^^ This doesn't wanna work :(
+
   }
 }

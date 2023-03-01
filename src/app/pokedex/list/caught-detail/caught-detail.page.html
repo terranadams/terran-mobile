@@ -7,7 +7,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding ion-text-center">
+  <ion-button class="favButton ion-padding" color="warning" (click)="release()">Set Me Free :)</ion-button>
   <ion-img [src]="this.pokemon.defaultSprite"></ion-img>
   <!-- <ion-img [src]="this.pokemon.shinySprite"></ion-img> -->
   <ion-grid>
@@ -19,6 +20,5 @@
     </ion-row>
   </ion-grid>
   <p class="ion-text-center">{{this.pokemon.description}}</p>
-  <ion-button class="favButton ion-padding" color="warning" (click)="release()">Set Me Free :)</ion-button>
 
 </ion-content>

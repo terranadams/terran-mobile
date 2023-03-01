@@ -25,9 +25,8 @@ export class CaughtDetailPage implements OnInit {
   }
 
   release() {
-    console.log("a pokemon was just freed")
-    // this.pokeService.pokeList = this.pokeService.pokeList.splice(this.pokeIndex, 0)
-    // this.navCtrl.navigateBack('/pokedex/list')
+    this.pokeService.removePokemon(this.pokeIndex)
+    this.navCtrl.navigateBack('/pokedex/list')
   }
 
 }
