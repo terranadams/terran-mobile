@@ -8,7 +8,7 @@
 </ion-header> -->
 
 <ion-content>
-  <ion-tabs>
+  <ion-tabs #myTabs (ionTabsDidChange)="tabChanged()">
     <ion-tab-bar slot="bottom">
       <ion-tab-button tab="discover">
         <ion-label>Discover</ion-label>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonTabs, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-pokedex',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PokedexPage implements OnInit {
 
-  constructor() { }
+  @ViewChild('myTabs', { static: false }) myTabs!: IonTabs;
 
-  ngOnInit() {
+  constructor(private navCtrl: NavController) {}
+
+  ngOnInit() {}
+
+  tabChanged() {
+    var currentTab = this.myTabs.getSelected();
+    this.navCtrl.navigateRoot('pokedex/' + currentTab);
   }
-
 }
