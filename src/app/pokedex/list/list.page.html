@@ -14,7 +14,7 @@
         <img
         *ngFor="let pokemon of this.pokeList; let pokeIndex = index"
         [routerLink]="['./', pokeIndex]"
-          [src]="pokemon.defaultSprite"
+          [src]="pokemon.shinySprite"
       /></ion-col>
     </ion-row>
   </ion-grid>

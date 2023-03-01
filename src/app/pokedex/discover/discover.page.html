@@ -48,10 +48,15 @@
       </ion-card-header>
       <ion-card-content>
         <ion-grid>
-          <ion-row class="ion-text-center" *ngFor="let type of this.randomPokemon.types">
-            <ion-col>{{type.charAt(0).toUpperCase() + type.slice(1)}}</ion-col>
+          <ion-row
+            class="ion-text-center"
+            *ngFor="let type of this.randomPokemon.types"
+          >
+            <ion-col>
+                {{type.charAt(0).toUpperCase() + type.slice(1)}}
+            </ion-col>
           </ion-row>
-       </ion-grid>
+        </ion-grid>
       </ion-card-content>
     </ion-card>
   </div>
@@ -64,7 +69,12 @@
             <ion-list style="border-radius: 12px">
               <ion-item>
                 <ion-label position="floating">Name</ion-label>
-                <ion-input ngModel type="text" name="name" [(ngModel)]="inputValue"></ion-input>
+                <ion-input
+                  ngModel
+                  type="text"
+                  name="name"
+                  [(ngModel)]="inputValue"
+                ></ion-input>
               </ion-item>
             </ion-list>
           </ion-col>
@@ -103,11 +113,16 @@
                 </ion-grid>
               </ion-card-header>
               <ion-card-content>
-               <ion-grid>
-                  <ion-row class="ion-text-center" *ngFor="let type of this.searchedPokemon.types">
-                    <ion-col>{{type.charAt(0).toUpperCase() + type.slice(1)}}</ion-col>
+                <ion-grid>
+                  <ion-row
+                    class="ion-text-center"
+                    *ngFor="let type of this.searchedPokemon.types"
+                  >
+                    <ion-col
+                      >{{type.charAt(0).toUpperCase() + type.slice(1)}}</ion-col
+                    >
                   </ion-row>
-               </ion-grid>
+                </ion-grid>
               </ion-card-content>
             </ion-card>
           </ion-col>
