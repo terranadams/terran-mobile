@@ -12,6 +12,7 @@
     <ion-row class="ion-text-center">
       <ion-col sizeSm="4">
         <img
+          [routerLink]="['./', 'caught-detail']"
           *ngFor="let pokemon of this.pokeList"
           [src]="pokemon.defaultSprite"
       /></ion-col>

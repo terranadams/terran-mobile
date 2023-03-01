@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: ListPage
+  },
+  {
+    path: 'caught-detail',
+    loadChildren: () => import('./caught-detail/caught-detail.module').then( m => m.CaughtDetailPageModule)
   }
 ];
 
