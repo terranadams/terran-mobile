@@ -11,14 +11,14 @@
   <!-- <ion-button class="favButton ion-padding" color="warning" (click)="release()">Set Me Free :)</ion-button> -->
   <ion-img [src]="this.pokemon.defaultSprite"></ion-img>
   <!-- <ion-img [src]="this.pokemon.shinySprite"></ion-img> -->
-  <ion-grid>
-    <ion-row
-      class="ion-text-center"
-      *ngFor="let type of this.pokemon.types"
-    >
-      <ion-col>{{type.charAt(0).toUpperCase() + type.slice(1)}}</ion-col>
-    </ion-row>
-  </ion-grid>
-  <p class="ion-text-center">{{this.pokemon.description}}</p>
 
+  <ion-card>
+    <ion-card-content>
+      <span class="ion-text-center" *ngFor="let type of this.pokemon.types">
+        {{type.charAt(0).toUpperCase() + type.slice(1)}}
+      </span>
+      <br><br>
+      <p class="ion-text-center">{{this.pokemon.description}}</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
