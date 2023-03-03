@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   onLogout() {
-    console.log('your mom')
+    console.log('your mom');
   }
-  constructor() {}
+  constructor(private router: Router) {}
+
+  toHome() {
+    this.router.navigateByUrl('', { replaceUrl: true });
+  }
+
+  toPokedex() {
+    this.router.navigateByUrl('/pokedex/discover', { replaceUrl: true });
+  }
 }

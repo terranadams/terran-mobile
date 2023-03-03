@@ -21,5 +21,5 @@ export class AppModule {
 
   constructor(private pokeService: PokedexService) {}
 
-  
+
 }
