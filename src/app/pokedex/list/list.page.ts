@@ -25,7 +25,7 @@ export class ListPage implements OnInit {
     this.pokeList = this.pokeService.pokeList
     const animation = this.animationCtrl.create()
     .addElement(this.content.nativeElement)
-    .duration(350)
+    .duration(200)
     .fromTo("opacity", 0, 1)
   animation.play()
   }

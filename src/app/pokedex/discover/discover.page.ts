@@ -37,6 +37,7 @@ export class DiscoverPage implements OnInit {
     types: [],
     description: '',
   };
+
   @ViewChild("content", {read: ElementRef, static: true}) content!: ElementRef  // this is getting the element we want to animate by the local ref #content
 
   newPokemon() {
@@ -89,7 +90,7 @@ export class DiscoverPage implements OnInit {
   ionViewWillEnter() {
     const animation = this.animationCtrl.create()
     .addElement(this.content.nativeElement)
-    .duration(350)
+    .duration(200)
     .fromTo("opacity", 0, 1)
   animation.play()
   }
