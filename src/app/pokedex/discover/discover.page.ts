@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, AnimationController } from '@ionic/angular';
 import { PokedexService } from '../pokedex.service';
 import { Pokemon } from '../pokemon';
 
@@ -12,7 +12,8 @@ import { Pokemon } from '../pokemon';
 export class DiscoverPage implements OnInit {
   constructor(
     private pokeService: PokedexService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private animationCtrl: AnimationController
   ) {}
 
   ngOnInit() {}
@@ -36,6 +37,8 @@ export class DiscoverPage implements OnInit {
     types: [],
     description: '',
   };
+  @ViewChild("content", {read: ElementRef, static: true}) content!: ElementRef  // this is getting the element we want to animate by the local ref #content
+
   newPokemon() {
     this.loadingCtrl.create({ message: 'Generating...' }).then((loadingEl) => {
       loadingEl.present();
@@ -81,5 +84,13 @@ export class DiscoverPage implements OnInit {
         loadingEl.dismiss()
       })
     })
+  }
+
+  ionViewWillEnter() {
+    const animation = this.animationCtrl.create()
+    .addElement(this.content.nativeElement)
+    .duration(350)
+    .fromTo("opacity", 0, 1)
+  animation.play()
   }
 }

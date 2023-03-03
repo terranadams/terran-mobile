@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AnimationController } from '@ionic/angular';
 import { PokedexService } from '../pokedex.service';
 import { Pokemon } from '../pokemon';
 
@@ -11,7 +12,10 @@ export class ListPage implements OnInit {
 
   pokeList!: Pokemon[]
 
-  constructor(private pokeService: PokedexService) { }
+  @ViewChild("content", {read: ElementRef, static: true}) content!: ElementRef // this is getting the element we want to animate by the local ref #content
+
+
+  constructor(private pokeService: PokedexService, private animationCtrl: AnimationController) { }
 
   ngOnInit() {
 
@@ -19,6 +23,11 @@ export class ListPage implements OnInit {
 
   ionViewWillEnter() {
     this.pokeList = this.pokeService.pokeList
+    const animation = this.animationCtrl.create()
+    .addElement(this.content.nativeElement)
+    .duration(350)
+    .fromTo("opacity", 0, 1)
+  animation.play()
   }
 
 }
