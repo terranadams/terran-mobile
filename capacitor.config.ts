@@ -11,6 +11,6 @@ export default config;
 // ionic capacitor add ios
 // ng build
 // ionic capacitor copy ios
-// ionic capacitor open ios
+// npx cap open ios
 
-// ionic capacitor run ios will combine the build and copy process
+// ionic capacitor run ios will combine the build and copy process, but it doesn't seem to work for me
