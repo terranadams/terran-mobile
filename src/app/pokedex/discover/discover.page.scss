@@ -7,5 +7,9 @@
 // }
 
 ion-segment {
-  background-color: gray
+  background-color: gray;
+}
+
+ion-content {
+  --overflow: hidden;
 }
