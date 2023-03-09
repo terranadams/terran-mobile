@@ -19,4 +19,8 @@ export class AppComponent {
   toPokedex() {
     this.router.navigateByUrl('/pokedex/discover', { replaceUrl: true });
   }
+
+  toWatchgenerator() {
+    this.router.navigateByUrl('/watchgenerator', { replaceUrl: true });
+  }
 }

@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'pokedex',
     loadChildren: () => import('./pokedex/pokedex.module').then( m => m.PokedexPageModule)
   },
+  {
+    path: 'watchgenerator',
+    loadChildren: () => import('./watchgenerator/watchgenerator.module').then( m => m.WatchgeneratorPageModule)
+  },
 ];
 
 @NgModule({
