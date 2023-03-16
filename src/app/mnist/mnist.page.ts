@@ -139,6 +139,31 @@ onTouchMove(event: TouchEvent) {
   event.preventDefault();
   this.context.lineTo(event.touches[0].clientX, event.touches[0].clientY);
   this.context.stroke();
+  setTimeout(() => {
+    this.predict();
+  }, 500);
+}
+
+private async predict() {
+  const pred = await tf.tidy(() => {
+    // Convert the canvas pixels to
+    let image = this.getImage(this.canvas.nativeElement);
+
+    // Make and format the predictions
+    const output = this.model.predict(image) as any;
+    let predictions = Array.from(output.dataSync());
+    console.log(predictions);
+
+    // Write out the prediction.
+    for (let i = 0; i < predictions.length; i++) {
+      if (predictions[i] == "1") {
+        this.predicted = i.toString();
+      }
+    }
+    if (this.predicted == "") {
+      this.predicted = ":(";
+    }
+  });
 }
 
 private getImage(canvasHtmlElement: any)
