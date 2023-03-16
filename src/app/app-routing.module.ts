@@ -16,16 +16,13 @@ const routes: Routes = [
     loadChildren: () => import('./pokedex/pokedex.module').then( m => m.PokedexPageModule)
   },
   {
-    path: 'watchgenerator',
-    loadChildren: () => import('./watchgenerator/watchgenerator.module').then( m => m.WatchgeneratorPageModule)
-  },
-<<<<<<< HEAD
-=======
-  {
     path: 'mnist',
     loadChildren: () => import('./mnist/mnist.module').then( m => m.MnistPageModule)
   },
->>>>>>> 4d166aa (lil reset sorta)
+  {
+    path: 'watchgenerator',
+    loadChildren: () => import('./watchgenerator/watchgenerator.module').then( m => m.WatchgeneratorPageModule)
+  },
 ];
 
 @NgModule({

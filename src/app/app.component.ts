@@ -23,4 +23,8 @@ export class AppComponent {
   toWatchgenerator() {
     this.router.navigateByUrl('/watchgenerator', { replaceUrl: true });
   }
+
+  toMnist() {
+    this.router.navigateByUrl('/mnist', { replaceUrl: true });
+  }
 }
