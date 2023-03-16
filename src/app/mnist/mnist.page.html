@@ -16,7 +16,12 @@
   </ion-card>
 
   <div>
-    <canvas class="canvas" #canvas></canvas>
+    <canvas
+      class="canvas"
+      #canvas
+      (touchstart)="onTouchStart($event)"
+      (touchmove)="onTouchMove($event)"
+    ></canvas>
   </div>
   <div style="width: 50%">
     <ion-button class="block" (click)="clear()">Clear</ion-button>

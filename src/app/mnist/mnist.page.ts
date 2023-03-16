@@ -130,6 +130,17 @@ export class MnistPage implements OnInit {
     }
 }
 
+onTouchStart(event: TouchEvent) {
+  this.context.beginPath();
+  this.context.moveTo(event.touches[0].clientX, event.touches[0].clientY);
+}
+
+onTouchMove(event: TouchEvent) {
+  event.preventDefault();
+  this.context.lineTo(event.touches[0].clientX, event.touches[0].clientY);
+  this.context.stroke();
+}
+
 private getImage(canvasHtmlElement: any)
   {
     this.context.drawImage(canvasHtmlElement, 0, 0, 28, 28);
