@@ -16,15 +16,6 @@ const routes: Routes = [
     loadChildren: () => import('./pokedex/pokedex.module').then( m => m.PokedexPageModule)
   },
   {
-<<<<<<< HEAD
-    path: 'mnist',
-    loadChildren: () => import('./mnist/mnist.module').then( m => m.MnistPageModule)
-  },
-  {
-    path: 'watchgenerator',
-    loadChildren: () => import('./watchgenerator/watchgenerator.module').then( m => m.WatchgeneratorPageModule)
-  },
-=======
     path: 'watchgenerator',
     loadChildren: () => import('./watchgenerator/watchgenerator.module').then( m => m.WatchgeneratorPageModule)
   },
@@ -32,7 +23,6 @@ const routes: Routes = [
     path: 'mnist',
     loadChildren: () => import('./mnist/mnist.module').then( m => m.MnistPageModule)
   },
->>>>>>> 4d166aa (lil reset sorta)
 ];
 
 @NgModule({
