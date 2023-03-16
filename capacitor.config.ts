@@ -9,6 +9,7 @@ const config: CapacitorConfig = {
 
 export default config;
 // ionic capacitor add ios
+
 // ng build
 // ionic capacitor copy ios
 // npx cap open ios

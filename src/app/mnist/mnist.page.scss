@@ -1,3 +1,8 @@
 .canvas {
   border: 1px solid #dd6d38;
+  background-color: white;
+}
+
+ion-content {
+  --overflow: hidden;
 }

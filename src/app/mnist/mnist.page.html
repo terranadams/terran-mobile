@@ -1,17 +1,24 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>mnist</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Draw a number!</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div>
-    <h2>Predicted: {{predicted}}</h2>
-  </div>
+  <ion-card>
+    <ion-card-header class="ion-text-center">
+      <ion-card-subtitle>Predicted Number:</ion-card-subtitle>
+      <ion-card-title>{{predicted}}</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
   <div>
     <canvas class="canvas" #canvas></canvas>
   </div>
   <div style="width: 50%">
-    <button class="block" (click)="clear()">Clear</button>
+    <ion-button class="block" (click)="clear()">Clear</ion-button>
   </div>
 </ion-content>
