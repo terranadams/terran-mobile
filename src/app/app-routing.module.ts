@@ -19,6 +19,13 @@ const routes: Routes = [
     path: 'watchgenerator',
     loadChildren: () => import('./watchgenerator/watchgenerator.module').then( m => m.WatchgeneratorPageModule)
   },
+<<<<<<< HEAD
+=======
+  {
+    path: 'mnist',
+    loadChildren: () => import('./mnist/mnist.module').then( m => m.MnistPageModule)
+  },
+>>>>>>> 4d166aa (lil reset sorta)
 ];
 
 @NgModule({
