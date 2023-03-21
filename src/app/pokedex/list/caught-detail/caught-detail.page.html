@@ -12,7 +12,7 @@
   <ion-grid>
     <ion-row>
       <ion-col><ion-img [src]="this.pokemon.defaultSprite"></ion-img></ion-col>
-      <ion-col><ion-img [src]="this.pokemon.shinySprite"></ion-img></ion-col>
+      <ion-col *ngIf="this.pokemon.shinySprite"><ion-img [src]="this.pokemon.shinySprite"></ion-img></ion-col>
     </ion-row>
   </ion-grid>
 
