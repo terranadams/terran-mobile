@@ -9,7 +9,13 @@
 
 <ion-content class="ion-padding ion-text-center" #content>
   <!-- <ion-button class="favButton ion-padding" color="warning" (click)="release()">Set Me Free :)</ion-button> -->
-  <ion-img [src]="this.pokemon.defaultSprite"></ion-img>
+  <ion-grid>
+    <ion-row>
+      <ion-col><ion-img [src]="this.pokemon.defaultSprite"></ion-img></ion-col>
+      <ion-col><ion-img [src]="this.pokemon.shinySprite"></ion-img></ion-col>
+    </ion-row>
+  </ion-grid>
+
   <!-- <ion-img [src]="this.pokemon.shinySprite"></ion-img> -->
 
   <ion-card>

@@ -31,17 +31,17 @@ export class PokedexService {
   searchedFilteredFlavors!: any[];
 
   pokeList: Pokemon[] = [
-    {
-      id: 644,
-      name: 'Zekrom',
-      defaultSprite:
-        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/644.png',
-      shinySprite:
-        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/644.png',
-      types: ['dragon', 'electric'],
-      description:
-        'Concealing itself in lightning clouds,\nit flies throughout the Unova region.\nIt creates electricity in its tail.',
-    },
+    // {
+    //   id: 644,
+    //   name: 'Zekrom',
+    //   defaultSprite:
+    //     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/644.png',
+    //   shinySprite:
+    //     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/644.png',
+    //   types: ['dragon', 'electric'],
+    //   description:
+    //     'Concealing itself in lightning clouds,\nit flies throughout the Unova region.\nIt creates electricity in its tail.',
+    // },
   ];
   constructor(private http: HttpClient) {}
 
@@ -135,7 +135,7 @@ export class PokedexService {
   addPokemon(pokemon: Pokemon) {
     console.log(pokemon);
     this.pokeList.unshift({ ...pokemon }); // had to spread the object out within the method in order to get this to work right
-    // It seems that when this function runs, and the 'list' tab is on the 'caught-detail' page of a pokemon, that page will jump to show the details of the next pokemon after. 
+    // It seems that when this function runs, and the 'list' tab is on the 'caught-detail' page of a pokemon, that page will jump to show the details of the next pokemon after.
   }
 
   removePokemon(index: number) {
