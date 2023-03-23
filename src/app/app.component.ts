@@ -17,7 +17,9 @@ export class AppComponent {
   ) {}
 
   ngOnInit() {
-    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+    // this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+    // this.screenOrientation.lock('portrait');
+    window.screen.orientation.lock('portrait');
   }
 
   toHome() {
