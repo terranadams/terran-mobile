@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
+
+// remember the capacitor.config.ts file is where I copy my app to iOS
 export class AppComponent {
   onLogout() {
     console.log('your mom');
