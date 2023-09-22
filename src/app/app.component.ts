@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 // remember the capacitor.config.ts file is where I copy my app to iOS
 export class AppComponent {
   onLogout() {
-    console.log('your mom');
+    console.log('loggin\' out');
   }
   constructor(
     private router: Router,
