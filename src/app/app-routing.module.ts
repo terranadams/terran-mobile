@@ -16,12 +16,12 @@ const routes: Routes = [
     loadChildren: () => import('./pokedex/pokedex.module').then( m => m.PokedexPageModule)
   },
   {
-    path: 'watchgenerator',
-    loadChildren: () => import('./watchgenerator/watchgenerator.module').then( m => m.WatchgeneratorPageModule)
-  },
-  {
     path: 'mnist',
     loadChildren: () => import('./mnist/mnist.module').then( m => m.MnistPageModule)
+  },
+  {
+    path: 'accela',
+    loadChildren: () => import('./accela/accela.module').then( m => m.AccelaPageModule)
   },
 ];
 

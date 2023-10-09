@@ -39,4 +39,8 @@ export class AppComponent {
   toMnist() {
     this.router.navigateByUrl('/mnist', { replaceUrl: true });
   }
+
+  toAccela() {
+    this.router.navigateByUrl('/accela', { replaceUrl: true })
+  }
 }
