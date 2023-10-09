@@ -10,6 +10,8 @@ import { fromEvent } from 'rxjs';
 import { switchMap, takeUntil, pairwise } from 'rxjs/operators';
 import * as tf from '@tensorflow/tfjs';
 
+// MNIST database: Modified National Institute of Standards and Technology database)
+
 @Component({
   selector: 'app-mnist',
   templateUrl: './mnist.page.html',
@@ -32,10 +34,8 @@ export class MnistPage implements OnInit {
   /// After that is done model is loaded from the predefined location.
   public async ngOnInit(): Promise<void> {
     this.title = 'Started model training, please wait...';
-
     this.model = await tf.loadLayersModel('/assets/trained_model/model.json');
     console.log(this.model.summary());
-
     this.title = 'Model Trained! Write down digits!';
   }
 
@@ -43,14 +43,11 @@ export class MnistPage implements OnInit {
   public ngAfterViewInit() {
     const canvasHtmlElement: HTMLCanvasElement = this.canvas.nativeElement;
     this.context = canvasHtmlElement.getContext('2d');
-
     canvasHtmlElement.width = this.width;
     canvasHtmlElement.height = this.height;
-
     this.context.lineWidth = 11;
     this.context.lineCap = 'round';
     this.context.strokeStyle = '#111111';
-
     this.captureEvents(canvasHtmlElement);
   }
 
@@ -82,23 +79,20 @@ export class MnistPage implements OnInit {
       )
       .subscribe((res: any) => {
         const clientRect = canvasHtmlElement.getBoundingClientRect();
-
         const previousPosition = {
           x: res[0].clientX - clientRect.left,
           y: res[0].clientY - clientRect.top,
         };
-
         const currentPosition = {
           x: res[1].clientX - clientRect.left,
           y: res[1].clientY - clientRect.top,
         };
-
         this.drawOnCanvas(previousPosition, currentPosition);
-
         // Drawing is finished, run the predictions
         fromEvent(canvasHtmlElement, 'mouseup').subscribe(async () => {
           const pred = await tf.tidy(() => {
-            // Convert the canvas pixels to
+
+            // Convert the canvas pixels
             let image = this.getImage(canvasHtmlElement);
 
             // Make and format the predications
@@ -128,9 +122,7 @@ export class MnistPage implements OnInit {
     if (!this.context) {
       return;
     }
-
     this.context.beginPath();
-
     if (previousPosition) {
       this.context.moveTo(previousPosition.x, previousPosition.y);
       this.context.lineTo(currentPosition.x, currentPosition.y);
@@ -144,13 +136,14 @@ export class MnistPage implements OnInit {
     let img = tf.browser.fromPixels(imageData, 1);
     let imgtmp = img.reshape([1, 28, 28, 1]);
     imgtmp = tf.cast(imgtmp, 'float32');
-
     return imgtmp;
   }
 
   onTouchStart(event: TouchEvent) {
     this.context.beginPath();
-    const rect = (this.canvas.nativeElement as HTMLCanvasElement).getBoundingClientRect();
+    const rect = (
+      this.canvas.nativeElement as HTMLCanvasElement
+    ).getBoundingClientRect();
     const x = event.touches[0].clientX - rect.left;
     const y = event.touches[0].clientY - rect.top;
     this.context.moveTo(x, y);
@@ -158,7 +151,9 @@ export class MnistPage implements OnInit {
 
   onTouchMove(event: TouchEvent) {
     event.preventDefault();
-    const rect = (this.canvas.nativeElement as HTMLCanvasElement).getBoundingClientRect();
+    const rect = (
+      this.canvas.nativeElement as HTMLCanvasElement
+    ).getBoundingClientRect();
     const x = event.touches[0].clientX - rect.left;
     const y = event.touches[0].clientY - rect.top;
     this.context.lineTo(x, y);
@@ -170,7 +165,7 @@ export class MnistPage implements OnInit {
 
   private async predict() {
     const pred = await tf.tidy(() => {
-      // Convert the canvas pixels to
+      // Convert the canvas pixels
       let image = this.getImage(this.canvas.nativeElement);
 
       // Make and format the predictions
@@ -178,7 +173,7 @@ export class MnistPage implements OnInit {
       let predictions = Array.from(output.dataSync());
       console.log(predictions);
 
-      // Write out the prediction.
+      // Write out the prediction
       for (let i = 0; i < predictions.length; i++) {
         if (predictions[i] == '1') {
           this.predicted = i.toString();
