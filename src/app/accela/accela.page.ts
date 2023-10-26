@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AnimationController } from '@ionic/angular';
 
 @Component({
   selector: 'app-accela',
@@ -9,7 +10,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class AccelaPage implements OnInit {
   private accessToken: string | undefined; // To store the access token
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private animationCtrl: AnimationController
+  ) {}
+
+  @ViewChild('content', { read: ElementRef, static: true }) content!: ElementRef; // this is getting the element we want to animate by the local ref #content
 
   ngOnInit() {
     // Trigger the method to get the access token when the page loads
@@ -45,7 +51,7 @@ export class AccelaPage implements OnInit {
         this.accessToken = response.access_token;
 
         // Now that we have the access token, make a GET request for records
-        console.log(`Access token: ${this.accessToken}`)
+        console.log(`Access token: ${this.accessToken}`);
         this.getRecords();
       },
       (error) => {
@@ -61,8 +67,8 @@ export class AccelaPage implements OnInit {
 
     // Set the headers for the GET request
     const headers = new HttpHeaders({
-      'Authorization': `${this.accessToken}`, // Include the access token in the Authorization header
-      'Accept': 'application/json',
+      Authorization: `${this.accessToken}`, // Include the access token in the Authorization header
+      Accept: 'application/json',
       'Content-Type': 'application/json',
     });
 
@@ -80,8 +86,19 @@ export class AccelaPage implements OnInit {
   // Helper function to encode the form data as a URL-encoded string
   encodeFormParams(params: any): string {
     return Object.keys(params)
-      .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(params[key]))
+      .map(
+        (key) => encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
+      )
       .join('&');
   } // The encodeFormParams function is a helper function that's used to convert an object containing key-value pairs into a URL-encoded string.
   // This is necessary when making a POST request with a "x-www-form-urlencoded" content type, which is a common way to send data in HTTP requests, especially for form submissions.
+
+  ionViewWillEnter() {
+    const animation = this.animationCtrl
+      .create()
+      .addElement(this.content.nativeElement)
+      .duration(2000)
+      .fromTo('opacity', 0, 1);
+    animation.play();
+  }
 }
