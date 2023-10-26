@@ -74,7 +74,7 @@ export class AccelaPage implements OnInit {
   // Function to get records
   getRecords() {
     // Define the API endpoint to get records
-    const apiUrl = 'https://apis.accela.com/v4/records';
+    const apiUrl = 'https://apis.accela.com/v4/records/mine';
 
     // Set the headers for the GET request
     const headers = new HttpHeaders({
@@ -84,9 +84,9 @@ export class AccelaPage implements OnInit {
     });
 
     // Send a GET request to the records API
-    this.http.get(apiUrl, { headers }).subscribe(
+    this.http.get<any>(apiUrl, { headers }).subscribe(
       (response) => {
-        console.log('Records Response:', response); // Log the records response
+        console.log('Records Response:', response.result); // Log the records response
       },
       (error) => {
         console.error('Error:', error);
@@ -94,7 +94,7 @@ export class AccelaPage implements OnInit {
     );
   }
 
-  // Helper function to encode the form data as a URL-encoded string
+  // Helper function to encode the form data as a URL-encoded string for getting the access token
   encodeFormParams(params: any): string {
     return Object.keys(params)
       .map(
