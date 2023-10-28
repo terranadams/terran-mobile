@@ -9,6 +9,15 @@
 
 <ion-content class="ion-text-center ion-padding" #content>
 
-  <h1>hello world</h1>
+  <ion-card *ngFor="let record of recordsArray">
+    <ion-card-header>
+      <ion-card-title>{{ record.name }}</ion-card-title>
+      <ion-card-subtitle>{{ record.value }}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      Assigned User: {{ record.assignedUser }}
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>

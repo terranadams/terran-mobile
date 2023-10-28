@@ -24,6 +24,8 @@ export class AccelaPage implements OnInit {
     this.getAccessToken();
   }
 
+  recordsArray: any[] = []
+
   // Function to get the access token
   getAccessToken() {
     this.loadingCtrl
@@ -73,20 +75,25 @@ export class AccelaPage implements OnInit {
 
   // Function to get records
   getRecords() {
-    // Define the API endpoint to get records
     const apiUrl = 'https://apis.accela.com/v4/records/mine';
-
-    // Set the headers for the GET request
     const headers = new HttpHeaders({
-      Authorization: `${this.accessToken}`, // Include the access token in the Authorization header
+      Authorization: `${this.accessToken}`,
       Accept: 'application/json',
       'Content-Type': 'application/json',
     });
 
-    // Send a GET request to the records API
     this.http.get<any>(apiUrl, { headers }).subscribe(
       (response) => {
-        console.log('Records Response:', response.result); // Log the records response
+        if (response && response.result && response.result.length > 0) {
+          // Map through the objects, extract required data, and store in recordsArray
+          this.recordsArray = response.result.map((record: any) => ({
+            name: record.name,
+            value: record.value,
+            assignedUser: record.assignedUser
+          }));
+        } else {
+          console.log('No records found.');
+        }
       },
       (error) => {
         console.error('Error:', error);
