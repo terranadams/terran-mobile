@@ -24,7 +24,7 @@ export class AccelaPage implements OnInit {
     this.getAccessToken();
   }
 
-  recordsArray: any[] = []
+  recordsArray: any[] = [];
 
   // Function to get the access token
   getAccessToken() {
@@ -69,7 +69,7 @@ export class AccelaPage implements OnInit {
               console.error('Error:', error);
             }
           );
-          loadingEl.dismiss()
+        loadingEl.dismiss();
       });
   }
 
@@ -82,23 +82,30 @@ export class AccelaPage implements OnInit {
       'Content-Type': 'application/json',
     });
 
-    this.http.get<any>(apiUrl, { headers }).subscribe(
-      (response) => {
-        if (response && response.result && response.result.length > 0) {
-          // Map through the objects, extract required data, and store in recordsArray
-          this.recordsArray = response.result.map((record: any) => ({
-            name: record.name,
-            value: record.value,
-            assignedUser: record.assignedUser
-          }));
-        } else {
-          console.log('No records found.');
-        }
-      },
-      (error) => {
-        console.error('Error:', error);
-      }
-    );
+    this.loadingCtrl
+      .create({ message: 'Getting Some Records...' })
+      .then((loadingEl) => {
+        loadingEl.present();
+
+        this.http.get<any>(apiUrl, { headers }).subscribe(
+          (response) => {
+            if (response && response.result && response.result.length > 0) {
+              // Map through the objects, extract required data, and store in recordsArray
+              this.recordsArray = response.result.map((record: any) => ({
+                name: record.name,
+                value: record.value,
+                assignedUser: record.assignedUser,
+              }));
+            } else {
+              console.log('No records found.');
+            }
+          },
+          (error) => {
+            console.error('Error:', error);
+          }
+        );
+        loadingEl.dismiss();
+      });
   }
 
   // Helper function to encode the form data as a URL-encoded string for getting the access token
