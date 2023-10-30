@@ -64,12 +64,13 @@ export class AccelaPage implements OnInit {
               // Now that we have the access token, make a GET request for records
               console.log(`Access token: ${this.accessToken}`);
               this.getRecords();
+              loadingEl.dismiss();
             },
             (error) => {
               console.error('Error:', error);
+              loadingEl.dismiss();
             }
           );
-        loadingEl.dismiss();
       });
   }
 
@@ -96,15 +97,17 @@ export class AccelaPage implements OnInit {
                 value: record.value,
                 assignedUser: record.assignedUser,
               }));
+              loadingEl.dismiss();
             } else {
               console.log('No records found.');
+              loadingEl.dismiss();
             }
           },
           (error) => {
             console.error('Error:', error);
+            loadingEl.dismiss();
           }
         );
-        loadingEl.dismiss();
       });
   }
 
