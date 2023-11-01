@@ -9,7 +9,7 @@
 
 <ion-content class="ion-text-center ion-padding" #content>
 
-  <ion-card *ngFor="let record of recordsArray">
+  <ion-card *ngFor="let record of recordsArray" [routerLink]="['./', 'record-detail']">
     <ion-card-header>
       <ion-card-title>{{ record.name }}</ion-card-title>
       <ion-card-subtitle>{{ record.value }}</ion-card-subtitle>
