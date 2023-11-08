@@ -9,7 +9,7 @@ const routes: Routes = [
     component: AccelaPage
   },
   {
-    path: 'record-detail',
+    path: ':record-detail',
     loadChildren: () => import('./record-detail/record-detail.module').then( m => m.RecordDetailPageModule)
   }
 ];

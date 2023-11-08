@@ -56,6 +56,7 @@ export class AccelaPage implements OnInit {
                 value: record.value,
                 assignedUser: record.assignedUser,
               }));
+              console.log(response)
               loadingEl.dismiss();
             } else {
               console.log('No records found.');
