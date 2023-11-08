@@ -20,7 +20,7 @@ export class RecordDetailPage implements OnInit {
     this.route.paramMap.subscribe((paramMap) => {
       this.urlValue = paramMap.get('record-detail');
       this.record = this.accelaService.recordsArray.filter(record => record.value === this.urlValue)[0]
-      console.log(this.record)
+      // console.log(this.record)
     });
   }
 }

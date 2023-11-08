@@ -4,8 +4,35 @@
       <!-- <ion-menu-button></ion-menu-button> -->
       <ion-back-button defaultHref="/accela"></ion-back-button>
     </ion-buttons>
-    <ion-title>record-detail</ion-title>
+    <ion-title>{{record.value}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content class="ion-text-center ion-padding">
+  <ion-card>
+    <ion-card-content>
+      <ion-item *ngIf="record.name">
+        <ion-label>Name:</ion-label>
+        <ion-text>{{ record.name }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Value:</ion-label>
+        <ion-text>{{ record.value }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Assigned User:</ion-label>
+        <ion-text>{{ record.assignedUser }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Record Type:</ion-label>
+        <ion-text>{{ record.type }}</ion-text>
+      </ion-item>
+      <!-- Add additional ion-item for other properties as needed -->
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+
+
+
+

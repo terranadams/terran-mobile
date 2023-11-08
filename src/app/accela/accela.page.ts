@@ -55,6 +55,7 @@ export class AccelaPage implements OnInit {
                 name: record.name,
                 value: record.value,
                 assignedUser: record.assignedUser,
+                type: record.type.type
               }));
               console.log(response)
               loadingEl.dismiss();
