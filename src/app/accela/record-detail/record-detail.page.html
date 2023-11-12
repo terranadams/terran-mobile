@@ -34,8 +34,9 @@
     <ion-accordion value="first">
       <ion-item slot="header" color="light">
         <ion-label>Inspections</ion-label>
+        <ion-spinner *ngIf="inspectionsLoading"></ion-spinner>
       </ion-item>
-      <div class="ion-padding" slot="content">First Content</div>
+      <div class="ion-padding" slot="content">Inspection data</div>
     </ion-accordion>
   </ion-accordion-group>
 </ion-content>

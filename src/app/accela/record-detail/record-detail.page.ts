@@ -16,11 +16,18 @@ export class RecordDetailPage implements OnInit {
     public accelaService: AccelaService
   ) {}
 
+  inspectionsLoading: boolean = true;
+
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap) => {
       this.urlValue = paramMap.get('record-detail');
       this.record = this.accelaService.recordsArray.filter(record => record.value === this.urlValue)[0]
       // console.log(this.record)
     });
+
+    this.accelaService.getRecordInspections(this.record.value).subscribe(response => {
+      console.log(response)
+      this.inspectionsLoading = false
+    })
   }
 }
