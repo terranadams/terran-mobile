@@ -27,12 +27,15 @@
         <ion-label>Record Type:</ion-label>
         <ion-text>{{ record.type }}</ion-text>
       </ion-item>
-      <!-- Add additional ion-item for other properties as needed -->
     </ion-card-content>
   </ion-card>
+
+  <ion-accordion-group>
+    <ion-accordion value="first">
+      <ion-item slot="header" color="light">
+        <ion-label>Inspections</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">First Content</div>
+    </ion-accordion>
+  </ion-accordion-group>
 </ion-content>
-
-
-
-
-
