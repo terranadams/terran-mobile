@@ -36,7 +36,22 @@
         <ion-label>Inspections</ion-label>
         <ion-spinner *ngIf="inspectionsLoading"></ion-spinner>
       </ion-item>
-      <div class="ion-padding" slot="content">Inspection data</div>
+
+      <!-- Display inspections from inspectionsArray -->
+      <div class="ion-padding" slot="content">
+        <ion-list *ngIf="!inspectionsLoading">
+          <ion-item *ngFor="let inspection of inspectionsArray">
+            <ion-label>{{ inspection.id }}</ion-label>
+            <ion-label>{{ inspection.status }}</ion-label>
+            <ion-label>{{ inspection.type }}</ion-label>
+          </ion-item>
+        </ion-list>
+
+        <!-- Show a message if no inspections are found -->
+        <div *ngIf="!inspectionsLoading && inspectionsArray.length === 0">
+          No inspections found.
+        </div>
+      </div>
     </ion-accordion>
   </ion-accordion-group>
 </ion-content>
