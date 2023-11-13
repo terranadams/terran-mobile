@@ -34,7 +34,7 @@ export class RecordDetailPage implements OnInit {
           // Map through inspections and store relevant properties in inspectionsArray
           this.inspectionsArray = response.result.map((inspection: any) => ({
             id: inspection.id,
-            status: inspection.status,
+            status: inspection.status.value[0],
             type: inspection.type ? inspection.type.value : 'N/A', // Handle case where type is not present
           }));
 
