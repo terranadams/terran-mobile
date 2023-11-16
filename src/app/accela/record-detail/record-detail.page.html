@@ -65,7 +65,10 @@
       </ion-item>
       <div class="ion-padding" slot="content">
         <ion-list>
-          <ion-item *ngFor="let document of documentsArray"> </ion-item>
+          <ion-item *ngFor="let document of documentsArray">
+            <ion-label>{{document.id}}</ion-label>
+            <ion-label>{{document.fileName}}</ion-label>
+          </ion-item>
         </ion-list>
         <div *ngIf="!documentsLoading && documentsArray.length === 0">No documents found.</div>
       </div>

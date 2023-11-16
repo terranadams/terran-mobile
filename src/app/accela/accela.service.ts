@@ -10,6 +10,14 @@ export class AccelaService {
 
   constructor(private http: HttpClient) {}
 
+  private encodeFormParams(params: any): string {
+    return Object.keys(params)
+      .map(
+        (key) => encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
+      )
+      .join('&');
+  }
+
   getAccessToken() {
     const apiUrl = 'https://auth.accela.com/oauth2/token';
 
@@ -21,7 +29,7 @@ export class AccelaService {
       agency_name: 'CRC',
       environment: 'SUPP',
       grant_type: 'password',
-      scope: 'records inspections',
+      scope: 'records inspections documents',
     };
 
     const headers = new HttpHeaders({
@@ -52,11 +60,13 @@ export class AccelaService {
     return this.http.get<any>(apiUrl, { headers });
   }
 
-  private encodeFormParams(params: any): string {
-    return Object.keys(params)
-      .map(
-        (key) => encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
-      )
-      .join('&');
+  getRecordDocuments(recordId: string) {
+    const apiUrl = `https://apis.accela.com/v4/records/${recordId}/documents`;
+    const headers = new HttpHeaders({
+      Authorization: `${this.accessToken}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<any>(apiUrl, { headers });
   }
 }
