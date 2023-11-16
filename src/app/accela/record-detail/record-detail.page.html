@@ -30,14 +30,16 @@
     </ion-card-content>
   </ion-card>
 
+  <!-- Inspection Accordion -->
   <ion-accordion-group>
     <ion-accordion value="first">
       <ion-item slot="header" color="light">
         <ion-label>Inspections</ion-label>
         <ion-spinner *ngIf="inspectionsLoading"></ion-spinner>
-        <span *ngIf="!inspectionsLoading">{{this.inspectionsArray.length}}</span>
+        <span *ngIf="!inspectionsLoading"
+          >{{this.inspectionsArray.length}}</span
+        >
       </ion-item>
-
       <!-- Display inspections from inspectionsArray -->
       <div class="ion-padding" slot="content">
         <ion-list *ngIf="!inspectionsLoading">
@@ -47,11 +49,25 @@
             <ion-label>{{ inspection.type }}</ion-label>
           </ion-item>
         </ion-list>
-
         <!-- Show a message if no inspections are found -->
         <div *ngIf="!inspectionsLoading && inspectionsArray.length === 0">
           No inspections found.
         </div>
+      </div>
+    </ion-accordion>
+
+    <!-- Documents Accordion -->
+    <ion-accordion value="second">
+      <ion-item slot="header" color="light">
+        <ion-label>Documents</ion-label>
+        <ion-spinner *ngIf="documentsLoading"></ion-spinner>
+        <span *ngIf="!documentsLoading">{{this.documentsArray.length}}</span>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-list>
+          <ion-item *ngFor="let document of documentsArray"> </ion-item>
+        </ion-list>
+        <div *ngIf="!documentsLoading && documentsArray.length === 0">No documents found.</div>
       </div>
     </ion-accordion>
   </ion-accordion-group>

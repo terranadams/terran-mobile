@@ -11,13 +11,15 @@ export class RecordDetailPage implements OnInit {
   urlValue!: any;
   record!: any;
   inspectionsArray: any[] = [];
+  inspectionsLoading: boolean = true;
+  documentsArray: any[] = []
+  documentsLoading: boolean = false
 
   constructor(
     private route: ActivatedRoute,
     public accelaService: AccelaService
   ) {}
 
-  inspectionsLoading: boolean = true;
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap) => {
