@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AccelaService } from '../accela.service';
 import { forkJoin } from 'rxjs';
+import { ActionSheetController } from '@ionic/angular';
 
 
 @Component({
@@ -19,9 +20,9 @@ export class RecordDetailPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    public accelaService: AccelaService
+    public accelaService: AccelaService,
+    public actionSheetController: ActionSheetController
   ) {}
-
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap) => {
@@ -72,4 +73,49 @@ export class RecordDetailPage implements OnInit {
       }
     );
   }
+
+
+  public actionSheetButtons = [
+    {
+      text: 'Download',
+      role: 'download',
+      data: {
+        action: 'download',
+      },
+    },
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      data: {
+        action: 'cancel',
+      },
+    },
+  ];
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Actions',
+      buttons: [
+        {
+          text: 'Download',
+          role: 'download',
+          handler: () => {
+            // Handle download action
+            console.log('yolo swag')
+          },
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            // Handle cancel action
+          },
+        },
+      ],
+    });
+    await actionSheet.present();
+  }
+
+
+
 }
