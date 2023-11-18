@@ -92,22 +92,22 @@ export class RecordDetailPage implements OnInit {
     },
   ];
 
-  async presentActionSheet(document: any) {
+  async presentActionSheet(specifiedDocument: any) {
     const actionSheet = await this.actionSheetController.create({
       header: 'Actions',
       buttons: [
         {
           text: 'Download',
           role: 'download',
-          handler: async () => { //subscribes to the downloadDocument observable, and when the download is successful, it creates a link and triggers a download.
-            this.accelaService.downloadDocument(document).subscribe(
+          handler: async () => { //subscribes to the downloadDocument observable, and when the download is successful, it creates a link used to trigger a download.
+            this.accelaService.downloadDocument(specifiedDocument).subscribe(
               (response) => {
                 const blob = new Blob([response], { type: 'application/pdf' }); // Adjust the type based on your document type
-                const link = document.createElement('a');
+                const link = document.createElement('a'); // This line creates an anchor element (<a>) in the global document scope.
                 link.href = window.URL.createObjectURL(blob);
-                link.download = document.fileName;
+                link.download = specifiedDocument.fileName;
                 link.click();
-                // so far this doesn't seem to work when running in the browser
+                // this code seems to make the file download, but the file comes unreadable
               },
               (error) => {
                 console.error('Error downloading document:', error);
