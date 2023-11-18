@@ -70,13 +70,14 @@ export class AccelaService {
     return this.http.get<any>(apiUrl, { headers });
   }
 
-  downloadDocument(docId: any) {
-    const apiUrl = `https://apis.accela.com/v4/documents/${docId}/download`;
+  downloadDocument(document: any) {
+    const apiUrl = `https://apis.accela.com/v4/documents/${document.id}/download`;
     const headers = new HttpHeaders({
       Authorization: `${this.accessToken}`,
       Accept: 'application/json',
       'Content-Type': 'application/json',
     });
-    return this.http.get<any>(apiUrl, { headers });
+    return this.http.get(apiUrl, { headers, responseType: 'blob' });
+
   }
 }

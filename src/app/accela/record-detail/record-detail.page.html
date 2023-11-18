@@ -65,7 +65,7 @@
       </ion-item>
       <div class="ion-padding" slot="content">
         <ion-list>
-          <ion-item *ngFor="let document of documentsArray" (click)="presentActionSheet()">
+          <ion-item *ngFor="let document of documentsArray" (click)="presentActionSheet(document)">
             <ion-label>{{document.id}}</ion-label>
             <ion-label>{{document.fileName}}</ion-label>
           </ion-item>

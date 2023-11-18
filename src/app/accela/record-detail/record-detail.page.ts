@@ -92,16 +92,27 @@ export class RecordDetailPage implements OnInit {
     },
   ];
 
-  async presentActionSheet() {
+  async presentActionSheet(document: any) {
     const actionSheet = await this.actionSheetController.create({
       header: 'Actions',
       buttons: [
         {
           text: 'Download',
           role: 'download',
-          handler: () => {
-            // Handle download action
-            console.log('yolo swag')
+          handler: async () => { //subscribes to the downloadDocument observable, and when the download is successful, it creates a link and triggers a download.
+            this.accelaService.downloadDocument(document).subscribe(
+              (response) => {
+                const blob = new Blob([response], { type: 'application/pdf' }); // Adjust the type based on your document type
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = document.fileName;
+                link.click();
+                // so far this doesn't seem to work when running in the browser
+              },
+              (error) => {
+                console.error('Error downloading document:', error);
+              }
+            )
           },
         },
         {
