@@ -102,12 +102,17 @@ export class RecordDetailPage implements OnInit {
           handler: async () => { //subscribes to the downloadDocument observable, and when the download is successful, it creates a link used to trigger a download.
             this.accelaService.downloadDocument(specifiedDocument).subscribe(
               (response) => {
-                const blob = new Blob([response], { type: 'application/pdf' }); // Adjust the type based on your document type
+                console.log(response)
+
+
+
+                // this code will download a file in the browser
+                const blob = new Blob([response], { type: 'image/x-png' }); // Adjust the type based on your document type
+                // I'll need to make conditionals for all the different types
                 const link = document.createElement('a'); // This line creates an anchor element (<a>) in the global document scope.
                 link.href = window.URL.createObjectURL(blob);
                 link.download = specifiedDocument.fileName;
                 link.click();
-                // this code seems to make the file download, but the file comes unreadable
               },
               (error) => {
                 console.error('Error downloading document:', error);
