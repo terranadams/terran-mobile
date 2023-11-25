@@ -3,6 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { AccelaService } from '../accela.service';
 import { forkJoin } from 'rxjs';
 import { ActionSheetController } from '@ionic/angular';
+import {
+  FileTransfer,
+  FileTransferObject,
+} from '@ionic-native/file-transfer/ngx';
 
 
 @Component({
@@ -15,8 +19,8 @@ export class RecordDetailPage implements OnInit {
   record!: any;
   inspectionsArray: any[] = [];
   inspectionsLoading: boolean = true;
-  documentsArray: any[] = []
-  documentsLoading: boolean = true
+  documentsArray: any[] = [];
+  documentsLoading: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,16 +39,22 @@ export class RecordDetailPage implements OnInit {
     // Use forkJoin to run both API calls simultaneously
     forkJoin([
       this.accelaService.getRecordInspections(this.record.value),
-      this.accelaService.getRecordDocuments(this.record.value)
+      this.accelaService.getRecordDocuments(this.record.value),
     ]).subscribe(
       ([inspectionsResponse, documentsResponse]) => {
         // Handle inspections response
-        if (inspectionsResponse && inspectionsResponse.result && inspectionsResponse.result.length > 0) {
-          this.inspectionsArray = inspectionsResponse.result.map((inspection: any) => ({
-            id: inspection.id,
-            status: inspection.status.value[0],
-            type: inspection.type ? inspection.type.value : 'N/A',
-          }));
+        if (
+          inspectionsResponse &&
+          inspectionsResponse.result &&
+          inspectionsResponse.result.length > 0
+        ) {
+          this.inspectionsArray = inspectionsResponse.result.map(
+            (inspection: any) => ({
+              id: inspection.id,
+              status: inspection.status.value[0],
+              type: inspection.type ? inspection.type.value : 'N/A',
+            })
+          );
           // console.log(this.inspectionsArray);
         } else {
           console.log('No inspections found.');
@@ -52,14 +62,20 @@ export class RecordDetailPage implements OnInit {
         this.inspectionsLoading = false;
 
         // Handle documents response
-        if (documentsResponse && documentsResponse.result && documentsResponse.result.length > 0) {
-          console.log("documents", documentsResponse)
+        if (
+          documentsResponse &&
+          documentsResponse.result &&
+          documentsResponse.result.length > 0
+        ) {
+          console.log('documents', documentsResponse);
           // Map through documents and store relevant properties in documentsArray
-          this.documentsArray = documentsResponse.result.map((document: any) => ({
-            id: document.id,
-            fileName: document.fileName
-            // Add other properties as needed
-          }));
+          this.documentsArray = documentsResponse.result.map(
+            (document: any) => ({
+              id: document.id,
+              fileName: document.fileName,
+              // Add other properties as needed
+            })
+          );
           // console.log(this.documentsArray);
         } else {
           console.log('No documents found.');
@@ -73,7 +89,6 @@ export class RecordDetailPage implements OnInit {
       }
     );
   }
-
 
   public actionSheetButtons = [
     {
@@ -99,25 +114,26 @@ export class RecordDetailPage implements OnInit {
         {
           text: 'Download',
           role: 'download',
-          handler: async () => { //subscribes to the downloadDocument observable, and when the download is successful, it creates a link used to trigger a download.
+          handler: async () => {
             this.accelaService.downloadDocument(specifiedDocument).subscribe(
               (response) => {
-                console.log(response)
+                console.log(response);
 
+                /* So that worked, but now I'm getting an error in my record-detail.page.ts file, where I'm running "this.accelaService.downloadDocument(specifiedDocument).subscribe("
+There's a red swiggly under "subscribe", with the error saying "Property 'subscribe' does not exist on type 'void'.ts". I think it might be because we're not returning an observable from the new documentDownload() method you gave me. What do you think?  */
 
-
-                // this code will download a file in the browser
-                const blob = new Blob([response], { type: 'image/x-png' }); // Adjust the type based on your document type
-                // I'll need to make conditionals for all the different types
-                const link = document.createElement('a'); // This line creates an anchor element (<a>) in the global document scope.
-                link.href = window.URL.createObjectURL(blob);
-                link.download = specifiedDocument.fileName;
-                link.click();
+                // // this code will download a file in the browser. Subscribes to the downloadDocument observable, and when the download is successful, it creates a link used to trigger a download.
+                // const blob = new Blob([response], { type: 'image/x-png' }); // Adjust the type based on your document type
+                // // I'll need to make conditionals for all the different types
+                // const link = document.createElement('a'); // This line creates an anchor element (<a>) in the global document scope.
+                // link.href = window.URL.createObjectURL(blob);
+                // link.download = specifiedDocument.fileName;
+                // link.click();
               },
               (error) => {
                 console.error('Error downloading document:', error);
               }
-            )
+            );
           },
         },
         {
@@ -131,7 +147,4 @@ export class RecordDetailPage implements OnInit {
     });
     await actionSheet.present();
   }
-
-
-
 }

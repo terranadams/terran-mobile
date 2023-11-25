@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { Observable } from 'rxjs';
+
+
+
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +14,7 @@ export class AccelaService {
   public accessToken: string | undefined;
   public recordsArray: any[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private transfer: FileTransfer, private file: File,) {}
 
   private encodeFormParams(params: any): string {
     return Object.keys(params)
@@ -70,14 +76,35 @@ export class AccelaService {
     return this.http.get<any>(apiUrl, { headers });
   }
 
-  downloadDocument(specifiedDocument: any) {
-    const apiUrl = `https://apis.accela.com/v4/documents/${specifiedDocument.id}/download`;
-    const headers = new HttpHeaders({
-      Authorization: `${this.accessToken}`,
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    });
-    return this.http.get(apiUrl, { headers, responseType: 'blob' });
 
+  downloadDocument(specifiedDocument: any): Observable<string> {
+    const apiUrl = `https://apis.accela.com/v4/documents/${specifiedDocument.id}/download`;
+
+    const fileTransfer: FileTransferObject = this.transfer.create();
+
+    return new Observable<string>((observer) => {
+      fileTransfer.download(apiUrl, this.file.dataDirectory + 'downloaded-document.pdf').then(
+        (entry) => {
+          console.log('Download complete: ' + entry.toURL());
+          observer.next('Download complete: ' + entry.toURL());
+          observer.complete();
+        },
+        (error) => {
+          console.error('Error downloading document:', error);
+          observer.error('Error downloading document');
+        }
+      );
+    });
   }
+
+  // OG call for running on the browser
+  // downloadDocument(specifiedDocument: any) {
+  //   const apiUrl = `https://apis.accela.com/v4/documents/${specifiedDocument.id}/download`;
+  //   const headers = new HttpHeaders({
+  //     Authorization: `${this.accessToken}`,
+  //     Accept: 'application/json',
+  //     'Content-Type': 'application/json',
+  //   });
+  //   return this.http.get(apiUrl, { headers, responseType: 'blob' });
+  // }
 }
