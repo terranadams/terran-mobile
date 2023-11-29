@@ -119,9 +119,6 @@ export class RecordDetailPage implements OnInit {
               (response) => {
                 console.log(response);
 
-                /* So that worked, but now I'm getting an error in my record-detail.page.ts file, where I'm running "this.accelaService.downloadDocument(specifiedDocument).subscribe("
-There's a red swiggly under "subscribe", with the error saying "Property 'subscribe' does not exist on type 'void'.ts". I think it might be because we're not returning an observable from the new documentDownload() method you gave me. What do you think?  */
-
                 // // this code will download a file in the browser. Subscribes to the downloadDocument observable, and when the download is successful, it creates a link used to trigger a download.
                 // const blob = new Blob([response], { type: 'image/x-png' }); // Adjust the type based on your document type
                 // // I'll need to make conditionals for all the different types
