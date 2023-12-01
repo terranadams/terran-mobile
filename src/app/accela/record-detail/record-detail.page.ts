@@ -3,11 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { AccelaService } from '../accela.service';
 import { forkJoin } from 'rxjs';
 import { ActionSheetController } from '@ionic/angular';
-import {
-  FileTransfer,
-  FileTransferObject,
-} from '@ionic-native/file-transfer/ngx';
-
 
 @Component({
   selector: 'app-record-detail',
@@ -115,22 +110,24 @@ export class RecordDetailPage implements OnInit {
           text: 'Download',
           role: 'download',
           handler: async () => {
-            this.accelaService.downloadDocument(specifiedDocument).subscribe(
-              (response) => {
-                console.log(response);
 
-                // // this code will download a file in the browser. Subscribes to the downloadDocument observable, and when the download is successful, it creates a link used to trigger a download.
-                // const blob = new Blob([response], { type: 'image/x-png' }); // Adjust the type based on your document type
-                // // I'll need to make conditionals for all the different types
-                // const link = document.createElement('a'); // This line creates an anchor element (<a>) in the global document scope.
-                // link.href = window.URL.createObjectURL(blob);
-                // link.download = specifiedDocument.fileName;
-                // link.click();
-              },
-              (error) => {
-                console.error('Error downloading document:', error);
-              }
-            );
+
+
+
+
+            
+            // // DOWNLOADING FROM THE BROWSER
+            // this.accelaService
+            //   .downloadDocument(specifiedDocument)
+            //   .subscribe((response) => {
+            //     // I'll need to make conditionals for all the different types, only images currently work (application/pdf image/x-png)
+            //     const blob = new Blob([response], { type: 'image/x-png' }); // Adjust the type based on your document type
+            //     console.log(blob);
+            //     const link = document.createElement('a'); // This line creates an anchor element (<a>) in the global document scope.
+            //     link.href = window.URL.createObjectURL(blob);
+            //     link.download = specifiedDocument.fileName;
+            //     link.click();
+            //   });
           },
         },
         {
