@@ -81,7 +81,7 @@ export class AccelaService {
     return this.http.get<any>(apiUrl, { headers });
   }
 
-  downloadDocument(specifiedDocument: any): Observable<Blob> {
+  obtainDocumentBlob(specifiedDocument: any): Observable<Blob> {
     const apiUrl = `https://apis.accela.com/v4/documents/${specifiedDocument.id}/download`;
     const headers = new HttpHeaders({
       Authorization: `${this.accessToken}`,
@@ -93,15 +93,4 @@ export class AccelaService {
       responseType: 'blob',
     });
   }
-
-  // // DOWNLOADING FROM THE BROWSER
-  // downloadDocument(specifiedDocument: any) {
-  // const apiUrl = `https://apis.accela.com/v4/documents/${specifiedDocument.id}/download`;
-  // const headers = new HttpHeaders({
-  //   Authorization: `${this.accessToken}`,
-  //   Accept: 'application/json',
-  //   'Content-Type': 'application/json',
-  // });
-  // return this.http.get(apiUrl, { headers, responseType: 'blob' });
-  // }
 }

@@ -153,7 +153,7 @@ export class RecordDetailPage implements OnInit {
   }
 
   downloadDocument(specifiedDocument: any) {
-    this.accelaService.downloadDocument(specifiedDocument).subscribe(
+    this.accelaService.obtainDocumentBlob(specifiedDocument).subscribe(
       (blob) => {
         console.log(blob)
       },
