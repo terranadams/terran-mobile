@@ -94,6 +94,13 @@ export class RecordDetailPage implements OnInit {
       },
     },
     {
+      text: 'View',
+      role: 'view',
+      data: {
+        action: 'view',
+      },
+    },
+    {
       text: 'Cancel',
       role: 'cancel',
       data: {
@@ -110,12 +117,8 @@ export class RecordDetailPage implements OnInit {
           text: 'Download',
           role: 'download',
           handler: async () => {
+            this.downloadDocument(specifiedDocument);
 
-
-
-
-
-            
             // // DOWNLOADING FROM THE BROWSER
             // this.accelaService
             //   .downloadDocument(specifiedDocument)
@@ -128,17 +131,42 @@ export class RecordDetailPage implements OnInit {
             //     link.download = specifiedDocument.fileName;
             //     link.click();
             //   });
+
           },
+        },
+        {
+          text: 'View',
+          role: 'view',
+          handler: () => {
+            this.viewDocument(specifiedDocument);
+          }
         },
         {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
-            // Handle cancel action
           },
         },
       ],
     });
     await actionSheet.present();
+  }
+
+  downloadDocument(specifiedDocument: any) {
+    this.accelaService.downloadDocument(specifiedDocument).subscribe(
+      (blob) => {
+        console.log(blob)
+      },
+      (error) => {
+        console.error('Error downloading document', error);
+      }
+    );
+  }
+
+
+  private viewDocument(specifiedDocument: any) {
+    console.log('Viewing document');
+    // Add your logic to view the document within the application
+    // This is where you might want to use a different viewer based on the document type
   }
 }

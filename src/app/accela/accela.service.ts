@@ -6,6 +6,7 @@ import {
 } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { Observable } from 'rxjs';
+import { HttpResponse } from '@capacitor/core';
 
 @Injectable({
   providedIn: 'root',
@@ -80,19 +81,27 @@ export class AccelaService {
     return this.http.get<any>(apiUrl, { headers });
   }
 
-
-  
-
+  downloadDocument(specifiedDocument: any): Observable<Blob> {
+    const apiUrl = `https://apis.accela.com/v4/documents/${specifiedDocument.id}/download`;
+    const headers = new HttpHeaders({
+      Authorization: `${this.accessToken}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    });
+    return this.http.get(apiUrl, {
+      headers,
+      responseType: 'blob',
+    });
+  }
 
   // // DOWNLOADING FROM THE BROWSER
   // downloadDocument(specifiedDocument: any) {
-  //   const apiUrl = `https://apis.accela.com/v4/documents/${specifiedDocument.id}/download`;
-  //   const headers = new HttpHeaders({
-  //     Authorization: `${this.accessToken}`,
-  //     Accept: 'application/json',
-  //     'Content-Type': 'application/json',
-  //   });
-  //   return this.http.get(apiUrl, { headers, responseType: 'blob' });
+  // const apiUrl = `https://apis.accela.com/v4/documents/${specifiedDocument.id}/download`;
+  // const headers = new HttpHeaders({
+  //   Authorization: `${this.accessToken}`,
+  //   Accept: 'application/json',
+  //   'Content-Type': 'application/json',
+  // });
+  // return this.http.get(apiUrl, { headers, responseType: 'blob' });
   // }
-
 }
