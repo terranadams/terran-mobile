@@ -12,10 +12,9 @@ export default config;
 /*
 If XCODE gives 'unable to open configuration settings file', do the following:
 Run 'sudo gem install cocoapods'
-then (potentially need) run 'npm install @capacitor/cli@latest'
-then run 'npx cap update'
+then run 'npx cap sync'
 then 'cd ios/App/' and then run 'pod install'
-then do the commands below
+then return to root and 'npx cap open ios' to test
 */
 
 /*
