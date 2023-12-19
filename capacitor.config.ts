@@ -10,6 +10,15 @@ const config: CapacitorConfig = {
 export default config;
 
 /*
+If XCODE gives 'unable to open configuration settings file', do the following:
+Run 'sudo gem install cocoapods'
+then (potentially need) run 'npm install @capacitor/cli@latest'
+then run 'npx cap update'
+then 'cd ios/App/' and then run 'pod install'
+then do the commands below
+*/
+
+/*
 ng build or ionic build
 ionic capacitor copy ios or npx cap sync
 npx cap open ios
