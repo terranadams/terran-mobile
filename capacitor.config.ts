@@ -8,6 +8,13 @@ const config: CapacitorConfig = {
 };
 
 export default config;
+/*
+ng build or ionic build
+ionic capacitor copy ios or npx cap sync
+npx cap open ios
+ionic capacitor run ios will combine the build and copy process, but it doesn’t seem to work for me
+*/
+
 
 /*
 If XCODE gives 'unable to open configuration settings file', do the following:
@@ -15,14 +22,22 @@ Run 'sudo gem install cocoapods'
 then run 'npx cap sync'
 then 'cd ios/App/' and then run 'pod install'
 then return to root and 'npx cap open ios' to test
+
+Issue previously occurred when running 'ionic capacitor copy ios', it gave this output:
+> capacitor copy ios
+[capacitor] [warn] The bundledWebRuntime configuration option has been deprecated. Can be safely deleted.
+[capacitor] ✔ Copying web assets from www to ios/App/App/public in 435.71ms
+[capacitor] ✔ Creating capacitor.config.json in ios/App/App in 755.25μs
+[capacitor] [info] Found 3 Cordova plugins for ios:
+[capacitor]        cordova-file-transfer@2.0.0
+[capacitor]        cordova-plugin-file@5.0.0
+[capacitor]        cordova-plugin-screen-orientation@3.0.3
+[capacitor] ✔ copy ios in 499.49ms
+
+Manually removing all references of the three cordova plugins prior to running 'npm i' after reinstalling app resolved the issue.
 */
 
-/*
-ng build or ionic build
-ionic capacitor copy ios or npx cap sync
-npx cap open ios
-ionic capacitor run ios will combine the build and copy process, but it doesn’t seem to work for me
-*/
+
 
 
 /*
