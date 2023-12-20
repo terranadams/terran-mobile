@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ScreenOrientation } from '@capacitor/screen-orientation';
 
 @Component({
   selector: 'app-root',
@@ -15,13 +14,10 @@ export class AppComponent {
   }
   constructor(
     private router: Router,
-    // private screenOrientation: ScreenOrientation
   ) {}
 
   ngOnInit() {
-    // this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
-    // this.screenOrientation.lock('portrait');
-    // window.screen.orientation.lock('portrait');
+
   }
 
   toHome() {

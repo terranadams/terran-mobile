@@ -24,7 +24,6 @@
     "@capacitor/haptics": "next",
     "@capacitor/ios": "next",
     "@capacitor/keyboard": "next",
-    "@capacitor/screen-orientation": "next",
     "@capacitor/status-bar": "next",
     "@ionic-native/file": "^5.36.0",
     "@ionic-native/file-transfer": "^5.36.0",
