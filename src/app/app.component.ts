@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { ScreenOrientation } from '@capacitor/screen-orientation';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,7 @@ export class AppComponent {
   }
   constructor(
     private router: Router,
-    private screenOrientation: ScreenOrientation
+    // private screenOrientation: ScreenOrientation
   ) {}
 
   ngOnInit() {

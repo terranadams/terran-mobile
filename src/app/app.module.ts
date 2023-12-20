@@ -8,8 +8,6 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
-
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 
@@ -19,7 +17,7 @@ import { File } from '@ionic-native/file/ngx';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, ScreenOrientation, FileTransfer, FileTransferObject, File],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, FileTransfer, FileTransferObject, File],
   bootstrap: [AppComponent],
 })
 export class AppModule {
