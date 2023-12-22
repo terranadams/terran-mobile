@@ -16,6 +16,10 @@ export class RecordDetailPage implements OnInit {
   inspectionsLoading: boolean = true;
   documentsArray: any[] = [];
   documentsLoading: boolean = true;
+  imageBlobUrl!: string;
+  selectedDocumentImageBlobUrl: string | null = null;
+
+
 
   constructor(
     private route: ActivatedRoute,
@@ -118,20 +122,6 @@ export class RecordDetailPage implements OnInit {
           role: 'download',
           handler: async () => {
             this.downloadDocument(specifiedDocument);
-
-            // // DOWNLOADING FROM THE BROWSER
-            // this.accelaService
-            //   .downloadDocument(specifiedDocument)
-            //   .subscribe((response) => {
-            //     // I'll need to make conditionals for all the different types, only images currently work (application/pdf image/x-png)
-            //     const blob = new Blob([response], { type: 'image/x-png' }); // Adjust the type based on your document type
-            //     console.log(blob);
-            //     const link = document.createElement('a'); // This line creates an anchor element (<a>) in the global document scope.
-            //     link.href = window.URL.createObjectURL(blob);
-            //     link.download = specifiedDocument.fileName;
-            //     link.click();
-            //   });
-
           },
         },
         {
@@ -155,7 +145,6 @@ export class RecordDetailPage implements OnInit {
   downloadDocument(specifiedDocument: any) {
     this.accelaService.obtainDocumentBlob(specifiedDocument).subscribe(
       (blob) => {
-        console.log(blob)
       },
       (error) => {
         console.error('Error downloading document', error);
@@ -166,7 +155,17 @@ export class RecordDetailPage implements OnInit {
 
   private viewDocument(specifiedDocument: any) {
     console.log('Viewing document');
-    // Add your logic to view the document within the application
-    // This is where you might want to use a different viewer based on the document type
+    this.accelaService.obtainDocumentBlob(specifiedDocument).subscribe(
+      (blob) => {
+        this.selectedDocumentImageBlobUrl = URL.createObjectURL(blob);
+      },
+      (error) => {
+        console.error('Error viewing document', error);
+      }
+    );
+  }
+
+  closeImage() {
+    this.selectedDocumentImageBlobUrl = null;
   }
 }
