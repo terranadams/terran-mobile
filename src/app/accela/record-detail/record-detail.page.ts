@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AccelaService } from '../accela.service';
 import { forkJoin } from 'rxjs';
 import { ActionSheetController } from '@ionic/angular';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 
 @Component({
   selector: 'app-record-detail',
@@ -142,16 +143,57 @@ export class RecordDetailPage implements OnInit {
     await actionSheet.present();
   }
 
-  downloadDocument(specifiedDocument: any) {
-    this.accelaService.obtainDocumentBlob(specifiedDocument).subscribe(
-      (blob) => {
-        
-      },
-      (error) => {
-        console.error('Error downloading document', error);
-      }
-    );
+  async downloadDocument(specifiedDocument: any) {
+    try {
+      this.accelaService.obtainDocumentBlob(specifiedDocument).subscribe(
+        async (blob: Blob) => {
+          const fileName = specifiedDocument.fileName; // You may need to adjust this based on your API response
+
+          // Convert the Blob to a string, assuming it's not binary data
+          const text = await this.blobToText(blob);
+
+          const result = await Filesystem.writeFile({
+            path: fileName, // Provide a suitable file path
+            data: text, // Pass the converted text as data
+            directory: Directory.Documents, // Choose the directory where you want to save the file
+            encoding: Encoding.UTF8, // Use the appropriate encoding
+          });
+
+          if (result) {
+            console.log('File saved successfully:', result.uri);
+          } else {
+            console.error('File save failed.');
+          }
+        },
+        (error) => {
+          console.error('Error downloading file:', error);
+        }
+      );
+    } catch (error) {
+      console.error('Error downloading or saving file:', error);
+    }
   }
+
+
+  // Function to convert a Blob to text
+  async blobToText(blob: Blob): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target) {
+          resolve(event.target.result as string);
+        } else {
+          reject('Failed to read Blob as text.');
+        }
+      };
+      reader.onerror = () => {
+        reject('Error reading Blob as text.');
+      };
+      reader.readAsText(blob);
+    });
+  }
+
+
 
 
   private viewDocument(specifiedDocument: any) {
