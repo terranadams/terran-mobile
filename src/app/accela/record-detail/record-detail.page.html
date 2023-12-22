@@ -75,7 +75,7 @@
     </ion-accordion>
   </ion-accordion-group>
   <ion-img *ngIf="selectedDocumentImageBlobUrl" [src]="selectedDocumentImageBlobUrl"></ion-img>
-  <ion-button (click)="closeImage()">
+  <ion-button *ngIf="selectedDocumentImageBlobUrl" (click)="closeImage()">
     <ion-icon name="close"></ion-icon>
   </ion-button>
 

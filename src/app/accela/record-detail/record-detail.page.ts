@@ -145,6 +145,7 @@ export class RecordDetailPage implements OnInit {
   downloadDocument(specifiedDocument: any) {
     this.accelaService.obtainDocumentBlob(specifiedDocument).subscribe(
       (blob) => {
+        
       },
       (error) => {
         console.error('Error downloading document', error);
