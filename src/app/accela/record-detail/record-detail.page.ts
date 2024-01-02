@@ -4,6 +4,7 @@ import { AccelaService } from '../accela.service';
 import { forkJoin } from 'rxjs';
 import { ActionSheetController } from '@ionic/angular';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+import { Share } from '@capacitor/share';
 
 @Component({
   selector: 'app-record-detail',
@@ -19,8 +20,6 @@ export class RecordDetailPage implements OnInit {
   documentsLoading: boolean = true;
   imageBlobUrl!: string;
   selectedDocumentImageBlobUrl: string | null = null;
-
-
 
   constructor(
     private route: ActivatedRoute,
@@ -137,20 +136,25 @@ export class RecordDetailPage implements OnInit {
           role: 'view',
           handler: () => {
             this.viewDocument(specifiedDocument);
-          }
+          },
         },
         {
           text: 'Share',
           role: 'share',
           handler: () => {
-            // share logic goes here
-          }
+            this.accelaService
+              .obtainDocumentBlob(specifiedDocument)
+              .subscribe(async (blob: Blob) => {
+                const fileName = specifiedDocument.fileName;
+                const fileURL = await this.blobToText(blob);
+                Share.share({ url: fileURL, text: fileName });
+              });
+          },
         },
         {
           text: 'Cancel',
           role: 'cancel',
-          handler: () => {
-          },
+          handler: () => {},
         },
       ],
     });
@@ -188,7 +192,6 @@ export class RecordDetailPage implements OnInit {
     }
   }
 
-
   // Function to convert a Blob to text
   async blobToText(blob: Blob): Promise<string> {
     return new Promise<string>((resolve, reject) => {
@@ -206,9 +209,6 @@ export class RecordDetailPage implements OnInit {
       reader.readAsText(blob);
     });
   }
-
-
-
 
   private viewDocument(specifiedDocument: any) {
     console.log('Viewing document');
