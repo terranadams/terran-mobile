@@ -106,6 +106,13 @@ export class RecordDetailPage implements OnInit {
       },
     },
     {
+      text: 'Share',
+      role: 'share',
+      data: {
+        action: 'share',
+      },
+    },
+    {
       text: 'Cancel',
       role: 'cancel',
       data: {
@@ -130,6 +137,13 @@ export class RecordDetailPage implements OnInit {
           role: 'view',
           handler: () => {
             this.viewDocument(specifiedDocument);
+          }
+        },
+        {
+          text: 'Share',
+          role: 'share',
+          handler: () => {
+            // share logic goes here
           }
         },
         {

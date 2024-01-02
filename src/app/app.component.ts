@@ -28,10 +28,6 @@ export class AppComponent {
     this.router.navigateByUrl('/pokedex/discover', { replaceUrl: true });
   }
 
-  toWatchgenerator() {
-    this.router.navigateByUrl('/watchgenerator', { replaceUrl: true });
-  }
-
   toMnist() {
     this.router.navigateByUrl('/mnist', { replaceUrl: true });
   }
