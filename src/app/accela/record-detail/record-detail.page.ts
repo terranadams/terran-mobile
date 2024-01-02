@@ -142,13 +142,7 @@ export class RecordDetailPage implements OnInit {
           text: 'Share',
           role: 'share',
           handler: () => {
-            this.accelaService
-              .obtainDocumentBlob(specifiedDocument)
-              .subscribe(async (blob: Blob) => {
-                const fileName = specifiedDocument.fileName;
-                const fileURL = await this.blobToText(blob);
-                Share.share({ url: fileURL, text: fileName });
-              });
+            this.shareDocument(specifiedDocument);
           },
         },
         {
@@ -165,16 +159,17 @@ export class RecordDetailPage implements OnInit {
     try {
       this.accelaService.obtainDocumentBlob(specifiedDocument).subscribe(
         async (blob: Blob) => {
-          const fileName = specifiedDocument.fileName; // You may need to adjust this based on your API response
+          const fileName = specifiedDocument.fileName; // Adjust based on your API response
 
-          // Convert the Blob to a string, assuming it's not binary data
-          const text = await this.blobToText(blob);
+          // Convert the Blob to a Base64 encoded string
+          const base64Data = await this.convertBlobToBase64(blob);
 
           const result = await Filesystem.writeFile({
-            path: fileName, // Provide a suitable file path
-            data: text, // Pass the converted text as data
-            directory: Directory.Documents, // Choose the directory where you want to save the file
-            encoding: Encoding.UTF8, // Use the appropriate encoding
+            path: fileName,
+            data: base64Data,
+            directory: Directory.Documents,
+            recursive: true,
+            encoding: Encoding.UTF8,
           });
 
           if (result) {
@@ -192,21 +187,17 @@ export class RecordDetailPage implements OnInit {
     }
   }
 
-  // Function to convert a Blob to text
-  async blobToText(blob: Blob): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
+  // Function to convert a Blob to a Base64 encoded string
+  private convertBlobToBase64(blob: Blob): Promise<string> {
+    return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = (event) => {
-        if (event.target) {
-          resolve(event.target.result as string);
-        } else {
-          reject('Failed to read Blob as text.');
-        }
+      reader.readAsDataURL(blob);
+      reader.onloadend = () => {
+        resolve(reader.result as string);
       };
-      reader.onerror = () => {
-        reject('Error reading Blob as text.');
+      reader.onerror = (error) => {
+        reject(error);
       };
-      reader.readAsText(blob);
     });
   }
 
@@ -220,6 +211,39 @@ export class RecordDetailPage implements OnInit {
         console.error('Error viewing document', error);
       }
     );
+  }
+
+  private shareDocument(specifiedDocument: any) {
+    this.accelaService
+      .obtainDocumentBlob(specifiedDocument)
+      .subscribe(async (blob: Blob) => {
+        const fileName = specifiedDocument.fileName;
+        try {
+          // Convert the Blob to a Base64 encoded string
+          const base64Data = await this.convertBlobToBase64(blob);
+
+          // Save the blob to the filesystem
+          const result = await Filesystem.writeFile({
+            path: fileName,
+            data: base64Data,
+            directory: Directory.Documents,
+            recursive: true,
+            encoding: Encoding.UTF8,
+          });
+
+          if (result && result.uri) {
+            // Share the file using its URI
+            await Share.share({
+              url: result.uri,
+              text: fileName, // Optional additional text
+            });
+          } else {
+            console.error('File save failed, unable to share.');
+          }
+        } catch (error) {
+          console.error('Error saving file:', error);
+        }
+      });
   }
 
   closeImage() {
