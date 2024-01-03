@@ -90,13 +90,13 @@ export class RecordDetailPage implements OnInit {
   }
 
   public actionSheetButtons = [
-    {
-      text: 'Download',
-      role: 'download',
-      data: {
-        action: 'download',
-      },
-    },
+    // {
+    //   text: 'Download',
+    //   role: 'download',
+    //   data: {
+    //     action: 'download',
+    //   },
+    // },
     {
       text: 'View',
       role: 'view',
@@ -124,13 +124,13 @@ export class RecordDetailPage implements OnInit {
     const actionSheet = await this.actionSheetController.create({
       header: 'Actions',
       buttons: [
-        {
-          text: 'Download',
-          role: 'download',
-          handler: async () => {
-            this.downloadDocument(specifiedDocument);
-          },
-        },
+        // {
+        //   text: 'Download',
+        //   role: 'download',
+        //   handler: async () => {
+        //     this.downloadDocument(specifiedDocument);
+        //   },
+        // },
         {
           text: 'View',
           role: 'view',
@@ -155,37 +155,7 @@ export class RecordDetailPage implements OnInit {
     await actionSheet.present();
   }
 
-  async downloadDocument(specifiedDocument: any) {
-    try {
-      this.accelaService.obtainDocumentBlob(specifiedDocument).subscribe(
-        async (blob: Blob) => {
-          const fileName = specifiedDocument.fileName; // Adjust based on your API response
 
-          // Convert the Blob to a Base64 encoded string
-          const base64Data = await this.convertBlobToBase64(blob);
-
-          const result = await Filesystem.writeFile({
-            path: fileName,
-            data: base64Data,
-            directory: Directory.Documents,
-            recursive: true,
-            encoding: Encoding.UTF8,
-          });
-
-          if (result) {
-            console.log('File saved successfully:', result.uri);
-          } else {
-            console.error('File save failed.');
-          }
-        },
-        (error) => {
-          console.error('Error downloading file:', error);
-        }
-      );
-    } catch (error) {
-      console.error('Error downloading or saving file:', error);
-    }
-  }
 
   // Function to convert a Blob to a Base64 encoded string
   private convertBlobToBase64(blob: Blob): Promise<string> {
@@ -233,6 +203,8 @@ export class RecordDetailPage implements OnInit {
 
           if (result && result.uri) {
             // Share the file using its URI
+            console.log('File URL:', result.uri);
+
             await Share.share({
               url: result.uri,
               text: fileName, // Optional additional text
@@ -249,4 +221,36 @@ export class RecordDetailPage implements OnInit {
   closeImage() {
     this.selectedDocumentImageBlobUrl = null;
   }
+
+   // async downloadDocument(specifiedDocument: any) {
+  //   try {
+  //     this.accelaService.obtainDocumentBlob(specifiedDocument).subscribe(
+  //       async (blob: Blob) => {
+  //         const fileName = specifiedDocument.fileName; // Adjust based on your API response
+
+  //         // Convert the Blob to a Base64 encoded string
+  //         const base64Data = await this.convertBlobToBase64(blob);
+
+  //         const result = await Filesystem.writeFile({
+  //           path: fileName,
+  //           data: base64Data,
+  //           directory: Directory.Documents,
+  //           recursive: true,
+  //           encoding: Encoding.UTF8,
+  //         });
+
+  //         if (result) {
+  //           console.log('File saved successfully:', result.uri);
+  //         } else {
+  //           console.error('File save failed.');
+  //         }
+  //       },
+  //       (error) => {
+  //         console.error('Error downloading file:', error);
+  //       }
+  //     );
+  //   } catch (error) {
+  //     console.error('Error downloading or saving file:', error);
+  //   }
+  // }
 }
