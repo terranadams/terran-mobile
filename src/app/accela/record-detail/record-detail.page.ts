@@ -189,10 +189,8 @@ export class RecordDetailPage implements OnInit {
       .subscribe(async (blob: Blob) => {
         const fileName = specifiedDocument.fileName;
         try {
-          // Convert the Blob to a Base64 encoded string
           const base64Data = await this.convertBlobToBase64(blob);
 
-          // Save the blob to the filesystem
           const result = await Filesystem.writeFile({
             path: fileName,
             data: base64Data,
@@ -202,12 +200,12 @@ export class RecordDetailPage implements OnInit {
           });
 
           if (result && result.uri) {
-            // Share the file using its URI
-            console.log('File URL:', result.uri);
+            // Use result.uri directly without adding 'file://' prefix
+            console.log('Full File URL:', result.uri);
 
             await Share.share({
               url: result.uri,
-              text: fileName, // Optional additional text
+              text: fileName,
             });
           } else {
             console.error('File save failed, unable to share.');
@@ -217,6 +215,8 @@ export class RecordDetailPage implements OnInit {
         }
       });
   }
+
+
 
   closeImage() {
     this.selectedDocumentImageBlobUrl = null;
