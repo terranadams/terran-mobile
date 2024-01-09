@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: RecordDetailPage
+  },
+  {
+    path: ':inspection-detail',
+    loadChildren: () => import('./inspection-detail/inspection-detail.module').then( m => m.InspectionDetailPageModule)
   }
 ];
 

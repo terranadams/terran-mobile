@@ -43,7 +43,8 @@
       <!-- Display inspections from inspectionsArray -->
       <div class="ion-padding" slot="content">
         <ion-list *ngIf="!inspectionsLoading">
-          <ion-item *ngFor="let inspection of inspectionsArray">
+          <ion-item *ngFor="let inspection of inspectionsArray"
+          [routerLink]="['./', inspection.value ]">
             <ion-label>{{ inspection.id }}</ion-label>
             <!-- <ion-label>{{ inspection.status }}</ion-label> -->
             <ion-label>{{ inspection.type }}</ion-label>
