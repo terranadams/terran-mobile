@@ -98,7 +98,6 @@ export class RecordDetailPage implements OnInit {
 
   saveInspData(id: number) {
     this.accelaService.selectedInspection = this.inspectionsArray.filter(inspection => inspection.id === id)[0]
-    console.log(this.accelaService.selectedInspection)
   }
 
   public actionSheetButtons = [

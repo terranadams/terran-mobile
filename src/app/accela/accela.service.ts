@@ -22,6 +22,10 @@ export class AccelaService {
     private file: File
   ) {}
 
+  getSelectedInspection() {
+    return this.selectedInspection
+  }
+
   private encodeFormParams(params: any): string {
     return Object.keys(params)
       .map(

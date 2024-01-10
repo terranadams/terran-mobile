@@ -1,9 +1,31 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>inspection-detail</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/accela"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{this.inspectionData.id}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content class="ion-text-center ion-padding">
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Type:</ion-label>
+        <ion-text>{{inspectionData.type}}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Status:</ion-label>
+        <ion-text>{{inspectionData.status}}</ion-text>
+      </ion-item>
+      <ion-item *ngIf="inspectionData.inspectorFullName">
+        <ion-label>Inspector:</ion-label>
+        <ion-text>{{inspectionData.inspectorFullName}}</ion-text>
+      </ion-item>
+      <ion-item *ngIf="inspectionData.resultComment">
+        <ion-label>Result Comment:</ion-label>
+        <ion-text>{{inspectionData.resultComment}}</ion-text>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
