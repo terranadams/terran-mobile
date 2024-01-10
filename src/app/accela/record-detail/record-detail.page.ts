@@ -47,14 +47,21 @@ export class RecordDetailPage implements OnInit {
           inspectionsResponse.result &&
           inspectionsResponse.result.length > 0
         ) {
+          console.log("inspections",inspectionsResponse)
           this.inspectionsArray = inspectionsResponse.result.map(
             (inspection: any) => ({
+              address: inspection.address,
+              commentDisplay: inspection.commentDisplay,
+              commentPublicVisible: inspection.commentPublicVisible,
               id: inspection.id,
-              status: inspection.status.value[0],
-              type: inspection.type ? inspection.type.value : 'N/A',
+              inspectorFullName: inspection.inspectorFullName,
+              resultComment: inspection.resultComment,
+              resultType: inspection.resultType,
+              status: inspection.status.value,
+              type: inspection.type.value,
+              totalTime: inspection.totalTime
             })
           );
-          // console.log(this.inspectionsArray);
         } else {
           console.log('No inspections found.');
         }
@@ -66,7 +73,7 @@ export class RecordDetailPage implements OnInit {
           documentsResponse.result &&
           documentsResponse.result.length > 0
         ) {
-          console.log('documents', documentsResponse);
+          // console.log('documents', documentsResponse);
           // Map through documents and store relevant properties in documentsArray
           this.documentsArray = documentsResponse.result.map(
             (document: any) => ({
