@@ -14,6 +14,7 @@ import { HttpResponse } from '@capacitor/core';
 export class AccelaService {
   public accessToken: string | undefined;
   public recordsArray: any[] = [];
+  public selectedInspection: any = {}
 
   constructor(
     private http: HttpClient,

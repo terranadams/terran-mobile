@@ -44,6 +44,7 @@
       <div class="ion-padding" slot="content">
         <ion-list *ngIf="!inspectionsLoading">
           <ion-item *ngFor="let inspection of inspectionsArray"
+          (click)="saveInspData(inspection.id)"
           [routerLink]="['./', inspection.id ]">
             <ion-label>{{ inspection.id }}</ion-label>
             <ion-label>{{ inspection.type }}</ion-label>
