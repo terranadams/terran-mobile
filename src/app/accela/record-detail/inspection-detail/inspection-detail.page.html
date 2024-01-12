@@ -23,9 +23,21 @@
         <ion-text *ngIf="inspectionData.inspectorFullName">{{inspectionData.inspectorFullName}}</ion-text>
         <ion-text *ngIf="!inspectionData.inspectorFullName">"Unassigned</ion-text>
       </ion-item>
+      <!-- <ion-item *ngIf="inspectionData.address">
+        <ion-label>Address:</ion-label>
+        <ion-text>{{inspectionData.address}}</ion-text>
+      </ion-item> -->
       <ion-item *ngIf="inspectionData.resultComment">
         <ion-label>Result Comment:</ion-label>
         <ion-text>{{inspectionData.resultComment}}</ion-text>
+      </ion-item>
+      <ion-item *ngIf="inspectionData.resultType">
+        <ion-label>Result Type:</ion-label>
+        <ion-text>{{inspectionData.resultType}}</ion-text>
+      </ion-item>
+      <ion-item *ngIf="inspectionData.totalTime">
+        <ion-label>Total Time:</ion-label>
+        <ion-text>{{inspectionData.totalTime}}</ion-text>
       </ion-item>
     </ion-card-content>
   </ion-card>

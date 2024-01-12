@@ -51,8 +51,6 @@ export class RecordDetailPage implements OnInit {
           this.inspectionsArray = inspectionsResponse.result.map(
             (inspection: any) => ({
               address: inspection.address,
-              commentDisplay: inspection.commentDisplay,
-              commentPublicVisible: inspection.commentPublicVisible,
               id: inspection.id,
               inspectorFullName: inspection.inspectorFullName,
               resultComment: inspection.resultComment,
