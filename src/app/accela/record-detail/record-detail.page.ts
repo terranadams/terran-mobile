@@ -18,6 +18,8 @@ export class RecordDetailPage implements OnInit {
   inspectionsLoading: boolean = true;
   documentsArray: any[] = [];
   documentsLoading: boolean = true;
+  commentsArray: any[] = []
+  commentsLoading: boolean = true;
   imageBlobUrl!: string;
   selectedDocumentImageBlobUrl: string | null = null;
 

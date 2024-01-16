@@ -43,9 +43,11 @@
       <!-- Display inspections from inspectionsArray -->
       <div class="ion-padding" slot="content">
         <ion-list *ngIf="!inspectionsLoading">
-          <ion-item *ngFor="let inspection of inspectionsArray"
-          (click)="saveInspData(inspection.id)"
-          [routerLink]="['./', inspection.id ]">
+          <ion-item
+            *ngFor="let inspection of inspectionsArray"
+            (click)="saveInspData(inspection.id)"
+            [routerLink]="['./', inspection.id ]"
+          >
             <ion-label>{{ inspection.id }}</ion-label>
             <ion-label>{{ inspection.type }}</ion-label>
           </ion-item>
@@ -64,24 +66,52 @@
         <ion-spinner *ngIf="documentsLoading"></ion-spinner>
         <span *ngIf="!documentsLoading">{{this.documentsArray.length}}</span>
       </ion-item>
+      <!-- Display documents from documentsArray  -->
       <div class="ion-padding" slot="content">
         <ion-list>
-          <ion-item *ngFor="let document of documentsArray" (click)="presentActionSheet(document)">
+          <ion-item
+            *ngFor="let document of documentsArray"
+            (click)="presentActionSheet(document)"
+          >
             <ion-label>{{document.id}}</ion-label>
             <ion-label>{{document.fileName}}</ion-label>
           </ion-item>
         </ion-list>
-        <div *ngIf="!documentsLoading && documentsArray.length === 0">No documents found.</div>
+        <div *ngIf="!documentsLoading && documentsArray.length === 0">
+          No documents found.
+        </div>
       </div>
     </ion-accordion>
+    <ion-img
+    *ngIf="selectedDocumentImageBlobUrl"
+    [src]="selectedDocumentImageBlobUrl"
+    ></ion-img>
+    <ion-button *ngIf="selectedDocumentImageBlobUrl" (click)="closeImage()">
+      <ion-icon name="close"></ion-icon>
+    </ion-button>
+
+    <!-- Comments Accordion  -->
+    <ion-accordion>
+      <ion-item slot="header" color="light">
+        <ion-label>Comments</ion-label>
+        <ion-spinner *ngIf="commentsLoading"></ion-spinner>
+        <span *ngIf="!commentsLoading">{{this.commentsArray.length}}</span>
+      </ion-item>
+      <!-- Display comments from commentsArray -->
+      <div class="ion-padding" slot="content">
+        <ion-list>
+          <ion-item
+            *ngFor="let comment of commentsArray"
+          >
+            <!-- render data based on comment api response -->
+          </ion-item>
+        </ion-list>
+        <div *ngIf="commentsArray.length === 0">
+          No comments found.
+        </div>
+      </div>
+    </ion-accordion>
+
+
   </ion-accordion-group>
-  <ion-img *ngIf="selectedDocumentImageBlobUrl" [src]="selectedDocumentImageBlobUrl"></ion-img>
-  <ion-button *ngIf="selectedDocumentImageBlobUrl" (click)="closeImage()">
-    <ion-icon name="close"></ion-icon>
-  </ion-button>
-
 </ion-content>
-
-
-
-

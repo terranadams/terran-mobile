@@ -86,6 +86,10 @@ export class AccelaService {
     return this.http.get<any>(apiUrl, { headers });
   }
 
+  getRecordComments(recordId: string) {
+    
+  }
+
   obtainDocumentBlob(specifiedDocument: any): Observable<Blob> {
     const apiUrl = `https://apis.accela.com/v4/documents/${specifiedDocument.id}/download`;
     const headers = new HttpHeaders({
