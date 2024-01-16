@@ -87,7 +87,13 @@ export class AccelaService {
   }
 
   getRecordComments(recordId: string) {
-    
+    const apiUrl = `https://apis.accela.com/v4/records/${recordId}/comments`;
+    const headers = new HttpHeaders({
+      Authorization: `${this.accessToken}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<any>(apiUrl, { headers });
   }
 
   obtainDocumentBlob(specifiedDocument: any): Observable<Blob> {

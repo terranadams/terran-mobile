@@ -18,7 +18,7 @@ export class RecordDetailPage implements OnInit {
   inspectionsLoading: boolean = true;
   documentsArray: any[] = [];
   documentsLoading: boolean = true;
-  commentsArray: any[] = []
+  commentsArray: any[] = [];
   commentsLoading: boolean = true;
   imageBlobUrl!: string;
   selectedDocumentImageBlobUrl: string | null = null;
@@ -41,15 +41,16 @@ export class RecordDetailPage implements OnInit {
     forkJoin([
       this.accelaService.getRecordInspections(this.record.value),
       this.accelaService.getRecordDocuments(this.record.value),
+      this.accelaService.getRecordComments(this.record.value),
     ]).subscribe(
-      ([inspectionsResponse, documentsResponse]) => {
+      ([inspectionsResponse, documentsResponse, commentsResponse]) => {
         // Handle inspections response
         if (
           inspectionsResponse &&
           inspectionsResponse.result &&
           inspectionsResponse.result.length > 0
         ) {
-          console.log("inspections",inspectionsResponse)
+          console.log('inspections', inspectionsResponse);
           this.inspectionsArray = inspectionsResponse.result.map(
             (inspection: any) => ({
               address: inspection.address,
@@ -59,7 +60,7 @@ export class RecordDetailPage implements OnInit {
               resultType: inspection.resultType,
               status: inspection.status.value,
               type: inspection.type.value,
-              totalTime: inspection.totalTime
+              totalTime: inspection.totalTime,
             })
           );
         } else {
@@ -87,17 +88,39 @@ export class RecordDetailPage implements OnInit {
           console.log('No documents found.');
         }
         this.documentsLoading = false;
+
+        // Handle comments response
+        if (
+          commentsResponse &&
+          commentsResponse.result &&
+          commentsResponse.result.length > 0
+        ) {
+          this.commentsArray = commentsResponse.result.map(
+            (comment: any) => ({
+              id: comment.id,
+              text: comment.text
+              // Add other properties as needed
+            })
+          );
+          console.log('commentsArray', this.commentsArray)
+        } else {
+          console.log('No comments found')
+        }
+        this.commentsLoading = false
       },
       (error) => {
         console.error('Error fetching data:', error);
         this.inspectionsLoading = false;
         this.documentsLoading = false;
+        this.commentsLoading = false;
       }
     );
   }
 
   saveInspData(id: number) {
-    this.accelaService.selectedInspection = this.inspectionsArray.filter(inspection => inspection.id === id)[0]
+    this.accelaService.selectedInspection = this.inspectionsArray.filter(
+      (inspection) => inspection.id === id
+    )[0];
   }
 
   public actionSheetButtons = [
@@ -166,8 +189,6 @@ export class RecordDetailPage implements OnInit {
     await actionSheet.present();
   }
 
-
-
   // Function to convert a Blob to a Base64 encoded string
   private convertBlobToBase64(blob: Blob): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -227,13 +248,11 @@ export class RecordDetailPage implements OnInit {
       });
   }
 
-
-
   closeImage() {
     this.selectedDocumentImageBlobUrl = null;
   }
 
-   // async downloadDocument(specifiedDocument: any) {
+  // async downloadDocument(specifiedDocument: any) {
   //   try {
   //     this.accelaService.obtainDocumentBlob(specifiedDocument).subscribe(
   //       async (blob: Blob) => {

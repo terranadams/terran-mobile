@@ -91,7 +91,7 @@
     </ion-button>
 
     <!-- Comments Accordion  -->
-    <ion-accordion>
+    <ion-accordion value="third">
       <ion-item slot="header" color="light">
         <ion-label>Comments</ion-label>
         <ion-spinner *ngIf="commentsLoading"></ion-spinner>
@@ -99,13 +99,12 @@
       </ion-item>
       <!-- Display comments from commentsArray -->
       <div class="ion-padding" slot="content">
-        <ion-list>
-          <ion-item
+          <ion-text
             *ngFor="let comment of commentsArray"
           >
             <!-- render data based on comment api response -->
-          </ion-item>
-        </ion-list>
+            {{comment.text}}<br><br>
+          </ion-text>
         <div *ngIf="commentsArray.length === 0">
           No comments found.
         </div>
