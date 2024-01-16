@@ -83,8 +83,8 @@
       </div>
     </ion-accordion>
     <ion-img
-    *ngIf="selectedDocumentImageBlobUrl"
-    [src]="selectedDocumentImageBlobUrl"
+      *ngIf="selectedDocumentImageBlobUrl"
+      [src]="selectedDocumentImageBlobUrl"
     ></ion-img>
     <ion-button *ngIf="selectedDocumentImageBlobUrl" (click)="closeImage()">
       <ion-icon name="close"></ion-icon>
@@ -99,18 +99,12 @@
       </ion-item>
       <!-- Display comments from commentsArray -->
       <div class="ion-padding" slot="content">
-          <ion-text
-            *ngFor="let comment of commentsArray"
-          >
-            <!-- render data based on comment api response -->
-            {{comment.text}}<br><br>
-          </ion-text>
-        <div *ngIf="commentsArray.length === 0">
-          No comments found.
-        </div>
+        <ion-text *ngFor="let comment of commentsArray">
+          <!-- render data based on comment api response -->
+          {{comment.text}}<br /><br />
+        </ion-text>
+        <div *ngIf="commentsArray.length === 0">No comments found.</div>
       </div>
     </ion-accordion>
-
-
   </ion-accordion-group>
 </ion-content>
