@@ -12,6 +12,8 @@ export default config;
 ng build or ionic build
 ionic capacitor copy ios or npx cap sync
 npx cap open ios
+(to successfully run, make sure you're signed into your dev account on app 'General' and that XCode is updated to the latest)
+
 ionic capacitor run ios will combine the build and copy process, but it doesn’t seem to work for me
 */
 
