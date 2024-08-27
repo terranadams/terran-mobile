@@ -9,16 +9,20 @@ const config: CapacitorConfig = {
 
 export default config;
 /*
+---WHEN MAKING CHANGES---
 ng build or ionic build
 ionic capacitor copy ios or npx cap sync
+(ionic capacitor run ios will combine the build and copy process, but it doesn’t seem to work for me)
+
+---WHEN BOOTING UP---
 npx cap open ios
-(to successfully run, make sure you're signed into your dev account on app 'General' and that XCode is updated to the latest)
+to successfully run, make sure you're signed into your dev account on app 'Signing and Capabilities'.
+also ensure that XCode is updated to the latest.
+if codesign keeps prompting for a password, enter password then click "Always Allow"
 
-ionic capacitor run ios will combine the build and copy process, but it doesn’t seem to work for me
-*/
 
 
-/*
+OLD
 If XCODE gives 'unable to open configuration settings file', do the following:
 Run 'sudo gem install cocoapods'
 then run 'npx cap sync'
