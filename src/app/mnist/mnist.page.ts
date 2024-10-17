@@ -12,6 +12,12 @@ import * as tf from '@tensorflow/tfjs';
 
 // MNIST database: Modified National Institute of Standards and Technology database)
 
+/*
+  When the Angular component is initialized and the ngOnInit lifecycle hook is triggered, we use Tensorflow.js to load a pre-trained machine learning model at /assets/trained_model/model.json
+  This file contains the necessary data to recreate the model's architecture and weights. Once loaded, the model is ready for use.
+  At this point, the application is set up to accept handwritten user input, and use the loaded model to make predictions about what those digits represent.
+*/
+
 @Component({
   selector: 'app-mnist',
   templateUrl: './mnist.page.html',
@@ -30,13 +36,10 @@ export class MnistPage implements OnInit {
 
   constructor() {}
 
-  /// During initialization training of the model on the backend is initialized.
-  /// After that is done model is loaded from the predefined location.
+  // Using Tensorflow to bring in the pre-trained machine learning model
   public async ngOnInit(): Promise<void> {
-    this.title = 'Started model training, please wait...';
     this.model = await tf.loadLayersModel('/assets/trained_model/model.json');
     console.log(this.model.summary());
-    this.title = 'Model Trained! Write down digits!';
   }
 
   /// Used to configure canvas properties.
@@ -91,7 +94,6 @@ export class MnistPage implements OnInit {
         // Drawing is finished, run the predictions
         fromEvent(canvasHtmlElement, 'mouseup').subscribe(async () => {
           const pred = await tf.tidy(() => {
-
             // Convert the canvas pixels
             let image = this.getImage(canvasHtmlElement);
 
