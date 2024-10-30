@@ -13,3 +13,12 @@ ion-segment {
 ion-content {
   --overflow: hidden;
 }
+
+.fixed-button {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 30px;
+  width: 90%; /* Optional: if you want the button to be full width */
+  margin: auto;
+}
