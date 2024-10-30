@@ -162,7 +162,7 @@ export class MnistPage implements OnInit {
     this.context.stroke();
     setTimeout(() => {
       this.predict();
-    }, 2000);
+    }, 3500);
   }
 
   private async predict() {
@@ -182,7 +182,7 @@ export class MnistPage implements OnInit {
         }
       }
       if (this.predicted == '') {
-        this.predicted = 'Not sure :(';
+        this.predicted = '...try again';
       }
     });
   }
