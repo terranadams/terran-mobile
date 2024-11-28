@@ -7,6 +7,7 @@ import {
 import { File } from '@ionic-native/file/ngx';
 import { Observable } from 'rxjs';
 import { HttpResponse } from '@capacitor/core';
+import { Params } from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -26,13 +27,14 @@ export class AccelaService {
     return this.selectedInspection
   }
 
-  private encodeFormParams(params: any): string {
-    return Object.keys(params)
+  private encodeFormParams(params: Params): string {
+    return Object.entries(params)
       .map(
-        (key) => encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
+        ([key, value]) => encodeURIComponent(key) + '=' + encodeURIComponent(value)
       )
       .join('&');
   }
+
 
   getAccessToken() {
     const apiUrl = 'https://auth.accela.com/oauth2/token';
