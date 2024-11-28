@@ -307,3 +307,52 @@ export interface GetRecordInspectionsResponse {
   status: number;
 }
 
+// Represents a document group
+export interface DocumentGroup {
+  text: string;
+  value: string;
+}
+
+// Represents a document in the getRecordDocuments API response
+export interface Document {
+  deletable: boolean;
+  downloadable: boolean;
+  group: DocumentGroup;
+  id: string;
+  text: string;
+  uploadable: boolean;
+  value: string;
+  viewable: boolean;
+}
+
+// Represents the overall response structure for the getRecordDocuments API
+export interface GetRecordDocumentsResponse {
+  result: Document[];
+  status: number;
+}
+
+// Define the interface for the recordId object
+export interface RecordId {
+  customId: string;
+  id: string;
+  serviceProviderCode: string;
+  trackingId: number;
+  value: string;
+}
+
+// Define the interface for an individual comment
+export interface RecordComment {
+  createdBy: string;
+  createdDate: string; // Use ISO 8601 date format as a string
+  displayOnInspection: 'Y' | 'N'; // Assumes values are either 'Y' or 'N'
+  id: number;
+  recordId: RecordId;
+  text: string;
+}
+
+// Define the interface for the API response
+export interface GetRecordCommentsResponse {
+  result: RecordComment[];
+  status: number;
+}
+

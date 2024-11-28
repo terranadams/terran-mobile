@@ -7,7 +7,7 @@ import {
 import { File } from '@ionic-native/file/ngx';
 import { Observable } from 'rxjs';
 import { HttpResponse } from '@capacitor/core';
-import { GetRecordInspectionsResponse, GetRecordsResponse, Params } from './models';
+import { GetRecordCommentsResponse, GetRecordDocumentsResponse, GetRecordInspectionsResponse, GetRecordsResponse, Params } from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -85,7 +85,7 @@ export class AccelaService {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     });
-    return this.http.get<any>(apiUrl, { headers });
+    return this.http.get<GetRecordDocumentsResponse>(apiUrl, { headers });
   }
 
   getRecordComments(recordId: string) {
@@ -95,7 +95,7 @@ export class AccelaService {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     });
-    return this.http.get<any>(apiUrl, { headers });
+    return this.http.get<GetRecordCommentsResponse>(apiUrl, { headers });
   }
 
   obtainDocumentBlob(specifiedDocument: any): Observable<Blob> {
