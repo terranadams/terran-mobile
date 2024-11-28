@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AccelaService } from './accela.service';
 import { AnimationController, LoadingController } from '@ionic/angular';
-import { AccessTokenResponse } from './models';
+import { AccessTokenResponse, Record as CustomRecord} from './models';
 
 @Component({
   selector: 'app-accela',
@@ -52,7 +52,7 @@ export class AccelaPage implements OnInit {
         this.accelaService.getRecords(this.accelaService.accessToken).subscribe(
           (response) => {
             if (response && response.result && response.result.length > 0) {
-              this.accelaService.recordsArray = response.result.map((record: any) => ({
+              this.accelaService.recordsArray = response.result.map((record: CustomRecord) => ({
                 name: record.name,
                 value: record.value,
                 assignedUser: record.assignedUser,

@@ -368,7 +368,7 @@ export interface DisplayedRecordDetails {
   value: string;
   assignedUser: string;
   type: string;
-  status: string;
+  status: TextValue;
 }
 
 export interface DisplayedInspectionDetails {
@@ -381,6 +381,7 @@ export interface DisplayedInspectionDetails {
   type: string;
   totalTime: string;
 }
+
 
 export interface AccessTokenResponse {
   access_token: string;
