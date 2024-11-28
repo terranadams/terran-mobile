@@ -9,13 +9,11 @@ export interface Params {
   username: string;
 }
 
-// Represents a generic text-value pair used in the response
 export interface TextValue {
   text: string;
   value: string;
 }
 
-// Represents the type information of a record
 export interface RecordType {
   alias: string;
   category: string;
@@ -29,26 +27,24 @@ export interface RecordType {
   value: string;
 }
 
-// Represents renewal information
 export interface RenewalInfo {
-  expirationDate: string; // ISO date string
+  expirationDate: string;
   expirationStatus: TextValue;
 }
 
-// Represents a record in the response
 export interface Record {
   actualProductionUnit: number;
-  appearanceDate: string; // ISO date string
+  appearanceDate: string;
   appearanceDayOfWeek: string;
-  assignedDate: string; // ISO date string
+  assignedDate: string;
   assignedToDepartment: string;
   assignedUser: string;
   balance: number;
   booking: boolean;
   closedByDepartment: string;
   closedByUser: string;
-  closedDate: string; // ISO date string
-  completeDate: string; // ISO date string
+  closedDate: string;
+  completeDate: string;
   completedByDepartment: string;
   completedByUser: string;
   constructionType: TextValue;
@@ -62,10 +58,10 @@ export interface Record {
   enforceUser: string;
   enforceUserId: string;
   estimatedCostPerUnit: number;
-  estimatedDueDate: string; // ISO date string
+  estimatedDueDate: string;
   estimatedProductionUnit: number;
   estimatedTotalJobCost: number;
-  firstIssuedDate: string; // ISO date string
+  firstIssuedDate: string;
   housingUnits: number;
   id: string;
   inPossessionTime: number;
@@ -80,21 +76,21 @@ export interface Record {
   name: string;
   numberOfBuildings: number;
   offenseWitnessed: boolean;
-  openedDate: string; // ISO date string
+  openedDate: string;
   overallApplicationTime: number;
   priority: TextValue;
   publicOwned: boolean;
   recordClass: string;
   renewalInfo: RenewalInfo;
   reportedChannel: TextValue;
-  reportedDate: string; // ISO date string
+  reportedDate: string;
   reportedType: TextValue;
-  scheduledDate: string; // ISO date string
+  scheduledDate: string;
   serviceProviderCode: string;
   severity: TextValue;
   shortNotes: string;
   status: TextValue;
-  statusDate: string; // ISO date string
+  statusDate: string;
   statusReason: TextValue;
   totalFee: number;
   totalJobCost: number;
@@ -105,13 +101,11 @@ export interface Record {
   value: string;
 }
 
-// Represents the overall response structure of the getRecords API
 export interface GetRecordsResponse {
   result: Record[];
   status: number;
 }
 
-// Represents address information
 export interface Address {
   addressLine1: string;
   addressLine2: string;
@@ -167,7 +161,6 @@ export interface Address {
   yCoordinate: number;
 }
 
-// Represents record ID
 export interface RecordId {
   customId: string;
   id: string;
@@ -176,16 +169,15 @@ export interface RecordId {
   value: string;
 }
 
-// Represents contact information
 export interface Contact {
   address: Address;
   birthCity: TextValue;
-  birthDate: string; // ISO date string
+  birthDate: string;
   birthRegion: TextValue;
   birthState: TextValue;
   businessName: string;
   comment: string;
-  deceasedDate: string; // ISO date string
+  deceasedDate: string;
   driverLicenseNumber: string;
   driverLicenseState: TextValue;
   email: string;
@@ -222,7 +214,6 @@ export interface Contact {
   type: TextValue;
 }
 
-// Represents inspection result
 export interface InspectionResult {
   teamName: string;
   floor: string;
@@ -233,17 +224,17 @@ export interface InspectionResult {
   commentDisplay: string;
   commentPublicVisible: string[];
   completedAMPM: string;
-  completedDate: string; // ISO date string
+  completedDate: string;
   completedTime: string;
   contact: Contact;
   contactFirstName: string;
   contactLastName: string;
   contactMiddleName: string;
   desiredAMPM: string;
-  desiredDate: string; // ISO date string
+  desiredDate: string;
   desiredTime: string;
   endMileage: number;
-  endTime: string; // ISO date string
+  endTime: string;
   estimatedEndTime: string;
   estimatedStartTime: string;
   gisAreaName: string;
@@ -263,7 +254,7 @@ export interface InspectionResult {
   recordType: RecordType;
   requestAMPM: string;
   requestComment: string;
-  requestDate: string; // ISO date string
+  requestDate: string;
   requestTime: string;
   requestorFirstName: string;
   requestorLastName: string;
@@ -274,17 +265,17 @@ export interface InspectionResult {
   requiredInspection: string;
   resultComment: string;
   resultType: string;
-  scheduleDate: string; // ISO date string
+  scheduleDate: string;
   scheduleEndAMPM: string;
   scheduleEndTime: string;
   scheduleStartAMPM: string;
   scheduleStartTime: string;
   serviceProviderCode: string;
   startMileage: number;
-  startTime: string; // ISO date string
+  startTime: string;
   status: TextValue;
   submitAMPM: string;
-  submitDate: string; // ISO date string
+  submitDate: string;
   submitTime: string;
   totalMileage: number;
   totalScore: number;
@@ -301,19 +292,16 @@ export interface InspectionResult {
   vehicleId: string;
 }
 
-// Represents the overall response structure for the getRecordInspections API
 export interface GetRecordInspectionsResponse {
   result: InspectionResult[];
   status: number;
 }
 
-// Represents a document group
 export interface DocumentGroup {
   text: string;
   value: string;
 }
 
-// Represents a document in the getRecordDocuments API response
 export interface Document {
   deletable: boolean;
   downloadable: boolean;
@@ -325,13 +313,11 @@ export interface Document {
   viewable: boolean;
 }
 
-// Represents the overall response structure for the getRecordDocuments API
 export interface GetRecordDocumentsResponse {
   result: Document[];
   status: number;
 }
 
-// Define the interface for the recordId object
 export interface RecordId {
   customId: string;
   id: string;
@@ -340,17 +326,15 @@ export interface RecordId {
   value: string;
 }
 
-// Define the interface for an individual comment
 export interface RecordComment {
   createdBy: string;
-  createdDate: string; // Use ISO 8601 date format as a string
+  createdDate: string;
   displayOnInspection: 'Y' | 'N'; // Assumes values are either 'Y' or 'N'
   id: number;
   recordId: RecordId;
   text: string;
 }
 
-// Define the interface for the API response
 export interface GetRecordCommentsResponse {
   result: RecordComment[];
   status: number;
@@ -359,8 +343,7 @@ export interface GetRecordCommentsResponse {
 export interface Document {
   id: string;
   fileName: string;
-  // Add any additional properties that `specifiedDocument` might have
-  [key: string]: any; // Optional: to allow other dynamic properties if needed
+  [key: string]: any;
 }
 
 export interface DisplayedRecordDetails {

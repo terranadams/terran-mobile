@@ -45,6 +45,7 @@ export class RecordDetailPage implements OnInit {
       this.accelaService.getRecordComments(this.record.value),
     ]).subscribe(
       ([inspectionsResponse, documentsResponse, commentsResponse]) => {
+
         // Handle inspections response
         if (
           inspectionsResponse &&
@@ -75,16 +76,13 @@ export class RecordDetailPage implements OnInit {
           documentsResponse.result &&
           documentsResponse.result.length > 0
         ) {
-          // console.log('documents', documentsResponse);
           // Map through documents and store relevant properties in documentsArray
           this.documentsArray = documentsResponse.result.map(
             (document: any) => ({
               id: document.id,
               fileName: document.fileName,
-              // Add other properties as needed
             })
           );
-          // console.log(this.documentsArray);
         } else {
           console.log('No documents found.');
         }
@@ -152,13 +150,6 @@ export class RecordDetailPage implements OnInit {
     const actionSheet = await this.actionSheetController.create({
       header: 'Actions',
       buttons: [
-        // {
-        //   text: 'Download',
-        //   role: 'download',
-        //   handler: async () => {
-        //     this.downloadDocument(specifiedDocument);
-        //   },
-        // },
         {
           text: 'View',
           role: 'view',
