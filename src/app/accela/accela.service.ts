@@ -27,13 +27,13 @@ export class AccelaService {
   public recordsArray: DisplayedRecordDetails[] = [];
   public selectedInspection: DisplayedInspectionDetails = {
     address: '',
-    id: '',
+    id: 0,
     inspectorFullName: '',
     resultComment: '',
     resultType: '',
     status: '',
     type: '',
-    totalTime: '',
+    totalTime: 0,
   };
 
   constructor(

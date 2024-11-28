@@ -356,13 +356,13 @@ export interface DisplayedRecordDetails {
 
 export interface DisplayedInspectionDetails {
   address: string;
-  id: string;
+  id: number;
   inspectorFullName: string;
   resultComment: string;
   resultType: string;
   status: string;
   type: string;
-  totalTime: string;
+  totalTime: number;
 }
 
 

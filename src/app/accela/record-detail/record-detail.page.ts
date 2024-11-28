@@ -5,7 +5,7 @@ import { forkJoin } from 'rxjs';
 import { ActionSheetController } from '@ionic/angular';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { Share } from '@capacitor/share';
-import { DisplayedRecordDetails, Document, Record } from '../models';
+import { DisplayedInspectionDetails, DisplayedRecordDetails, Document, InspectionResult, Record } from '../models';
 
 @Component({
   selector: 'app-record-detail',
@@ -15,7 +15,7 @@ import { DisplayedRecordDetails, Document, Record } from '../models';
 export class RecordDetailPage implements OnInit {
   urlValue!: string | null;
   record!: DisplayedRecordDetails | undefined;;
-  inspectionsArray: any[] = [];
+  inspectionsArray: DisplayedInspectionDetails[] = [];
   inspectionsLoading: boolean = true;
   documentsArray: any[] = [];
   documentsLoading: boolean = true;
@@ -61,9 +61,9 @@ export class RecordDetailPage implements OnInit {
           ) {
             console.log('inspections', inspectionsResponse);
             this.inspectionsArray = inspectionsResponse.result.map(
-              (inspection: any) => ({
-                address: inspection.address,
-                id: inspection.id,
+              (inspection: InspectionResult) => ({
+                address: inspection.address.streetAddress,
+                id: Number(inspection.id),
                 inspectorFullName: inspection.inspectorFullName,
                 resultComment: inspection.resultComment,
                 resultType: inspection.resultType,
