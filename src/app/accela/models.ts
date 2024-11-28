@@ -363,3 +363,10 @@ export interface Document {
   [key: string]: any; // Optional: to allow other dynamic properties if needed
 }
 
+export interface DisplayedRecordDetails {
+  name: string;
+  value: string;
+  assignedUser: string;
+  type: string;
+  status: string;
+}

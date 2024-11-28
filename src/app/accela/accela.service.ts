@@ -7,14 +7,14 @@ import {
 import { File } from '@ionic-native/file/ngx';
 import { Observable } from 'rxjs';
 import { HttpResponse } from '@capacitor/core';
-import { GetRecordCommentsResponse, GetRecordDocumentsResponse, GetRecordInspectionsResponse, GetRecordsResponse, Params } from './models';
+import { DisplayedRecordDetails, GetRecordCommentsResponse, GetRecordDocumentsResponse, GetRecordInspectionsResponse, GetRecordsResponse, Params } from './models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccelaService {
   public accessToken: string | undefined;
-  public recordsArray: any[] = [];
+  public recordsArray: DisplayedRecordDetails[] = [];
   public selectedInspection: any = {}
 
   constructor(
