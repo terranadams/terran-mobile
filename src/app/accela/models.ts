@@ -365,6 +365,16 @@ export interface DisplayedInspectionDetails {
   totalTime: number;
 }
 
+export interface DisplayedDocumentDetails {
+  id: string,
+  fileName: string
+}
+
+export interface DisplayedCommentDetails {
+  id: string,
+  text: string
+}
+
 
 export interface AccessTokenResponse {
   access_token: string;

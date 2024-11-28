@@ -5,7 +5,7 @@ import { forkJoin } from 'rxjs';
 import { ActionSheetController } from '@ionic/angular';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { Share } from '@capacitor/share';
-import { DisplayedInspectionDetails, DisplayedRecordDetails, Document, InspectionResult, Record } from '../models';
+import { DisplayedCommentDetails, DisplayedDocumentDetails, DisplayedInspectionDetails, DisplayedRecordDetails, Document, InspectionResult, Record, RecordComment } from '../models';
 
 @Component({
   selector: 'app-record-detail',
@@ -17,9 +17,9 @@ export class RecordDetailPage implements OnInit {
   record!: DisplayedRecordDetails | undefined;;
   inspectionsArray: DisplayedInspectionDetails[] = [];
   inspectionsLoading: boolean = true;
-  documentsArray: any[] = [];
+  documentsArray: DisplayedDocumentDetails[] = [];
   documentsLoading: boolean = true;
-  commentsArray: any[] = [];
+  commentsArray: DisplayedCommentDetails[] = [];
   commentsLoading: boolean = true;
   imageBlobUrl!: string;
   selectedDocumentImageBlobUrl: string | null = null;
