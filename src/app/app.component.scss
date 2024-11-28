@@ -1,3 +1,9 @@
 ion-content {
   --overflow: hidden;
 }
+
+
+  h3 {
+    margin-left: 15px; // Ensures no default margins interfere with centering
+  }
+

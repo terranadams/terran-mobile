@@ -4,20 +4,18 @@
   -->
   <ion-menu side="start" contentId="main">
     <ion-header>
-      <ion-toolbar><h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My Apps</h3></ion-toolbar>
+      <ion-toolbar><h3>My Apps</h3></ion-toolbar>
     </ion-header>
 
     <ion-content>
       <ion-list>
         <ion-menu-toggle>
-          <!-- <ion-item routerLink="/"> -->
           <ion-item (click)="toHome()">
             <ion-icon name="home" slot="start"></ion-icon>
             <ion-label>Home</ion-label>
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
-          <!-- <ion-item routerLink="/pokedex/discover"> -->
           <ion-item (click)="toPokedex()">
             <ion-icon name="bug" slot="start"></ion-icon>
             <ion-label>Pokédex</ion-label>
@@ -35,10 +33,6 @@
             <ion-label>Accela</ion-label>
           </ion-item>
         </ion-menu-toggle>
-          <!-- <ion-item (click)="onLogout()">
-            <ion-icon name="exit" slot="start"></ion-icon>
-            <ion-label>Logout</ion-label>
-          </ion-item> -->
       </ion-list>
     </ion-content>
   </ion-menu>
