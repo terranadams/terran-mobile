@@ -5,6 +5,7 @@ import { forkJoin } from 'rxjs';
 import { ActionSheetController } from '@ionic/angular';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { Share } from '@capacitor/share';
+import { Document } from '../models';
 
 @Component({
   selector: 'app-record-detail',
@@ -215,7 +216,7 @@ export class RecordDetailPage implements OnInit {
     );
   }
 
-  private shareDocument(specifiedDocument: any) {
+  private shareDocument(specifiedDocument: Document) {
     this.accelaService
       .obtainDocumentBlob(specifiedDocument)
       .subscribe(async (blob: Blob) => {
@@ -252,35 +253,4 @@ export class RecordDetailPage implements OnInit {
     this.selectedDocumentImageBlobUrl = null;
   }
 
-  // async downloadDocument(specifiedDocument: any) {
-  //   try {
-  //     this.accelaService.obtainDocumentBlob(specifiedDocument).subscribe(
-  //       async (blob: Blob) => {
-  //         const fileName = specifiedDocument.fileName; // Adjust based on your API response
-
-  //         // Convert the Blob to a Base64 encoded string
-  //         const base64Data = await this.convertBlobToBase64(blob);
-
-  //         const result = await Filesystem.writeFile({
-  //           path: fileName,
-  //           data: base64Data,
-  //           directory: Directory.Documents,
-  //           recursive: true,
-  //           encoding: Encoding.UTF8,
-  //         });
-
-  //         if (result) {
-  //           console.log('File saved successfully:', result.uri);
-  //         } else {
-  //           console.error('File save failed.');
-  //         }
-  //       },
-  //       (error) => {
-  //         console.error('Error downloading file:', error);
-  //       }
-  //     );
-  //   } catch (error) {
-  //     console.error('Error downloading or saving file:', error);
-  //   }
-  // }
 }

@@ -356,3 +356,10 @@ export interface GetRecordCommentsResponse {
   status: number;
 }
 
+export interface Document {
+  id: string;
+  fileName: string;
+  // Add any additional properties that `specifiedDocument` might have
+  [key: string]: any; // Optional: to allow other dynamic properties if needed
+}
+
