@@ -7,7 +7,7 @@ import {
 import { File } from '@ionic-native/file/ngx';
 import { Observable } from 'rxjs';
 import { HttpResponse } from '@capacitor/core';
-import { Params } from './models';
+import { GetRecordsResponse, Params } from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -65,7 +65,7 @@ export class AccelaService {
       'Content-Type': 'application/json',
     });
 
-    return this.http.get<any>(apiUrl, { headers });
+    return this.http.get<GetRecordsResponse>(apiUrl, { headers });
   }
 
   getRecordInspections(recordId: string) {
