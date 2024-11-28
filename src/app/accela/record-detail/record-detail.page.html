@@ -4,12 +4,12 @@
       <!-- <ion-menu-button></ion-menu-button> -->
       <ion-back-button defaultHref="/accela"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{record.value}}</ion-title>
+    <ion-title *ngIf="record">{{record.value}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-text-center ion-padding">
-  <ion-card>
+  <ion-card *ngIf="record">
     <ion-card-content>
       <ion-item *ngIf="record.name">
         <ion-label>Name:</ion-label>

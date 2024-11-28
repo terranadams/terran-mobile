@@ -5,7 +5,7 @@ import { forkJoin } from 'rxjs';
 import { ActionSheetController } from '@ionic/angular';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { Share } from '@capacitor/share';
-import { Document } from '../models';
+import { DisplayedRecordDetails, Document, Record } from '../models';
 
 @Component({
   selector: 'app-record-detail',
@@ -13,8 +13,8 @@ import { Document } from '../models';
   styleUrls: ['./record-detail.page.scss'],
 })
 export class RecordDetailPage implements OnInit {
-  urlValue!: any;
-  record!: any;
+  urlValue!: string | null;
+  record!: DisplayedRecordDetails | undefined;;
   inspectionsArray: any[] = [];
   inspectionsLoading: boolean = true;
   documentsArray: any[] = [];
@@ -32,89 +32,96 @@ export class RecordDetailPage implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap) => {
+      // Set the urlValue from the route parameter
       this.urlValue = paramMap.get('record-detail');
+
+      // Find the matching record from the service
       this.record = this.accelaService.recordsArray.filter(
         (record) => record.value === this.urlValue
       )[0];
-    });
 
-    // Use forkJoin to run both API calls simultaneously
-    forkJoin([
-      this.accelaService.getRecordInspections(this.record.value),
-      this.accelaService.getRecordDocuments(this.record.value),
-      this.accelaService.getRecordComments(this.record.value),
-    ]).subscribe(
-      ([inspectionsResponse, documentsResponse, commentsResponse]) => {
-
-        // Handle inspections response
-        if (
-          inspectionsResponse &&
-          inspectionsResponse.result &&
-          inspectionsResponse.result.length > 0
-        ) {
-          console.log('inspections', inspectionsResponse);
-          this.inspectionsArray = inspectionsResponse.result.map(
-            (inspection: any) => ({
-              address: inspection.address,
-              id: inspection.id,
-              inspectorFullName: inspection.inspectorFullName,
-              resultComment: inspection.resultComment,
-              resultType: inspection.resultType,
-              status: inspection.status.value,
-              type: inspection.type.value,
-              totalTime: inspection.totalTime,
-            })
-          );
-        } else {
-          console.log('No inspections found.');
-        }
-        this.inspectionsLoading = false;
-
-        // Handle documents response
-        if (
-          documentsResponse &&
-          documentsResponse.result &&
-          documentsResponse.result.length > 0
-        ) {
-          // Map through documents and store relevant properties in documentsArray
-          this.documentsArray = documentsResponse.result.map(
-            (document: any) => ({
-              id: document.id,
-              fileName: document.fileName,
-            })
-          );
-        } else {
-          console.log('No documents found.');
-        }
-        this.documentsLoading = false;
-
-        // Handle comments response
-        if (
-          commentsResponse &&
-          commentsResponse.result &&
-          commentsResponse.result.length > 0
-        ) {
-          this.commentsArray = commentsResponse.result.map(
-            (comment: any) => ({
-              id: comment.id,
-              text: comment.text
-              // Add other properties as needed
-            })
-          );
-          console.log('commentsArray', this.commentsArray)
-        } else {
-          console.log('No comments found')
-        }
-        this.commentsLoading = false
-      },
-      (error) => {
-        console.error('Error fetching data:', error);
-        this.inspectionsLoading = false;
-        this.documentsLoading = false;
-        this.commentsLoading = false;
+      // Check if record is defined before proceeding
+      if (!this.record) {
+        console.error('Record not found');
+        return; // Exit early if record is undefined
       }
-    );
+
+      // Proceed only if `this.record` is defined
+      forkJoin([
+        this.accelaService.getRecordInspections(this.record.value),
+        this.accelaService.getRecordDocuments(this.record.value),
+        this.accelaService.getRecordComments(this.record.value),
+      ]).subscribe(
+        ([inspectionsResponse, documentsResponse, commentsResponse]) => {
+          // Handle inspections response
+          if (
+            inspectionsResponse &&
+            inspectionsResponse.result &&
+            inspectionsResponse.result.length > 0
+          ) {
+            console.log('inspections', inspectionsResponse);
+            this.inspectionsArray = inspectionsResponse.result.map(
+              (inspection: any) => ({
+                address: inspection.address,
+                id: inspection.id,
+                inspectorFullName: inspection.inspectorFullName,
+                resultComment: inspection.resultComment,
+                resultType: inspection.resultType,
+                status: inspection.status.value,
+                type: inspection.type.value,
+                totalTime: inspection.totalTime,
+              })
+            );
+          } else {
+            console.log('No inspections found.');
+          }
+          this.inspectionsLoading = false;
+
+          // Handle documents response
+          if (
+            documentsResponse &&
+            documentsResponse.result &&
+            documentsResponse.result.length > 0
+          ) {
+            this.documentsArray = documentsResponse.result.map(
+              (document: any) => ({
+                id: document.id,
+                fileName: document.fileName,
+              })
+            );
+          } else {
+            console.log('No documents found.');
+          }
+          this.documentsLoading = false;
+
+          // Handle comments response
+          if (
+            commentsResponse &&
+            commentsResponse.result &&
+            commentsResponse.result.length > 0
+          ) {
+            this.commentsArray = commentsResponse.result.map(
+              (comment: any) => ({
+                id: comment.id,
+                text: comment.text,
+              })
+            );
+            console.log('commentsArray', this.commentsArray);
+          } else {
+            console.log('No comments found');
+          }
+          this.commentsLoading = false;
+        },
+        (error) => {
+          console.error('Error fetching data:', error);
+          this.inspectionsLoading = false;
+          this.documentsLoading = false;
+          this.commentsLoading = false;
+        }
+      );
+    });
   }
+
 
   saveInspData(id: number) {
     this.accelaService.selectedInspection = this.inspectionsArray.filter(
