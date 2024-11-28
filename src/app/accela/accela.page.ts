@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AccelaService } from './accela.service';
 import { AnimationController, LoadingController } from '@ionic/angular';
+import { AccessTokenResponse } from './models';
 
 @Component({
   selector: 'app-accela',
@@ -28,7 +29,7 @@ export class AccelaPage implements OnInit {
         loadingEl.present();
 
         this.accelaService.getAccessToken().subscribe(
-          (response: any) => {
+          (response: AccessTokenResponse) => {
             this.accelaService.accessToken = response.access_token;
             console.log(`Access token: ${this.accelaService.accessToken}`);
             loadingEl.dismiss();

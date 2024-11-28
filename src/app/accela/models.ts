@@ -370,3 +370,22 @@ export interface DisplayedRecordDetails {
   type: string;
   status: string;
 }
+
+export interface DisplayedInspectionDetails {
+  address: string;
+  id: string;
+  inspectorFullName: string;
+  resultComment: string;
+  resultType: string;
+  status: string;
+  type: string;
+  totalTime: string;
+}
+
+export interface AccessTokenResponse {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  refresh_token: string;
+  scope: string;
+}

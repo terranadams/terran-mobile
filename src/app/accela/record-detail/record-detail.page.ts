@@ -125,13 +125,6 @@ export class RecordDetailPage implements OnInit {
   }
 
   public actionSheetButtons = [
-    // {
-    //   text: 'Download',
-    //   role: 'download',
-    //   data: {
-    //     action: 'download',
-    //   },
-    // },
     {
       text: 'View',
       role: 'view',

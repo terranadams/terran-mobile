@@ -7,7 +7,17 @@ import {
 import { File } from '@ionic-native/file/ngx';
 import { Observable } from 'rxjs';
 import { HttpResponse } from '@capacitor/core';
-import { DisplayedRecordDetails, GetRecordCommentsResponse, GetRecordDocumentsResponse, GetRecordInspectionsResponse, GetRecordsResponse, Params } from './models';
+import {
+  AccessTokenResponse,
+  DisplayedInspectionDetails,
+  DisplayedRecordDetails,
+  Document,
+  GetRecordCommentsResponse,
+  GetRecordDocumentsResponse,
+  GetRecordInspectionsResponse,
+  GetRecordsResponse,
+  Params,
+} from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +25,16 @@ import { DisplayedRecordDetails, GetRecordCommentsResponse, GetRecordDocumentsRe
 export class AccelaService {
   public accessToken: string | undefined;
   public recordsArray: DisplayedRecordDetails[] = [];
-  public selectedInspection: any = {}
+  public selectedInspection: DisplayedInspectionDetails = {
+    address: '',
+    id: '',
+    inspectorFullName: '',
+    resultComment: '',
+    resultType: '',
+    status: '',
+    type: '',
+    totalTime: '',
+  };
 
   constructor(
     private http: HttpClient,
@@ -24,19 +43,19 @@ export class AccelaService {
   ) {}
 
   getSelectedInspection() {
-    return this.selectedInspection
+    return this.selectedInspection;
   }
 
   private encodeFormParams(params: Params): string {
     return Object.entries(params)
       .map(
-        ([key, value]) => encodeURIComponent(key) + '=' + encodeURIComponent(value)
+        ([key, value]) =>
+          encodeURIComponent(key) + '=' + encodeURIComponent(value)
       )
       .join('&');
   }
 
-
-  getAccessToken() {
+  getAccessToken(): Observable<AccessTokenResponse> {
     const apiUrl = 'https://auth.accela.com/oauth2/token';
 
     const body = {
@@ -54,7 +73,7 @@ export class AccelaService {
       'Content-Type': 'application/x-www-form-urlencoded',
     });
 
-    return this.http.post(apiUrl, this.encodeFormParams(body), { headers });
+    return this.http.post<AccessTokenResponse>(apiUrl, this.encodeFormParams(body), { headers });
   }
 
   getRecords(accessToken: string | undefined) {
@@ -98,7 +117,7 @@ export class AccelaService {
     return this.http.get<GetRecordCommentsResponse>(apiUrl, { headers });
   }
 
-  obtainDocumentBlob(specifiedDocument: any): Observable<Blob> {
+  obtainDocumentBlob(specifiedDocument: Document): Observable<Blob> {
     const apiUrl = `https://apis.accela.com/v4/documents/${specifiedDocument.id}/download`;
     const headers = new HttpHeaders({
       Authorization: `${this.accessToken}`,
