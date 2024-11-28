@@ -110,3 +110,200 @@ export interface GetRecordsResponse {
   result: Record[];
   status: number;
 }
+
+// Represents address information
+export interface Address {
+  addressLine1: string;
+  addressLine2: string;
+  addressTypeFlag: TextValue;
+  city: string;
+  country: TextValue;
+  crossStreetNameStart: string;
+  crossStreetNameEnd: string;
+  county: string;
+  description: string;
+  direction: TextValue;
+  distance: number;
+  houseAlphaStart: string;
+  houseAlphaEnd: string;
+  houseFractionStart: TextValue;
+  houseFractionEnd: TextValue;
+  id: number;
+  inspectionDistrict: string;
+  inspectionDistrictPrefix: string;
+  isPrimary: string;
+  levelEnd: string;
+  levelPrefix: string;
+  levelStart: string;
+  locationType: string;
+  neighborhood: string;
+  neighborhoodPrefix: string;
+  postalCode: string;
+  recordId: RecordId;
+  refAddressId: number;
+  secondaryStreet: string;
+  secondaryStreetNumber: number;
+  serviceProviderCode: string;
+  state: TextValue;
+  status: TextValue;
+  streetAddress: string;
+  streetEnd: number;
+  streetEndFrom: number;
+  streetEndTo: number;
+  streetName: string;
+  streetNameStart: string;
+  streetNameEnd: string;
+  streetPrefix: string;
+  streetStart: number;
+  streetStartFrom: number;
+  streetStartTo: number;
+  streetSuffix: TextValue;
+  streetSuffixDirection: TextValue;
+  type: TextValue;
+  unitStart: string;
+  unitEnd: string;
+  unitType: TextValue;
+  xCoordinate: number;
+  yCoordinate: number;
+}
+
+// Represents record ID
+export interface RecordId {
+  customId: string;
+  id: string;
+  serviceProviderCode: string;
+  trackingId: number;
+  value: string;
+}
+
+// Represents contact information
+export interface Contact {
+  address: Address;
+  birthCity: TextValue;
+  birthDate: string; // ISO date string
+  birthRegion: TextValue;
+  birthState: TextValue;
+  businessName: string;
+  comment: string;
+  deceasedDate: string; // ISO date string
+  driverLicenseNumber: string;
+  driverLicenseState: TextValue;
+  email: string;
+  fax: string;
+  faxCountryCode: string;
+  federalEmployerId: string;
+  firstName: string;
+  fullName: string;
+  gender: TextValue;
+  id: string;
+  individualOrOrganization: string;
+  lastName: string;
+  middleName: string;
+  organizationName: string;
+  passportNumber: string;
+  phone1: string;
+  phone1CountryCode: string;
+  phone2: string;
+  phone2CountryCode: string;
+  phone3: string;
+  phone3CountryCode: string;
+  postOfficeBox: string;
+  preferredChannel: TextValue;
+  race: TextValue;
+  relation: TextValue;
+  salutation: TextValue;
+  serviceProviderCode: string;
+  socialSecurityNumber: string;
+  stateIdNumber: string;
+  status: TextValue;
+  suffix: string;
+  title: string;
+  tradeName: string;
+  type: TextValue;
+}
+
+// Represents inspection result
+export interface InspectionResult {
+  teamName: string;
+  floor: string;
+  floorUnit: string;
+  address: Address;
+  billable: string;
+  category: string;
+  commentDisplay: string;
+  commentPublicVisible: string[];
+  completedAMPM: string;
+  completedDate: string; // ISO date string
+  completedTime: string;
+  contact: Contact;
+  contactFirstName: string;
+  contactLastName: string;
+  contactMiddleName: string;
+  desiredAMPM: string;
+  desiredDate: string; // ISO date string
+  desiredTime: string;
+  endMileage: number;
+  endTime: string; // ISO date string
+  estimatedEndTime: string;
+  estimatedStartTime: string;
+  gisAreaName: string;
+  grade: string;
+  id: number;
+  inspectorFullName: string;
+  inspectorId: string;
+  isAutoAssign: string;
+  latitude: number;
+  longitude: number;
+  majorViolation: number;
+  overtime: string;
+  priority: number;
+  publicVisible: string;
+  record: Record;
+  recordId: RecordId;
+  recordType: RecordType;
+  requestAMPM: string;
+  requestComment: string;
+  requestDate: string; // ISO date string
+  requestTime: string;
+  requestorFirstName: string;
+  requestorLastName: string;
+  requestorMiddleName: string;
+  requestorPhone: string;
+  requestorPhoneIDD: string;
+  requestorUserId: string;
+  requiredInspection: string;
+  resultComment: string;
+  resultType: string;
+  scheduleDate: string; // ISO date string
+  scheduleEndAMPM: string;
+  scheduleEndTime: string;
+  scheduleStartAMPM: string;
+  scheduleStartTime: string;
+  serviceProviderCode: string;
+  startMileage: number;
+  startTime: string; // ISO date string
+  status: TextValue;
+  submitAMPM: string;
+  submitDate: string; // ISO date string
+  submitTime: string;
+  totalMileage: number;
+  totalScore: number;
+  totalTime: number;
+  type: {
+    group: string;
+    id: number;
+    ivrNumber: number;
+    text: string;
+    value: string;
+  };
+  unitNumber: string;
+  units: number;
+  vehicleId: string;
+}
+
+// Represents the overall response structure for the getRecordInspections API
+export interface GetRecordInspectionsResponse {
+  result: InspectionResult[];
+  status: number;
+}
+
