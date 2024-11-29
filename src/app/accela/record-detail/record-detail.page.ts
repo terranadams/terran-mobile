@@ -123,7 +123,7 @@ export class RecordDetailPage implements OnInit {
   }
 
 
-  saveInspData(id: number) {
+  public saveInspData(id: number) {
     this.accelaService.selectedInspection = this.inspectionsArray.filter(
       (inspection) => inspection.id === id
     )[0];
@@ -240,7 +240,7 @@ export class RecordDetailPage implements OnInit {
       });
   }
 
-  closeImage() {
+  public closeImage() {
     this.selectedDocumentImageBlobUrl = null;
   }
 
