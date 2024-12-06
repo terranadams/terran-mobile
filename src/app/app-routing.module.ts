@@ -19,10 +19,6 @@ const routes: Routes = [
     path: 'mnist',
     loadChildren: () => import('./mnist/mnist.module').then( m => m.MnistPageModule)
   },
-  {
-    path: 'accela',
-    loadChildren: () => import('./accela/accela.module').then( m => m.AccelaPageModule)
-  },
 ];
 
 @NgModule({
