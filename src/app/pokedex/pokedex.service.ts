@@ -58,7 +58,7 @@ export class PokedexService {
     return this.http
       .get(
         `https://pokeapi.co/api/v2/pokemon/${
-          Math.floor(Math.random() * 1008) + 1
+          Math.floor(Math.random() * 1025) + 1
         }`
       )
       .pipe(
