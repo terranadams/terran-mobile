@@ -16,12 +16,34 @@ export class SignInFormComponent implements OnInit {
   constructor(private accelaService: AccelaService) {}
 
   fetchEnvironments() {
+    if (!this.agencyName.trim()) {
+      this.errorMessage = 'Please enter a valid Agency Name';
+      return;
+    }
 
+    this.accelaService.getEnvironments(this.agencyName).subscribe({
+      next: (data) => {
+        this.environments = data;
+        this.errorMessage = '';
+        console.log('Environments:', data);
+      },
+      error: (err) => {
+        this.errorMessage = 'Failed to fetch environments. Please check the Agency Name.';
+        console.error('Error fetching environments:', err);
+      },
+    });
   }
 
   onSubmit() {
-   
+    this.fetchEnvironments()
+    console.log('Submitted:', {
+      agencyName: this.agencyName,
+      username: this.username,
+      password: this.password,
+      environments: this.environments
+    });
   }
 
   ngOnInit() {}
 }
+
