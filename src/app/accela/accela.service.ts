@@ -16,7 +16,6 @@ export class AccelaService {
   getEnvironments(agencyName: string) {
     const url = `${this.baseUrl}/agencies/${agencyName}/environments`;
 
-    // Set the headers
     const headers = new HttpHeaders({
       'x-accela-appid': this.appId,
     });

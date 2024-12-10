@@ -3,14 +3,12 @@
     <ion-card-title>Sign In</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    <!-- Agency Name Input -->
     <ion-item>
       <ion-label position="floating">Agency Name</ion-label>
       <ion-input [(ngModel)]="agencyName" name="agencyName" (ngModelChange)="onAgencyNameChange()" required></ion-input>
     </ion-item>
 
 
-    <!-- Environment Selection -->
     <div *ngIf="isAgencySubmitted && environments.length > 0">
       <ion-item>
         <ion-label>Environment</ion-label>
@@ -20,27 +18,22 @@
       </ion-item>
     </div>
 
-    <!-- No environments found message -->
     <ion-text color="danger" *ngIf="isAgencySubmitted && environments.length === 0">
       <p>No environments found for the Agency Name.</p>
     </ion-text>
 
-    <!-- Username Input (Visible only after Submit) -->
     <ion-item *ngIf="isAgencySubmitted">
       <ion-label position="floating">Username</ion-label>
       <ion-input [(ngModel)]="username" name="username" required></ion-input>
     </ion-item>
 
-    <!-- Password Input (Visible only after Submit) -->
     <ion-item *ngIf="isAgencySubmitted">
       <ion-label position="floating">Password</ion-label>
       <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
     </ion-item>
 
-    <!-- Submit Button -->
     <ion-button expand="full" (click)="onSubmit()">Submit</ion-button>
 
-    <!-- Error Message -->
     <ion-text color="danger" *ngIf="errorMessage">
       <p>{{ errorMessage }}</p>
     </ion-text>
