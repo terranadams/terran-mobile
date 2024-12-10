@@ -5,37 +5,56 @@
 
   <ion-card-content>
     <form (ngSubmit)="onSubmit()">
+      <!-- Agency Name Field -->
       <ion-item>
         <ion-label position="floating">Agency Name</ion-label>
         <ion-input
+          type="text"
           [(ngModel)]="agencyName"
           name="agencyName"
-          type="text"
-          placeholder="Enter your agency name"
+          required
         ></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">Username</ion-label>
-        <ion-input
-          [(ngModel)]="username"
-          name="username"
-          type="text"
-          placeholder="Enter your username"
-        ></ion-input>
-      </ion-item>
+      <!-- Only show username and password fields after Agency Name is submitted -->
+      <div *ngIf="isAgencySubmitted">
+        <ion-item>
+          <ion-label position="floating">Username</ion-label>
+          <ion-input
+            type="text"
+            [(ngModel)]="username"
+            name="username"
+            required
+          ></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">Password</ion-label>
-        <ion-input
-          [(ngModel)]="password"
-          name="password"
-          type="password"
-          placeholder="Enter your password"
-        ></ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input
+            type="password"
+            [(ngModel)]="password"
+            name="password"
+            required
+          ></ion-input>
+        </ion-item>
 
-      <ion-button expand="full" type="submit">Submit</ion-button>
+        <!-- Environment Dropdown -->
+        <ion-item *ngIf="environments.length > 0">
+          <ion-label>Select Environment</ion-label>
+          <ion-select [(ngModel)]="selectedEnvironment" name="environment" required>
+            <ion-select-option *ngFor="let env of environments" [value]="env">
+              {{ env }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Error Message -->
+        <ion-item *ngIf="errorMessage">
+          <ion-label color="danger">{{ errorMessage }}</ion-label>
+        </ion-item>
+      </div>
+
+      <ion-button expand="full" type="submit" [disabled]="!agencyName">Submit</ion-button>
     </form>
   </ion-card-content>
 </ion-card>

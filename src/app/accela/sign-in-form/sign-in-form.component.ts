@@ -11,7 +11,10 @@ export class SignInFormComponent implements OnInit {
   username: string = '';
   password: string = '';
   environments: any[] = [];
+  selectedEnvironment: string = '';  
   errorMessage: string = '';
+  isAgencySubmitted: boolean = false;
+
 
   constructor(private accelaService: AccelaService) {}
 
@@ -22,10 +25,13 @@ export class SignInFormComponent implements OnInit {
     }
 
     this.accelaService.getEnvironments(this.agencyName).subscribe({
-      next: (data) => {
-        this.environments = data;
-        this.errorMessage = '';
-        console.log('Environments:', data);
+      next: (data: string[]) => {
+        if (data.length > 0) {
+          this.environments = data;
+          this.errorMessage = '';
+        } else {
+          this.errorMessage = 'No environments found for this Agency Name.';
+        }
       },
       error: (err) => {
         this.errorMessage = 'Failed to fetch environments. Please check the Agency Name.';
@@ -35,13 +41,8 @@ export class SignInFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isAgencySubmitted = true;
     this.fetchEnvironments()
-    console.log('Submitted:', {
-      agencyName: this.agencyName,
-      username: this.username,
-      password: this.password,
-      environments: this.environments
-    });
   }
 
   ngOnInit() {}
