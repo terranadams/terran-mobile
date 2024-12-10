@@ -2,59 +2,49 @@
   <ion-card-header>
     <ion-card-title>Sign In</ion-card-title>
   </ion-card-header>
-
   <ion-card-content>
-    <form (ngSubmit)="onSubmit()">
-      <!-- Agency Name Field -->
+    <!-- Agency Name Input -->
+    <ion-item>
+      <ion-label position="floating">Agency Name</ion-label>
+      <ion-input [(ngModel)]="agencyName" name="agencyName" (ngModelChange)="onAgencyNameChange()" required></ion-input>
+    </ion-item>
+
+
+    <!-- Environment Selection -->
+    <div *ngIf="isAgencySubmitted && environments.length > 0">
       <ion-item>
-        <ion-label position="floating">Agency Name</ion-label>
-        <ion-input
-          type="text"
-          [(ngModel)]="agencyName"
-          name="agencyName"
-          required
-        ></ion-input>
+        <ion-label>Environment</ion-label>
+        <ion-select [(ngModel)]="selectedEnvironment" name="environment" required>
+          <ion-select-option *ngFor="let env of environments" [value]="env">{{ env }}</ion-select-option>
+        </ion-select>
       </ion-item>
+    </div>
 
-      <!-- Only show username and password fields after Agency Name is submitted -->
-      <div *ngIf="isAgencySubmitted">
-        <ion-item>
-          <ion-label position="floating">Username</ion-label>
-          <ion-input
-            type="text"
-            [(ngModel)]="username"
-            name="username"
-            required
-          ></ion-input>
-        </ion-item>
+    <!-- No environments found message -->
+    <ion-text color="danger" *ngIf="isAgencySubmitted && environments.length === 0">
+      <p>No environments found for the Agency Name.</p>
+    </ion-text>
 
-        <ion-item>
-          <ion-label position="floating">Password</ion-label>
-          <ion-input
-            type="password"
-            [(ngModel)]="password"
-            name="password"
-            required
-          ></ion-input>
-        </ion-item>
+    <!-- Username Input (Visible only after Submit) -->
+    <ion-item *ngIf="isAgencySubmitted">
+      <ion-label position="floating">Username</ion-label>
+      <ion-input [(ngModel)]="username" name="username" required></ion-input>
+    </ion-item>
 
-        <!-- Environment Dropdown -->
-        <ion-item *ngIf="environments.length > 0">
-          <ion-label>Select Environment</ion-label>
-          <ion-select [(ngModel)]="selectedEnvironment" name="environment" required>
-            <ion-select-option *ngFor="let env of environments" [value]="env">
-              {{ env }}
-            </ion-select-option>
-          </ion-select>
-        </ion-item>
+    <!-- Password Input (Visible only after Submit) -->
+    <ion-item *ngIf="isAgencySubmitted">
+      <ion-label position="floating">Password</ion-label>
+      <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
+    </ion-item>
 
-        <!-- Error Message -->
-        <ion-item *ngIf="errorMessage">
-          <ion-label color="danger">{{ errorMessage }}</ion-label>
-        </ion-item>
-      </div>
+    <!-- Submit Button -->
+    <ion-button expand="full" (click)="onSubmit()">Submit</ion-button>
 
-      <ion-button expand="full" type="submit" [disabled]="!agencyName">Submit</ion-button>
-    </form>
+    <!-- Error Message -->
+    <ion-text color="danger" *ngIf="errorMessage">
+      <p>{{ errorMessage }}</p>
+    </ion-text>
+
+
   </ion-card-content>
 </ion-card>

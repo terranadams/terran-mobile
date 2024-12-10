@@ -11,12 +11,16 @@ export class SignInFormComponent implements OnInit {
   username: string = '';
   password: string = '';
   environments: any[] = [];
-  selectedEnvironment: string = '';  
+  selectedEnvironment: string = '';
   errorMessage: string = '';
   isAgencySubmitted: boolean = false;
 
 
   constructor(private accelaService: AccelaService) {}
+
+  onAgencyNameChange() {
+    this.isAgencySubmitted = false;
+  }
 
   fetchEnvironments() {
     if (!this.agencyName.trim()) {
