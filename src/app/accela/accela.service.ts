@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,5 +6,12 @@ import { Injectable } from '@angular/core';
 })
 export class AccelaService {
 
-  constructor() { }
+  private baseUrl = 'https://apis.accela.com/v4/';
+
+  constructor(private http: HttpClient) { }
+
+  getEnvironments(agencyName: string) {
+    const url = `${this.baseUrl}/agencies/${agencyName}/environments`
+    return this.http.get(url);
+  }
 }

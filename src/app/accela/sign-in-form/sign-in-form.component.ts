@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccelaService } from '../accela.service';
 
 @Component({
   selector: 'app-sign-in-form',
@@ -9,16 +10,18 @@ export class SignInFormComponent implements OnInit {
   agencyName: string = '';
   username: string = '';
   password: string = '';
+  environments: any[] = [];
+  errorMessage: string = '';
 
-  onSubmit() {
-    console.log('Form Submitted:', {
-      agencyName: this.agencyName,
-      username: this.username,
-      password: this.password,
-    });
+  constructor(private accelaService: AccelaService) {}
+
+  fetchEnvironments() {
+
   }
 
-  constructor() {}
+  onSubmit() {
+   
+  }
 
   ngOnInit() {}
 }
