@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { AccessTokenResponse, GetEnvironmentsResponse } from './models';
+import { AccessTokenResponse, GetEnvironmentsResponse, RecordItem } from './models';
 import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -60,21 +61,20 @@ export class AccelaService {
     this.accessToken = token;
   }
 
-  getMyRecords() {
-    const url = `${this.baseUrl}/records/mine`;
-
-    // Ensure the access token is available
-    if (!this.accessToken) {
-      throw new Error('Access token is not available. Please authenticate first.');
-    }
-
-    const headers = new HttpHeaders({
-      Authorization: `${this.accessToken}`,
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    });
-
-    return this.http.get(url, { headers });
+  getMyRecords(): Observable<RecordItem[]> {
+    const url = 'API_ENDPOINT_HERE'; // Replace with the correct endpoint
+    return this.http.get<any>(url).pipe(
+      map((response) =>
+        response.result.map((record: any) => ({
+          customId: record.customId || '',
+          id: record.id || '',
+          type: record.type?.type || '',
+          assignedUser: record.assignedUser || '',
+          status: record.status?.text || '',
+          value: record.value || '',
+        }))
+      )
+    );
   }
 
 }

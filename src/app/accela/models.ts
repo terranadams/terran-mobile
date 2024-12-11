@@ -14,3 +14,12 @@ export interface AccessTokenResponse {
   refresh_token: string;
   scope: string;
 }
+
+export interface RecordItem {
+  customId: string;
+  id: string;
+  type: string;
+  assignedUser: string;
+  status: string;
+  value: string;
+}

@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Records</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-card *ngFor="let record of records">
+      <ion-card-header>
+        <ion-card-title>{{ record.customId }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>ID:</strong> {{ record.id }}</p>
+        <p><strong>Type:</strong> {{ record.type }}</p>
+        <p><strong>Assigned User:</strong> {{ record.assignedUser }}</p>
+        <p><strong>Status:</strong> {{ record.status }}</p>
+        <p><strong>Value:</strong> {{ record.value }}</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>
