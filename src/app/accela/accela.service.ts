@@ -69,7 +69,7 @@ export class AccelaService {
     }
 
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.accessToken}`,
+      Authorization: `${this.accessToken}`,
       Accept: 'application/json',
       'Content-Type': 'application/json',
     });
