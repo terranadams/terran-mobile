@@ -14,15 +14,16 @@ export class SignInFormComponent implements OnInit {
   selectedEnvironment: string = '';
   errorMessage: string = '';
   isAgencySubmitted: boolean = false;
+  isAgencyNameSubmitted: boolean = false;
+  isEnvironmentsFetched: boolean = false;
+  isUsernamePasswordVisible: boolean = false;
 
 
   constructor(private accelaService: AccelaService) {}
 
-  onAgencyNameChange() {
-    this.isAgencySubmitted = false;
-  }
+  ngOnInit() {}
 
-  fetchEnvironments() {
+  getEnvironments() {
     if (!this.agencyName.trim()) {
       this.errorMessage = 'Please enter a valid Agency Name';
       return;
@@ -33,22 +34,54 @@ export class SignInFormComponent implements OnInit {
         if (data.length > 0) {
           this.environments = data;
           this.errorMessage = '';
+          this.isEnvironmentsFetched = true;
         } else {
           this.errorMessage = 'No environments found for this Agency Name.';
+          this.isEnvironmentsFetched = false;
         }
       },
       error: (err) => {
         this.errorMessage = 'Failed to fetch environments. Please check the Agency Name.';
         console.error('Error fetching environments:', err);
+        this.isEnvironmentsFetched = false;
       },
     });
   }
 
+  // This method will be called when the user clicks "Submit"
   onSubmit() {
-    this.isAgencySubmitted = true;
-    this.fetchEnvironments()
+    console.log('Form Submitted:', {
+      agencyName: this.agencyName,
+      username: this.username,
+      password: this.password,
+      selectedEnvironment: this.selectedEnvironment,
+    });
   }
 
-  ngOnInit() {}
+
+  // This method will be called when the agency name changes
+  onAgencyNameChange() {
+    this.isEnvironmentsFetched = false; // Hide environments and form fields
+    this.isUsernamePasswordVisible = false;
+    this.selectedEnvironment = '';
+  }
+
+  // This method will handle the visibility of the "Submit" button
+  toggleSubmitButton() {
+    if (this.isEnvironmentsFetched) {
+      this.isUsernamePasswordVisible = true;
+    }
+  }
+
+  // This method checks if all fields are filled and whether the Submit button should be enabled
+  isFormValid() {
+    return (
+      this.agencyName.trim() !== '' &&
+      this.username.trim() !== '' &&
+      this.password.trim() !== '' &&
+      this.selectedEnvironment.trim() !== ''
+    );
+  }
+
 }
 
