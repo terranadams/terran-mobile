@@ -1,6 +1,10 @@
 <ion-card>
   <ion-card-header>
     <ion-card-title>Sign In</ion-card-title>
+    <!-- Error Message -->
+    <ion-text color="danger" *ngIf="errorMessage">
+      <p>{{ errorMessage }}</p>
+    </ion-text>
   </ion-card-header>
   <ion-card-content>
     <!-- Agency Name Input -->
@@ -12,10 +16,6 @@
     <!-- Get Environments Button -->
     <ion-button expand="full" (click)="getEnvironments()" *ngIf="!isEnvironmentsFetched">Get Environments</ion-button>
 
-    <!-- Error Message -->
-    <ion-text color="danger" *ngIf="errorMessage">
-      <p>{{ errorMessage }}</p>
-    </ion-text>
 
     <!-- Environment Selection -->
     <div *ngIf="isEnvironmentsFetched">
