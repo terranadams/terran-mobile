@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { GetEnvironmentsResponse } from './models';
+import { AccessTokenResponse, GetEnvironmentsResponse } from './models';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -52,6 +52,6 @@ export class AccelaService {
       scope: 'records',
     };
 
-    return this.http.post<{ access_token: string }>(url, this.encodeFormParams(body), { headers });
+    return this.http.post<AccessTokenResponse>(url, this.encodeFormParams(body), { headers });
   }
 }
