@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccelaService } from '../accela.service';
+import { LoadingController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-sign-in-form',
@@ -19,7 +21,7 @@ export class SignInFormComponent implements OnInit {
   isUsernamePasswordVisible: boolean = false;
 
 
-  constructor(private accelaService: AccelaService) {}
+  constructor(private accelaService: AccelaService, private loadingController: LoadingController) {}
 
   ngOnInit() {}
 
@@ -48,23 +50,30 @@ export class SignInFormComponent implements OnInit {
     });
   }
 
-  // This method will be called when the user clicks "Submit"
-  onSubmit() {
+  async onSubmit() {
     if (!this.agencyName || !this.username || !this.password || !this.selectedEnvironment) {
       this.errorMessage = 'All fields are required!';
       return;
     }
 
+    // Show the loader
+    const loading = await this.loadingController.create({
+      message: 'Getting Access Token...',
+    });
+    await loading.present();
+
     this.accelaService
       .getAccessToken(this.username, this.password, this.agencyName, this.selectedEnvironment)
       .subscribe({
-        next: (response) => {
+        next: async (response) => {
           console.log('Access Token Response:', response);
+          await loading.dismiss(); // Dismiss the loader on success
           // Handle success, e.g., save token or navigate to a new page
         },
-        error: (err) => {
+        error: async (err) => {
           console.error('Failed to get access token:', err);
           this.errorMessage = 'Invalid credentials or request failed.';
+          await loading.dismiss(); // Dismiss the loader on error
         },
       });
   }
