@@ -60,4 +60,21 @@ export class AccelaService {
     this.accessToken = token;
   }
 
+  getMyRecords() {
+    const url = `${this.baseUrl}/records/mine`;
+
+    // Ensure the access token is available
+    if (!this.accessToken) {
+      throw new Error('Access token is not available. Please authenticate first.');
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.accessToken}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.get(url, { headers });
+  }
+
 }

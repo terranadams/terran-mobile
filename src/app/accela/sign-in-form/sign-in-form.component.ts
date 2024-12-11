@@ -68,6 +68,7 @@ export class SignInFormComponent implements OnInit {
           // console.log('Access Token Response:', response);
           this.accelaService.setAccessToken(response.access_token)
           await loading.dismiss();
+          this.getMyRecords()
         },
         error: async (err) => {
           console.error('Failed to get access token:', err);
@@ -77,9 +78,13 @@ export class SignInFormComponent implements OnInit {
       });
   }
 
+  public getMyRecords() {
+    
+  }
+
 
   public onAgencyNameChange() {
-    this.isEnvironmentsFetched = false; 
+    this.isEnvironmentsFetched = false;
     this.isUsernamePasswordVisible = false;
     this.selectedEnvironment = '';
   }
