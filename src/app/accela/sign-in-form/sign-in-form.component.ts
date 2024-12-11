@@ -56,7 +56,6 @@ export class SignInFormComponent implements OnInit {
       return;
     }
 
-    // Show the loader
     const loading = await this.loadingController.create({
       message: 'Getting Access Token...',
     });
@@ -66,27 +65,25 @@ export class SignInFormComponent implements OnInit {
       .getAccessToken(this.username, this.password, this.agencyName, this.selectedEnvironment)
       .subscribe({
         next: async (response) => {
-          console.log('Access Token Response:', response);
-          await loading.dismiss(); // Dismiss the loader on success
-          // Handle success, e.g., save token or navigate to a new page
+          // console.log('Access Token Response:', response);
+          this.accelaService.setAccessToken(response.access_token)
+          await loading.dismiss();
         },
         error: async (err) => {
           console.error('Failed to get access token:', err);
           this.errorMessage = 'Invalid credentials or request failed.';
-          await loading.dismiss(); // Dismiss the loader on error
+          await loading.dismiss();
         },
       });
   }
 
 
-  // This method will be called when the agency name changes
   public onAgencyNameChange() {
-    this.isEnvironmentsFetched = false; // Hide environments and form fields
+    this.isEnvironmentsFetched = false; 
     this.isUsernamePasswordVisible = false;
     this.selectedEnvironment = '';
   }
 
-  // This method will handle the visibility of the "Submit" button
   public toggleSubmitButton() {
     if (this.isEnvironmentsFetched) {
       this.isUsernamePasswordVisible = true;

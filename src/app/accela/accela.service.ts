@@ -10,6 +10,7 @@ import { environment } from '../../environments/environment';
 export class AccelaService {
   private baseUrl = 'https://apis.accela.com/v4';
   private appId = '637798588965730207';
+  public accessToken: string | null = null;
 
   constructor(private http: HttpClient) {}
 
@@ -54,4 +55,9 @@ export class AccelaService {
 
     return this.http.post<AccessTokenResponse>(url, this.encodeFormParams(body), { headers });
   }
+
+  setAccessToken(token: string) {
+    this.accessToken = token;
+  }
+
 }
