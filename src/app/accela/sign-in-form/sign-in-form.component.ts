@@ -25,7 +25,7 @@ export class SignInFormComponent implements OnInit {
 
   ngOnInit() {}
 
-  getEnvironments() {
+  public getEnvironments() {
     if (!this.agencyName.trim()) {
       this.errorMessage = 'Please enter a valid Agency Name';
       return;
@@ -50,7 +50,7 @@ export class SignInFormComponent implements OnInit {
     });
   }
 
-  async onSubmit() {
+  public async onSubmit() {
     if (!this.agencyName || !this.username || !this.password || !this.selectedEnvironment) {
       this.errorMessage = 'All fields are required!';
       return;
@@ -80,21 +80,21 @@ export class SignInFormComponent implements OnInit {
 
 
   // This method will be called when the agency name changes
-  onAgencyNameChange() {
+  public onAgencyNameChange() {
     this.isEnvironmentsFetched = false; // Hide environments and form fields
     this.isUsernamePasswordVisible = false;
     this.selectedEnvironment = '';
   }
 
   // This method will handle the visibility of the "Submit" button
-  toggleSubmitButton() {
+  public toggleSubmitButton() {
     if (this.isEnvironmentsFetched) {
       this.isUsernamePasswordVisible = true;
     }
   }
 
   // This method checks if all fields are filled and whether the Submit button should be enabled
-  isFormValid() {
+  public isFormValid() {
     return (
       this.agencyName.trim() !== '' &&
       this.username.trim() !== '' &&

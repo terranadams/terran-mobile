@@ -19,7 +19,7 @@ export class AccelaService {
       .join('&');
   }
 
-  getEnvironments(agencyName: string) {
+  public getEnvironments(agencyName: string) {
     const url = `${this.baseUrl}/agencies/${agencyName}/environments`;
     const headers = new HttpHeaders({
       'x-accela-appid': this.appId,
@@ -29,7 +29,7 @@ export class AccelaService {
     );
   }
 
-  getAccessToken(
+  public getAccessToken(
     username: string,
     password: string,
     agencyName: string,
