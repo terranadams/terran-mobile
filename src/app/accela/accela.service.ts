@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { GetEnvironmentsResponse } from './models';
+import { environment } from '../../environments/environment';
+
 
 
 @Injectable({
@@ -23,4 +25,23 @@ export class AccelaService {
       map((response) => response.result.map((env) => env.name)) // Map out the name of each env to an array of strings
     );
   }
+
+  getAccessToken(username: string, password: string, agencyName: string, selectedEnvironment: string) {
+    const url = 'https://apis.accela.com/oauth2/token';
+
+    const body = {
+      client_id: environment.appId, // Uses the imported 'environment'
+      client_secret: environment.clientSecret, // Uses the imported 'environment'
+      username: username,
+      password: password,
+      agency_name: agencyName,
+      environment: selectedEnvironment,
+      grant_type: 'password',
+      scope: 'records',
+    };
+
+    return this.http.post<{ access_token: string }>(url, body);
+  }
+
+
 }
