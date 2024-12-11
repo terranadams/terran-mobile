@@ -1,7 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { AccessTokenResponse, GetEnvironmentsResponse, RecordItem } from './models';
+import {
+  AccessTokenResponse,
+  GetEnvironmentsResponse,
+  RecordItem,
+} from './models';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 
@@ -17,7 +21,10 @@ export class AccelaService {
 
   private encodeFormParams(params: Record<string, string>): string {
     return Object.entries(params)
-      .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+      .map(
+        ([key, value]) =>
+          `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+      )
       .join('&');
   }
 
@@ -54,7 +61,11 @@ export class AccelaService {
       scope: 'records',
     };
 
-    return this.http.post<AccessTokenResponse>(url, this.encodeFormParams(body), { headers });
+    return this.http.post<AccessTokenResponse>(
+      url,
+      this.encodeFormParams(body),
+      { headers }
+    );
   }
 
   setAccessToken(token: string) {
@@ -62,8 +73,15 @@ export class AccelaService {
   }
 
   getMyRecords(): Observable<RecordItem[]> {
-    const url = 'API_ENDPOINT_HERE'; // Replace with the correct endpoint
-    return this.http.get<any>(url).pipe(
+    const url = `${this.baseUrl}/records/mine`;
+
+    const headers = new HttpHeaders({
+      Authorization: `${this.accessToken}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.get<any>(url, {headers}).pipe(
       map((response) =>
         response.result.map((record: any) => ({
           customId: record.customId || '',
@@ -76,5 +94,4 @@ export class AccelaService {
       )
     );
   }
-
 }
