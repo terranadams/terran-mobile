@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AccelaService } from '../accela.service';
 import { LoadingController } from '@ionic/angular';
 
-
 @Component({
   selector: 'app-sign-in-form',
   templateUrl: './sign-in-form.component.html',
@@ -19,7 +18,6 @@ export class SignInFormComponent implements OnInit {
   isAgencyNameSubmitted: boolean = false;
   isEnvironmentsFetched: boolean = false;
   isUsernamePasswordVisible: boolean = false;
-
 
   constructor(private accelaService: AccelaService, private loadingController: LoadingController) {}
 
@@ -51,37 +49,68 @@ export class SignInFormComponent implements OnInit {
   }
 
   public async onSubmit() {
-    if (!this.agencyName || !this.username || !this.password || !this.selectedEnvironment) {
+    if (!this.isFormValid()) {
       this.errorMessage = 'All fields are required!';
       return;
     }
 
+    try {
+      await this.getAccessToken();
+      await this.getMyRecords();
+    } catch (err) {
+      console.error('Error during submission:', err);
+      this.errorMessage = 'An error occurred during submission. Please try again.';
+    }
+  }
+
+  private async getAccessToken() {
     const loading = await this.loadingController.create({
       message: 'Getting Access Token...',
     });
     await loading.present();
 
-    this.accelaService
-      .getAccessToken(this.username, this.password, this.agencyName, this.selectedEnvironment)
-      .subscribe({
-        next: async (response) => {
-          // console.log('Access Token Response:', response);
-          this.accelaService.setAccessToken(response.access_token)
+    return new Promise<void>((resolve, reject) => {
+      this.accelaService
+        .getAccessToken(this.username, this.password, this.agencyName, this.selectedEnvironment)
+        .subscribe({
+          next: async (response) => {
+            console.log('Access Token Response:', response);
+            this.accelaService.setAccessToken(response.access_token);
+            await loading.dismiss();
+            resolve();
+          },
+          error: async (err) => {
+            console.error('Failed to get access token:', err);
+            this.errorMessage = 'Invalid credentials or request failed.';
+            await loading.dismiss();
+            reject(err);
+          },
+        });
+    });
+  }
+
+  private async getMyRecords() {
+    const loading = await this.loadingController.create({
+      message: 'Fetching Records...',
+    });
+    await loading.present();
+
+    return new Promise<void>((resolve, reject) => {
+      this.accelaService.getMyRecords().subscribe({
+        next: async (records) => {
+          console.log('My Records:', records);
           await loading.dismiss();
-          this.getMyRecords()
+          resolve();
         },
         error: async (err) => {
-          console.error('Failed to get access token:', err);
-          this.errorMessage = 'Invalid credentials or request failed.';
+          console.error('Failed to fetch records:', err);
+          this.errorMessage = 'Failed to fetch your records. Please try again.';
           await loading.dismiss();
+          reject(err);
         },
       });
+    });
   }
-
-  public getMyRecords() {
-    
-  }
-
 
   public onAgencyNameChange() {
     this.isEnvironmentsFetched = false;
@@ -95,7 +124,6 @@ export class SignInFormComponent implements OnInit {
     }
   }
 
-  // This method checks if all fields are filled and whether the Submit button should be enabled
   public isFormValid() {
     return (
       this.agencyName.trim() !== '' &&
@@ -104,6 +132,4 @@ export class SignInFormComponent implements OnInit {
       this.selectedEnvironment.trim() !== ''
     );
   }
-
 }
-
