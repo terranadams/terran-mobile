@@ -50,12 +50,23 @@ export class SignInFormComponent implements OnInit {
 
   // This method will be called when the user clicks "Submit"
   onSubmit() {
-    console.log('Form Submitted:', {
-      agencyName: this.agencyName,
-      username: this.username,
-      password: this.password,
-      selectedEnvironment: this.selectedEnvironment,
-    });
+    if (!this.agencyName || !this.username || !this.password || !this.selectedEnvironment) {
+      this.errorMessage = 'All fields are required!';
+      return;
+    }
+
+    this.accelaService
+      .getAccessToken(this.username, this.password, this.agencyName, this.selectedEnvironment)
+      .subscribe({
+        next: (response) => {
+          console.log('Access Token Response:', response);
+          // Handle success, e.g., save token or navigate to a new page
+        },
+        error: (err) => {
+          console.error('Failed to get access token:', err);
+          this.errorMessage = 'Invalid credentials or request failed.';
+        },
+      });
   }
 
 

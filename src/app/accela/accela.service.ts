@@ -4,17 +4,20 @@ import { map } from 'rxjs/operators';
 import { GetEnvironmentsResponse } from './models';
 import { environment } from '../../environments/environment';
 
-
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AccelaService {
-
   private baseUrl = 'https://apis.accela.com/v4';
   private appId = '637798588965730207';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
+
+  private encodeFormParams(params: Record<string, string>): string {
+    return Object.entries(params)
+      .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+      .join('&');
+  }
 
   getEnvironments(agencyName: string) {
     const url = `${this.baseUrl}/agencies/${agencyName}/environments`;
@@ -26,8 +29,17 @@ export class AccelaService {
     );
   }
 
-  getAccessToken(username: string, password: string, agencyName: string, selectedEnvironment: string) {
-    const url = 'https://apis.accela.com/oauth2/token';
+  getAccessToken(
+    username: string,
+    password: string,
+    agencyName: string,
+    selectedEnvironment: string
+  ) {
+    const url = 'https://auth.accela.com/oauth2/token';
+
+    const headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
 
     const body = {
       client_id: environment.appId, // Uses the imported 'environment'
@@ -40,8 +52,6 @@ export class AccelaService {
       scope: 'records',
     };
 
-    return this.http.post<{ access_token: string }>(url, body);
+    return this.http.post<{ access_token: string }>(url, this.encodeFormParams(body), { headers });
   }
-
-
 }
