@@ -8,5 +8,9 @@
 </ion-header>
 
 <ion-content>
-  <app-sign-in-form></app-sign-in-form>
+  <!-- Show the sign-in form if records are not yet fetched -->
+  <app-sign-in-form *ngIf="!showRecordsList" (recordsFetched)="onRecordsFetched()"></app-sign-in-form>
+
+  <!-- Show the records list if records are fetched -->
+  <app-records-list *ngIf="showRecordsList"></app-records-list>
 </ion-content>

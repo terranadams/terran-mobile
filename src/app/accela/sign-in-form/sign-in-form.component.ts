@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AccelaService } from '../accela.service';
 import { LoadingController } from '@ionic/angular';
 
@@ -18,6 +18,14 @@ export class SignInFormComponent implements OnInit {
   isAgencyNameSubmitted: boolean = false;
   isEnvironmentsFetched: boolean = false;
   isUsernamePasswordVisible: boolean = false;
+
+  @Output() recordsFetched = new EventEmitter<void>();
+
+  onFetchRecords() {
+    // Simulate a successful API call
+    this.recordsFetched.emit();
+  }
+
 
   constructor(private accelaService: AccelaService, private loadingController: LoadingController) {}
 
@@ -74,7 +82,7 @@ export class SignInFormComponent implements OnInit {
         .getAccessToken(this.username, this.password, this.agencyName, this.selectedEnvironment)
         .subscribe({
           next: async (response) => {
-            console.log('Access Token Response:', response);
+            // console.log('Access Token Response:', response);
             this.accelaService.setAccessToken(response.access_token);
             await loading.dismiss();
             resolve();
@@ -98,8 +106,9 @@ export class SignInFormComponent implements OnInit {
     return new Promise<void>((resolve, reject) => {
       this.accelaService.getMyRecords().subscribe({
         next: async (records) => {
-          console.log('My Records:', records);
+          // console.log('My Records:', records);
           await loading.dismiss();
+          this.recordsFetched.emit();
           resolve();
         },
         error: async (err) => {
