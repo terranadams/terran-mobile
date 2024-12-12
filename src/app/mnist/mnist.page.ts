@@ -10,12 +10,13 @@ import { fromEvent } from 'rxjs';
 import { switchMap, takeUntil, pairwise } from 'rxjs/operators';
 import * as tf from '@tensorflow/tfjs';
 
-// MNIST database: Modified National Institute of Standards and Technology database)
+
 
 /*
+  MNIST database: Modified National Institute of Standards and Technology database)
   When the Angular component is initialized and the ngOnInit lifecycle hook is triggered, we use Tensorflow.js to load a pre-trained machine learning model at /assets/trained_model/model.json
   This file contains the necessary data to recreate the model's architecture and weights. Once loaded, the model is ready for use.
-  At this point, the application is set up to accept handwritten user input, and use the loaded model to make predictions about what those digits represent.
+  At this point, the application is set up to accept handwritten user input, and use the loaded model to make predictions about what those drawn digits represent.
 */
 
 @Component({
@@ -65,9 +66,8 @@ export class MnistPage implements OnInit {
     this.predicted = '';
   }
 
-  /// Captures events from the canvas.
-  /// Based on the type of the event (mousedown, mouseup, etc.) performs certain actions.
-  /// In charge of drawing images on canvas and runing the model predictions once digit is drawn.
+  // This function is in charge of drawing images on canvas and runing the model predictions once digit is drawn.
+  // Based on the type of the event (mousedown, mouseup, etc.), it will perform different actions.
   private captureEvents(canvasHtmlElement: HTMLCanvasElement) {
     // Draw image.
     fromEvent(canvasHtmlElement, 'mousedown')
