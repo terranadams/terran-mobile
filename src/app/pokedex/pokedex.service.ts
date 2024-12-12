@@ -7,10 +7,10 @@ import { Pokemon } from './pokemon';
   providedIn: 'root',
 })
 export class PokedexService {
-  _method = 'random';
+  method = 'random';
   randomPokeData!: any;
   searchedPokeData!: any;
-  _randomPokemon: Pokemon = {
+  randomPokemon: Pokemon = {
     id: 0,
     name: '',
     defaultSprite: '',
@@ -18,7 +18,7 @@ export class PokedexService {
     types: [],
     description: '',
   };
-  _searchedPokemon: Pokemon = {
+  searchedPokemon: Pokemon = {
     id: 0,
     name: '',
     defaultSprite: '',
@@ -46,12 +46,12 @@ export class PokedexService {
   constructor(private http: HttpClient) {}
 
   get currentPokemon() {
-    if (this._method === 'random') return this._randomPokemon;
-    else return this._searchedPokemon;
+    if (this.method === 'random') return this.randomPokemon;
+    else return this.searchedPokemon;
   }
 
   changeMethod(method: string) {
-    this._method = method;
+    this.method = method;
   }
 
   fetchMeSomething() {
@@ -74,22 +74,22 @@ export class PokedexService {
               );
             // console.log(this.randomFilteredFlavors[0]?.flavor_text);
             if (this.randomFilteredFlavors)
-              this._randomPokemon.description =
+              this.randomPokemon.description =
                 this.randomFilteredFlavors[0].flavor_text;
           });
 
-          this._randomPokemon.id = this.randomPokeData.id;
-          this._randomPokemon.name =
+          this.randomPokemon.id = this.randomPokeData.id;
+          this.randomPokemon.name =
             this.randomPokeData.name.charAt(0).toUpperCase() +
             this.randomPokeData.name.slice(1);
-          this._randomPokemon.defaultSprite =
+          this.randomPokemon.defaultSprite =
             this.randomPokeData?.sprites?.front_default;
-          this._randomPokemon.shinySprite =
+          this.randomPokemon.shinySprite =
             this?.randomPokeData?.sprites?.front_shiny;
-          this._randomPokemon.types = this.randomPokeData.types.map(
+          this.randomPokemon.types = this.randomPokeData.types.map(
             (x: any) => x.type.name
           );
-          // this._randomPokemon.description = this.randomFilteredFlavors[0].;
+          // this.randomPokemon.description = this.randomFilteredFlavors[0].;
         })
       );
   }
@@ -108,22 +108,22 @@ export class PokedexService {
             );
           // console.log(this.searchedFilteredFlavors[0]?.flavor_text);
           if (this.searchedFilteredFlavors)
-            this._searchedPokemon.description =
+            this.searchedPokemon.description =
               this.searchedFilteredFlavors[0].flavor_text;
         });
 
-        this._searchedPokemon.id = this.searchedPokeData.id;
-        this._searchedPokemon.name =
+        this.searchedPokemon.id = this.searchedPokeData.id;
+        this.searchedPokemon.name =
           this.searchedPokeData.name.charAt(0).toUpperCase() +
           this.searchedPokeData.name.slice(1);
-        this._searchedPokemon.defaultSprite =
+        this.searchedPokemon.defaultSprite =
           this.searchedPokeData?.sprites?.front_default;
-        this._searchedPokemon.shinySprite =
+        this.searchedPokemon.shinySprite =
           this?.searchedPokeData?.sprites?.front_shiny;
-        this._searchedPokemon.types = this.searchedPokeData.types.map(
+        this.searchedPokemon.types = this.searchedPokeData.types.map(
           (x: any) => x.type.name
         );
-        this._searchedPokemon.description = this.searchedPokeData?.description;
+        this.searchedPokemon.description = this.searchedPokeData?.description;
       })
     );
   }
