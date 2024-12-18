@@ -6,4 +6,3 @@ export interface Pokemon {
   types: string[];
   description: string;
 }
-// x.type.name

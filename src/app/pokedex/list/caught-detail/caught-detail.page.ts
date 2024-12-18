@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AnimationController, NavController } from '@ionic/angular';
 import { PokedexService } from '../../pokedex.service';
-import { Pokemon } from '../../pokemon';
+import { Pokemon } from '../../models';
 
 @Component({
   selector: 'app-caught-detail',
@@ -12,8 +12,8 @@ import { Pokemon } from '../../pokemon';
 export class CaughtDetailPage implements OnInit {
   pokemon!: Pokemon;
   pokeIndex!: any;
-  @ViewChild("content", {read: ElementRef, static: true}) content!: ElementRef  // this is getting the element we want to animate by the local ref #content
-
+  @ViewChild('content', { read: ElementRef, static: true })
+  content!: ElementRef; // this is getting the element we want to animate by the local ref #content
 
   constructor(
     private route: ActivatedRoute,
@@ -36,10 +36,11 @@ export class CaughtDetailPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    const animation = this.animationCtrl.create()
-    .addElement(this.content.nativeElement)
-    .duration(500)
-    .fromTo("opacity", 0, 1)
-  animation.play()
+    const animation = this.animationCtrl
+      .create()
+      .addElement(this.content.nativeElement)
+      .duration(500)
+      .fromTo('opacity', 0, 1);
+    animation.play();
   }
 }

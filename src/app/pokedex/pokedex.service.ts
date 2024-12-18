@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import { Pokemon } from './pokemon';
+import { Pokemon } from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -139,9 +139,8 @@ export class PokedexService {
   }
 
   removePokemon(index: number) {
-    console.log(`The selected index is ${index}, but nothing happened.`)
+    console.log(`The selected index is ${index}, but nothing happened.`);
     // this.pokeService.pokeList = this.pokeService.pokeList.splice(index, 0)
     // ^^^ This doesn't wanna work :(
-
   }
 }
