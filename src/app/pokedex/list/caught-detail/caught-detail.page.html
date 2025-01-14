@@ -8,25 +8,24 @@
 </ion-header>
 
 <ion-content class="ion-padding ion-text-center" #content>
-  <!-- <ion-button class="favButton ion-padding" color="warning" (click)="release()">Set Me Free :)</ion-button> -->
   <ion-grid>
-    <ion-row>
-      <ion-col><ion-img [src]="this.pokemon.defaultSprite"></ion-img></ion-col>
-      <ion-col *ngIf="this.pokemon.shinySprite"
-        ><ion-img class="img-hor" [src]="this.pokemon.shinySprite"></ion-img
-      ></ion-col>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="6" size-md="4">
+        <ion-img [src]="this.pokemon.defaultSprite"></ion-img>
+      </ion-col>
+      <ion-col size="6" size-md="4" *ngIf="this.pokemon.shinySprite">
+        <ion-img class="img-hor" [src]="this.pokemon.shinySprite"></ion-img>
+      </ion-col>
     </ion-row>
   </ion-grid>
-
-  <!-- <ion-img [src]="this.pokemon.shinySprite"></ion-img> -->
 
   <ion-card>
     <ion-card-content>
       <span class="ion-text-center" *ngFor="let type of this.pokemon.types">
-        {{type.charAt(0).toUpperCase() + type.slice(1)}}
+        {{ type.charAt(0).toUpperCase() + type.slice(1) }}
       </span>
       <br /><br />
-      <p class="ion-text-center">{{this.pokemon.description}}</p>
+      <p class="ion-text-center">{{ this.pokemon.description }}</p>
     </ion-card-content>
   </ion-card>
 </ion-content>
