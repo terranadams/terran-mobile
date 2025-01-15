@@ -9,11 +9,11 @@ import { RecordItem } from '../models';
 })
 export class RecordsListComponent implements OnInit {
 
-  records: RecordItem[] = [];
+  public records: RecordItem[] = [];
 
   constructor(private accelaService: AccelaService) { }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.accelaService.getMyRecords().subscribe((data) => {
       this.records = data;
     });

@@ -51,8 +51,8 @@ export class AccelaService {
     };
 
     const body = {
-      client_id: environment.appId, // Uses the imported 'environment'
-      client_secret: environment.clientSecret, // Uses the imported 'environment'
+      client_id: environment.appId, 
+      client_secret: environment.clientSecret,
       username: username,
       password: password,
       agency_name: agencyName,
@@ -68,11 +68,11 @@ export class AccelaService {
     );
   }
 
-  setAccessToken(token: string) {
+  public setAccessToken(token: string) {
     this.accessToken = token;
   }
 
-  getMyRecords(): Observable<RecordItem[]> {
+  public getMyRecords(): Observable<RecordItem[]> {
     const url = `${this.baseUrl}/records/mine`;
 
     const headers = new HttpHeaders({

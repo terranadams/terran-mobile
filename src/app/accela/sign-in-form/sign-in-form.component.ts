@@ -22,14 +22,13 @@ export class SignInFormComponent implements OnInit {
   @Output() recordsFetched = new EventEmitter<void>();
 
   onFetchRecords() {
-    // Simulate a successful API call
     this.recordsFetched.emit();
   }
 
 
   constructor(private accelaService: AccelaService, private loadingController: LoadingController) {}
 
-  ngOnInit() {}
+  public ngOnInit() {}
 
   public getEnvironments() {
     if (!this.agencyName.trim()) {

@@ -7,10 +7,10 @@ import { Pokemon } from './models';
   providedIn: 'root',
 })
 export class PokedexService {
-  method = 'random';
-  randomPokeData!: any;
-  searchedPokeData!: any;
-  randomPokemon: Pokemon = {
+  private method = 'random';
+  private randomPokeData!: any;
+  private searchedPokeData!: any;
+  public randomPokemon: Pokemon = {
     id: 0,
     name: '',
     defaultSprite: '',
@@ -18,7 +18,7 @@ export class PokedexService {
     types: [],
     description: '',
   };
-  searchedPokemon: Pokemon = {
+  public searchedPokemon: Pokemon = {
     id: 0,
     name: '',
     defaultSprite: '',
@@ -26,35 +26,23 @@ export class PokedexService {
     types: [],
     description: '',
   };
-  descData!: any;
-  randomFilteredFlavors!: any[];
-  searchedFilteredFlavors!: any[];
+  private descData!: any;
+  private randomFilteredFlavors!: any[];
+  private searchedFilteredFlavors!: any[];
 
-  pokeList: Pokemon[] = [
-    // {
-    //   id: 644,
-    //   name: 'Zekrom',
-    //   defaultSprite:
-    //     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/644.png',
-    //   shinySprite:
-    //     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/644.png',
-    //   types: ['dragon', 'electric'],
-    //   description:
-    //     'Concealing itself in lightning clouds,\nit flies throughout the Unova region.\nIt creates electricity in its tail.',
-    // },
-  ];
+  public pokeList: Pokemon[] = [];
   constructor(private http: HttpClient) {}
 
-  get currentPokemon() {
+  public get currentPokemon() {
     if (this.method === 'random') return this.randomPokemon;
     else return this.searchedPokemon;
   }
 
-  changeMethod(method: string) {
+  public changeMethod(method: string) {
     this.method = method;
   }
 
-  fetchMeSomething() {
+  public fetchMeSomething() {
     return this.http
       .get(
         `https://pokeapi.co/api/v2/pokemon/${
@@ -64,7 +52,6 @@ export class PokedexService {
       .pipe(
         tap((resData) => {
           this.randomPokeData = resData;
-          // console.log(this.randomPokeData);
 
           this.getDescription(this.randomPokeData.id).subscribe((resData) => {
             this.descData = resData;
@@ -72,7 +59,6 @@ export class PokedexService {
               this.descData.flavor_text_entries.filter(
                 (entry: any) => entry.language.name === 'en'
               );
-            // console.log(this.randomFilteredFlavors[0]?.flavor_text);
             if (this.randomFilteredFlavors)
               this.randomPokemon.description =
                 this.randomFilteredFlavors[0].flavor_text;
@@ -89,12 +75,11 @@ export class PokedexService {
           this.randomPokemon.types = this.randomPokeData.types.map(
             (x: any) => x.type.name
           );
-          // this.randomPokemon.description = this.randomFilteredFlavors[0].;
         })
       );
   }
 
-  fetchSpecificPokemon(name: string) {
+  public fetchSpecificPokemon(name: string) {
     return this.http.get(`https://pokeapi.co/api/v2/pokemon/${name}`).pipe(
       tap((resData) => {
         this.searchedPokeData = resData;
@@ -128,19 +113,13 @@ export class PokedexService {
     );
   }
 
-  getDescription(id: string) {
+  private getDescription(id: string) {
     return this.http.get(`https://pokeapi.co/api/v2/pokemon-species/${id}/`);
   }
 
-  addPokemon(pokemon: Pokemon) {
+  public addPokemon(pokemon: Pokemon) {
     console.log(pokemon);
     this.pokeList.unshift({ ...pokemon }); // had to spread the object out within the method in order to get this to work right
     // It seems that when this function runs, and the 'list' tab is on the 'caught-detail' page of a pokemon, that page will jump to show the details of the next pokemon after.
-  }
-
-  removePokemon(index: number) {
-    console.log(`The selected index is ${index}, but nothing happened.`);
-    // this.pokeService.pokeList = this.pokeService.pokeList.splice(index, 0)
-    // ^^^ This doesn't wanna work :(
   }
 }

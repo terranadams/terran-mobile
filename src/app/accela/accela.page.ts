@@ -7,15 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccelaPage implements OnInit {
 
-  showRecordsList: boolean = false;
+  public showRecordsList: boolean = false;
 
-  onRecordsFetched() {
+  public onRecordsFetched() {
     this.showRecordsList = true;
   }
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  public ngOnInit() {}
 }
