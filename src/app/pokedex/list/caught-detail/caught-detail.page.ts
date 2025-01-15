@@ -10,10 +10,10 @@ import { Pokemon } from '../../models';
   styleUrls: ['./caught-detail.page.scss'],
 })
 export class CaughtDetailPage implements OnInit {
-  pokemon!: Pokemon;
-  pokeIndex!: any;
+  public pokemon!: Pokemon;
+  private pokeIndex!: any;
   @ViewChild('content', { read: ElementRef, static: true })
-  content!: ElementRef; // this is getting the element we want to animate by the local ref #content
+  private content!: ElementRef; // this is getting the element we want to animate by the local ref #content
 
   constructor(
     private route: ActivatedRoute,
@@ -22,20 +22,13 @@ export class CaughtDetailPage implements OnInit {
     private animationCtrl: AnimationController
   ) {}
 
-  ngOnInit() {
+  public ngOnInit() {
     this.route.paramMap.subscribe((paramMap) => {
       // console.log(paramMap.get('pokeIndex'))
       this.pokeIndex = paramMap.get('pokeIndex');
       this.pokemon = this.pokeService.pokeList[this.pokeIndex];
     });
-  }
 
-  release() {
-    this.pokeService.removePokemon(this.pokeIndex);
-    this.navCtrl.navigateBack('/pokedex/list');
-  }
-
-  ionViewWillEnter() {
     const animation = this.animationCtrl
       .create()
       .addElement(this.content.nativeElement)
@@ -43,4 +36,5 @@ export class CaughtDetailPage implements OnInit {
       .fromTo('opacity', 0, 1);
     animation.play();
   }
+
 }

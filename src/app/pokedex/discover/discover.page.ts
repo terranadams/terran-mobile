@@ -16,12 +16,20 @@ export class DiscoverPage implements OnInit {
     private animationCtrl: AnimationController
   ) {}
 
-  ngOnInit() {}
-  inputValue: string = 'Charizard';
-  method = 'random';
-  randomPokeData!: any;
-  searchedPokeData: any;
-  randomPokemon: Pokemon = {
+  public ngOnInit() {
+    const animation = this.animationCtrl
+      .create()
+      .addElement(this.content.nativeElement)
+      .duration(200)
+      .fromTo('opacity', 0, 1);
+    animation.play();
+  }
+
+  public inputValue: string = 'Charizard';
+  public method = 'random';
+  private randomPokeData!: any;
+  private searchedPokeData: any;
+  public randomPokemon: Pokemon = {
     id: 0,
     name: '',
     defaultSprite: '',
@@ -29,7 +37,7 @@ export class DiscoverPage implements OnInit {
     types: [],
     description: '',
   };
-  searchedPokemon: Pokemon = {
+  public searchedPokemon: Pokemon = {
     id: 0,
     name: '',
     defaultSprite: '',
@@ -39,9 +47,9 @@ export class DiscoverPage implements OnInit {
   };
 
   @ViewChild('content', { read: ElementRef, static: true })
-  content!: ElementRef; // this is getting the element we want to animate by the local ref #content
+  private content!: ElementRef; // this is getting the element we want to animate by the local ref #content
 
-  newPokemon() {
+  public newPokemon() {
     this.loadingCtrl.create({ message: 'Generating...' }).then((loadingEl) => {
       loadingEl.present();
       this.pokeService.fetchMeSomething().subscribe((resData) => {
@@ -65,12 +73,12 @@ export class DiscoverPage implements OnInit {
     });
   }
 
-  methodToggle(event: any) {
+  public methodToggle(event: any) {
     this.method = event.detail.value;
     this.pokeService.changeMethod(event.detail.value);
   }
 
-  onSubmit(f: NgForm) {
+  public onSubmit(f: NgForm) {
     this.loadingCtrl
       .create({ message: 'Generating...', duration: 2000 })
       .then((loadingEl) => {
@@ -98,12 +106,4 @@ export class DiscoverPage implements OnInit {
       });
   }
 
-  ionViewWillEnter() {
-    const animation = this.animationCtrl
-      .create()
-      .addElement(this.content.nativeElement)
-      .duration(200)
-      .fromTo('opacity', 0, 1);
-    animation.play();
-  }
 }
