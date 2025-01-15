@@ -60,20 +60,17 @@ export class DiscoverPage implements OnInit {
         );
         this.randomPokemon.description =
           this.pokeService.randomPokemon.description;
-        // console.log(this.randomPokemon)
         loadingEl.dismiss();
       });
     });
   }
 
   methodToggle(event: any) {
-    // console.log(event.detail.value)
     this.method = event.detail.value;
     this.pokeService.changeMethod(event.detail.value);
   }
 
   onSubmit(f: NgForm) {
-    // console.log(f.form.value.name)
     this.loadingCtrl
       .create({ message: 'Generating...', duration: 2000 })
       .then((loadingEl) => {
@@ -82,7 +79,6 @@ export class DiscoverPage implements OnInit {
           .fetchSpecificPokemon(f.form.value.name.toLowerCase())
           .subscribe((resData) => {
             this.searchedPokeData = resData;
-            // console.log(this.searchedPokeData)
             this.searchedPokemon.id = this.searchedPokeData.id;
             this.searchedPokemon.name =
               this.searchedPokeData.name.charAt(0).toUpperCase() +
