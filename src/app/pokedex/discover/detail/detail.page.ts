@@ -21,6 +21,9 @@ export class DetailPage implements OnInit {
 
   public ngOnInit() {
     this.pokemon = this.pokeService.currentPokemon;
+  }
+
+  ionViewWillEnter() {
     const animation = this.animationCtrl
       .create()
       .addElement(this.content.nativeElement)

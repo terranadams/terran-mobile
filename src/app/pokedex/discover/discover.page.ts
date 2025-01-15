@@ -16,11 +16,13 @@ export class DiscoverPage implements OnInit {
     private animationCtrl: AnimationController
   ) {}
 
-  public ngOnInit() {
+  public ngOnInit() {}
+
+  ionViewWillEnter() {
     const animation = this.animationCtrl
       .create()
       .addElement(this.content.nativeElement)
-      .duration(200)
+      .duration(300)
       .fromTo('opacity', 0, 1);
     animation.play();
   }

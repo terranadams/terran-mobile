@@ -21,16 +21,9 @@ export class ListPage implements OnInit {
 
   public ngOnInit() {
     this.pokeList = this.pokeService.pokeList;
-    // const animation = this.animationCtrl
-    //   .create()
-    //   .addElement(this.content.nativeElement)
-    //   .duration(200)
-    //   .fromTo('opacity', 0, 1);
-    // animation.play();
   }
 
   ionViewWillEnter() {
-    this.pokeList = this.pokeService.pokeList;
     const animation = this.animationCtrl
       .create()
       .addElement(this.content.nativeElement)
