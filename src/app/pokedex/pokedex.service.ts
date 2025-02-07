@@ -122,4 +122,19 @@ export class PokedexService {
     this.pokeList.unshift({ ...pokemon }); // had to spread the object out within the method in order to get this to work right
     // It seems that when this function runs, and the 'list' tab is on the 'caught-detail' page of a pokemon, that page will jump to show the details of the next pokemon after.
   }
+
+  public extractPokemonData(apiData: any): Pokemon {
+    return {
+      id: apiData.id,
+      name: apiData.name.charAt(0).toUpperCase() + apiData.name.slice(1),
+      defaultSprite: apiData?.sprites?.front_default,
+      shinySprite: apiData?.sprites?.front_shiny,
+      types: apiData.types.map((x: any) => x.type.name),
+      description: this.getPokemonDescription(apiData)
+    };
+  }
+
+  private getPokemonDescription(apiData: any): string {
+    return apiData?.flavor_text_entries?.find((entry: any) => entry.language.name === 'en')?.flavor_text || 'No description available.';
+  }
 }

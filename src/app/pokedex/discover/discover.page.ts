@@ -55,59 +55,27 @@ export class DiscoverPage implements OnInit {
     this.method = event.detail.value;
     this.pokeService.changeMethod(event.detail.value);
   }
-  
+
   public newPokemon() {
     this.loadingCtrl.create({ message: 'Generating...' }).then((loadingEl) => {
       loadingEl.present();
       this.pokeService.fetchMeSomething().subscribe((resData) => {
-        this.randomPokeData = resData;
-        // console.log(this.randomPokeData);
-        this.randomPokemon.id = this.randomPokeData.id;
-        this.randomPokemon.name =
-          this.randomPokeData.name.charAt(0).toUpperCase() +
-          this.randomPokeData.name.slice(1);
-        this.randomPokemon.defaultSprite =
-          this.randomPokeData?.sprites?.front_default;
-        this.randomPokemon.shinySprite =
-          this?.randomPokeData?.sprites?.front_shiny;
-        this.randomPokemon.types = this.randomPokeData.types.map(
-          (x: any) => x.type.name
-        );
-        this.randomPokemon.description =
-          this.pokeService.randomPokemon.description;
+        this.randomPokemon = this.pokeService.extractPokemonData(resData);
         loadingEl.dismiss();
       });
     });
   }
 
-
-
   public onSubmit(f: NgForm) {
-    this.loadingCtrl
-      .create({ message: 'Generating...', duration: 2000 })
-      .then((loadingEl) => {
-        loadingEl.present();
-        this.pokeService
-          .fetchSpecificPokemon(f.form.value.name.toLowerCase())
-          .subscribe((resData) => {
-            this.searchedPokeData = resData;
-            this.searchedPokemon.id = this.searchedPokeData.id;
-            this.searchedPokemon.name =
-              this.searchedPokeData.name.charAt(0).toUpperCase() +
-              this.searchedPokeData.name.slice(1);
-            this.searchedPokemon.defaultSprite =
-              this.searchedPokeData?.sprites?.front_default;
-            this.searchedPokemon.shinySprite =
-              this?.searchedPokeData?.sprites?.front_shiny;
-            this.searchedPokemon.types = this.searchedPokeData.types.map(
-              (x: any) => x.type.name
-            );
-            this.searchedPokemon.description =
-              this.pokeService.searchedPokemon.description;
-            this.inputValue = '';
-            loadingEl.dismiss();
-          });
+    this.loadingCtrl.create({ message: 'Generating...', duration: 2000 }).then((loadingEl) => {
+      loadingEl.present();
+      this.pokeService.fetchSpecificPokemon(f.form.value.name.toLowerCase()).subscribe((resData) => {
+        this.searchedPokemon = this.pokeService.extractPokemonData(resData);
+        this.inputValue = '';
+        loadingEl.dismiss();
       });
+    });
   }
+
 
 }
