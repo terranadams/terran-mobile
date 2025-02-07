@@ -8,6 +8,7 @@ import {
 } from './models';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
+import { RecordItemRaw, RecordResponse } from '../pokedex/models';
 
 @Injectable({
   providedIn: 'root',
@@ -51,7 +52,7 @@ export class AccelaService {
     };
 
     const body = {
-      client_id: environment.appId, 
+      client_id: environment.appId,
       client_secret: environment.clientSecret,
       username: username,
       password: password,
@@ -81,12 +82,12 @@ export class AccelaService {
       'Content-Type': 'application/json',
     });
 
-    return this.http.get<any>(url, {headers}).pipe(
+    return this.http.get<RecordResponse>(url, { headers }).pipe(
       map((response) =>
-        response.result.map((record: any) => ({
+        response.result.map((record: RecordItemRaw) => ({
           customId: record.customId || '',
           id: record.id || '',
-          type: record.type?.type || '',
+          type: record.type?.text || '',
           assignedUser: record.assignedUser || '',
           status: record.status?.text || '',
           value: record.value || '',
@@ -94,4 +95,5 @@ export class AccelaService {
       )
     );
   }
+
 }

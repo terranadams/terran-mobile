@@ -30,3 +30,24 @@ export interface PokemonSpeciesApiResponse {
   flavor_text_entries: { flavor_text: string; language: { name: string } }[];
 }
 
+export interface RecordResponse {
+  result: RecordItemRaw[];
+}
+
+export interface RecordItemRaw {
+  customId?: string;
+  id?: string;
+  type?: { text: string; value: string };
+  assignedUser?: string;
+  status?: { text: string; value: string };
+  value?: string;
+}
+
+export interface RecordItem {
+  customId: string;
+  id: string;
+  type: string;
+  assignedUser: string;
+  status: string;
+  value: string;
+}
