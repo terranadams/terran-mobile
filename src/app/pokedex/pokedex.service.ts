@@ -2,22 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Pokemon, PokemonApiResponse, PokemonSpeciesApiResponse } from './models';
+import {
+  Pokemon,
+  PokemonApiResponse,
+  PokemonSpeciesApiResponse,
+} from './models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PokedexService {
   private method = 'random';
-  private randomPokeData!: PokemonApiResponse;
-  private searchedPokeData!: PokemonApiResponse;
-  private descData!: PokemonSpeciesApiResponse;
-  private randomFilteredFlavors!: string[];
-  private searchedFilteredFlavors!: string[];
-
   public randomPokemon: Pokemon = this.initializePokemon();
   public searchedPokemon: Pokemon = this.initializePokemon();
-
   public pokeList: Pokemon[] = [];
 
   constructor(private http: HttpClient) {}
@@ -32,33 +29,36 @@ export class PokedexService {
 
   fetchMeSomething(): Observable<PokemonApiResponse> {
     const id = Math.floor(Math.random() * 1025) + 1;
-    return this.http.get<PokemonApiResponse>(`https://pokeapi.co/api/v2/pokemon/${id}`).pipe(
-      tap((resData) => {
-        this.randomPokeData = resData;
-        this.randomPokemon = this.extractPokemonData(resData);
-        this.fetchDescription(resData.id).subscribe((descData) => {
-          this.descData = descData;
-          this.randomPokemon.description = this.extractDescription(descData);
-        });
-      })
-    );
+    return this.http
+      .get<PokemonApiResponse>(`https://pokeapi.co/api/v2/pokemon/${id}`)
+      .pipe(
+        tap((resData) => {
+          this.randomPokemon = this.extractPokemonData(resData);
+          this.fetchDescription(resData.id).subscribe((descData) => {
+            this.randomPokemon.description = this.extractDescription(descData);
+          });
+        })
+      );
   }
 
   fetchSpecificPokemon(name: string): Observable<PokemonApiResponse> {
-    return this.http.get<PokemonApiResponse>(`https://pokeapi.co/api/v2/pokemon/${name}`).pipe(
-      tap((resData) => {
-        this.searchedPokeData = resData;
-        this.searchedPokemon = this.extractPokemonData(resData);
-        this.fetchDescription(resData.id).subscribe((descData) => {
-          this.descData = descData;
-          this.searchedPokemon.description = this.extractDescription(descData);
-        });
-      })
-    );
+    return this.http
+      .get<PokemonApiResponse>(`https://pokeapi.co/api/v2/pokemon/${name}`)
+      .pipe(
+        tap((resData) => {
+          this.searchedPokemon = this.extractPokemonData(resData);
+          this.fetchDescription(resData.id).subscribe((descData) => {
+            this.searchedPokemon.description =
+              this.extractDescription(descData);
+          });
+        })
+      );
   }
 
   private fetchDescription(id: number): Observable<PokemonSpeciesApiResponse> {
-    return this.http.get<PokemonSpeciesApiResponse>(`https://pokeapi.co/api/v2/pokemon-species/${id}/`);
+    return this.http.get<PokemonSpeciesApiResponse>(
+      `https://pokeapi.co/api/v2/pokemon-species/${id}/`
+    );
   }
 
   addPokemon(pokemon: Pokemon): void {
@@ -78,8 +78,8 @@ export class PokedexService {
 
   private extractDescription(apiData: PokemonSpeciesApiResponse): string {
     return (
-      apiData.flavor_text_entries.find((entry) => entry.language.name === 'en')?.flavor_text ||
-      'No description available.'
+      apiData.flavor_text_entries.find((entry) => entry.language.name === 'en')
+        ?.flavor_text || 'No description available.'
     );
   }
 

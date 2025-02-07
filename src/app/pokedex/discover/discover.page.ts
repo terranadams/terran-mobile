@@ -29,8 +29,6 @@ export class DiscoverPage implements OnInit {
 
   public inputValue: string = 'Charizard';
   public method = 'random';
-  private randomPokeData!: any;
-  private searchedPokeData: any;
   public randomPokemon: Pokemon = {
     id: 0,
     name: '',
@@ -67,15 +65,17 @@ export class DiscoverPage implements OnInit {
   }
 
   public onSubmit(f: NgForm) {
-    this.loadingCtrl.create({ message: 'Generating...', duration: 2000 }).then((loadingEl) => {
-      loadingEl.present();
-      this.pokeService.fetchSpecificPokemon(f.form.value.name.toLowerCase()).subscribe((resData) => {
-        this.searchedPokemon = this.pokeService.extractPokemonData(resData);
-        this.inputValue = '';
-        loadingEl.dismiss();
+    this.loadingCtrl
+      .create({ message: 'Generating...', duration: 2000 })
+      .then((loadingEl) => {
+        loadingEl.present();
+        this.pokeService
+          .fetchSpecificPokemon(f.form.value.name.toLowerCase())
+          .subscribe((resData) => {
+            this.searchedPokemon = this.pokeService.extractPokemonData(resData);
+            this.inputValue = '';
+            loadingEl.dismiss();
+          });
       });
-    });
   }
-
-
 }
