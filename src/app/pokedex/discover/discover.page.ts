@@ -51,6 +51,11 @@ export class DiscoverPage implements OnInit {
   @ViewChild('content', { read: ElementRef, static: true })
   private content!: ElementRef; // this is getting the element we want to animate by the local ref #content
 
+  public methodToggle(event: any) {
+    this.method = event.detail.value;
+    this.pokeService.changeMethod(event.detail.value);
+  }
+  
   public newPokemon() {
     this.loadingCtrl.create({ message: 'Generating...' }).then((loadingEl) => {
       loadingEl.present();
@@ -75,10 +80,7 @@ export class DiscoverPage implements OnInit {
     });
   }
 
-  public methodToggle(event: any) {
-    this.method = event.detail.value;
-    this.pokeService.changeMethod(event.detail.value);
-  }
+
 
   public onSubmit(f: NgForm) {
     this.loadingCtrl
