@@ -83,15 +83,12 @@ export class PokedexService {
     return this.http.get(`https://pokeapi.co/api/v2/pokemon/${name}`).pipe(
       tap((resData) => {
         this.searchedPokeData = resData;
-        // console.log(this.searchedPokeData);
-
         this.getDescription(this.searchedPokeData.id).subscribe((resData) => {
           this.descData = resData;
           this.searchedFilteredFlavors =
             this.descData.flavor_text_entries.filter(
               (entry: any) => entry.language.name === 'en'
             );
-          // console.log(this.searchedFilteredFlavors[0]?.flavor_text);
           if (this.searchedFilteredFlavors)
             this.searchedPokemon.description =
               this.searchedFilteredFlavors[0].flavor_text;
@@ -119,8 +116,7 @@ export class PokedexService {
 
   public addPokemon(pokemon: Pokemon) {
     console.log(pokemon);
-    this.pokeList.unshift({ ...pokemon }); // had to spread the object out within the method in order to get this to work right
-    // It seems that when this function runs, and the 'list' tab is on the 'caught-detail' page of a pokemon, that page will jump to show the details of the next pokemon after.
+    this.pokeList.unshift({ ...pokemon });
   }
 
   public extractPokemonData(apiData: any): Pokemon {
@@ -130,11 +126,15 @@ export class PokedexService {
       defaultSprite: apiData?.sprites?.front_default,
       shinySprite: apiData?.sprites?.front_shiny,
       types: apiData.types.map((x: any) => x.type.name),
-      description: this.getPokemonDescription(apiData)
+      description: this.getPokemonDescription(apiData),
     };
   }
 
   private getPokemonDescription(apiData: any): string {
-    return apiData?.flavor_text_entries?.find((entry: any) => entry.language.name === 'en')?.flavor_text || 'No description available.';
+    return (
+      apiData?.flavor_text_entries?.find(
+        (entry: any) => entry.language.name === 'en'
+      )?.flavor_text || 'No description available.'
+    );
   }
 }
