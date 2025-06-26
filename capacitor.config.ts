@@ -18,7 +18,8 @@ ionic capacitor copy ios or npx cap sync
 npx cap open ios
 to successfully run, make sure you're signed into your dev account on app 'Signing and Capabilities'.
 also ensure that XCode is updated to the latest.
-if codesign keeps prompting for a password, enter password then click "Always Allow"
+if codesign keeps prompting for a password, enter password then click "Always Allow".
+and lastly, if you get a 'unable to open base configuration reference file', install cocoapods and run 'pod install' inside ios/App.
 
 
 
