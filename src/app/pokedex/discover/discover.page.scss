@@ -6,35 +6,27 @@ ion-segment {
   background-color: gray;
 }
 
-/* ❌ remove this, it stops normal scrolling/layout behavior */
-ion-content {
-  // --overflow: hidden;
-}
-
-/* Default (mobile-first) — looks good already */
-
-/* Tablet & Desktop (768px and up) */
 @media (min-width: 768px) {
   ion-card {
-    max-width: 600px;         /* Limit how wide the card can get */
-    margin: 0 auto;           /* Center horizontally */
+    max-width: 600px;       
+    margin: 0 auto;         
     padding-bottom: 16px;
   }
 
   ion-card ion-img {
-    max-height: 180px;        /* Shrink the Pokémon sprites a bit */
+    max-height: 180px;        
     object-fit: contain;
   }
 
   ion-card-title {
-    font-size: 1.4rem;        /* Slightly smaller title */
+    font-size: 1.4rem;      
   }
 }
 
 /* Larger desktop (1280px and up) */
 @media (min-width: 1280px) {
   ion-card {
-    max-width: 500px;         /* Even narrower on big monitors */
+    max-width: 500px;         
   }
 
   ion-card ion-img {

@@ -3,15 +3,13 @@
   background-color: white;
 }
 
-/* keep card from jumping in height when prediction appears */
 .prediction-value {
-  min-height: 2.5rem;  // adjust if needed to fit one-line title
+  min-height: 2.5rem;  
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* make the instructions compact */
 .instructions p {
   margin: 0;
   text-align: center;
@@ -19,7 +17,6 @@
   line-height: 1.3;
 }
 
-/* center canvas + button, but with smaller margins to save space */
 .canvas-container {
   display: flex;
   justify-content: center;
@@ -32,7 +29,6 @@
   margin: 8px 16px 8px 16px;
 }
 
-/* make sure scrolling is allowed if the screen is really short */
 ion-content {
   --overflow: hidden;
 }

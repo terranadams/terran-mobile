@@ -1,23 +1,19 @@
 <ion-card>
   <ion-card-header>
     <ion-card-title>Sign In</ion-card-title>
-    <!-- Error Message -->
     <ion-text color="danger" *ngIf="errorMessage">
       <p>{{ errorMessage }}</p>
     </ion-text>
   </ion-card-header>
   <ion-card-content>
-    <!-- Agency Name Input -->
     <ion-item>
       <ion-label position="floating">Agency Name</ion-label>
       <ion-input [(ngModel)]="agencyName" name="agencyName" (ngModelChange)="onAgencyNameChange()" required></ion-input>
     </ion-item>
 
-    <!-- Get Environments Button -->
     <ion-button expand="full" (click)="getEnvironments()" *ngIf="!isEnvironmentsFetched">Get Environments</ion-button>
 
 
-    <!-- Environment Selection -->
     <div *ngIf="isEnvironmentsFetched">
       <ion-item>
         <ion-label>Environment</ion-label>
@@ -27,13 +23,12 @@
       </ion-item>
     </div>
 
-    <!-- Username Input (Visible only after Get Environments is clicked) -->
+    <!-- Username & Password Input (Visible only after Get Environments is clicked) -->
     <ion-item *ngIf="isEnvironmentsFetched && !isUsernamePasswordVisible">
       <ion-label position="floating">Username</ion-label>
       <ion-input [(ngModel)]="username" name="username" required></ion-input>
     </ion-item>
 
-    <!-- Password Input (Visible only after Get Environments is clicked) -->
     <ion-item *ngIf="isEnvironmentsFetched && !isUsernamePasswordVisible">
       <ion-label position="floating">Password</ion-label>
       <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
@@ -46,5 +41,21 @@
     >
       Submit
     </ion-button>
+  </ion-card-content>
+</ion-card>
+
+<ion-card class="info-card">
+  <ion-card-header>
+    <ion-card-title>About This App</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <p>
+      The Construct API is a service created by my employer, Accela. This app
+      provides a simple front-end interface that allows agency employees to sign
+      in with their Civic Platform credentials and view city records assigned to
+      them. It is designed to make accessing Civic Platform data faster and more
+      user-friendly.
+    </p>
   </ion-card-content>
 </ion-card>

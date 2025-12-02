@@ -8,12 +8,10 @@
 </ion-header>
 
 <ion-content>
-  <!-- Prediction + instructions in SAME card -->
   <ion-card class="prediction-card">
     <ion-card-header class="ion-text-center">
       <ion-card-subtitle>Predicted Number:</ion-card-subtitle>
 
-      <!-- Fixed-height wrapper so card height doesn’t change -->
       <div class="prediction-value">
         <ion-card-title *ngIf="predicted !== null && predicted !== undefined">
           {{ predicted }}
@@ -30,7 +28,6 @@
     </ion-card-content>
   </ion-card>
 
-  <!-- Canvas -->
   <div class="canvas-container">
     <canvas
       class="canvas"
@@ -40,7 +37,6 @@
     ></canvas>
   </div>
 
-  <!-- Clear button -->
   <div class="button-container">
     <ion-button expand="block" (click)="clear()">Clear</ion-button>
   </div>
