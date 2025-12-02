@@ -8,14 +8,30 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
+  <!-- Prediction + instructions in SAME card -->
+  <ion-card class="prediction-card">
     <ion-card-header class="ion-text-center">
       <ion-card-subtitle>Predicted Number:</ion-card-subtitle>
-      <ion-card-title>{{predicted}}</ion-card-title>
+
+      <!-- Fixed-height wrapper so card height doesn’t change -->
+      <div class="prediction-value">
+        <ion-card-title *ngIf="predicted !== null && predicted !== undefined">
+          {{ predicted }}
+        </ion-card-title>
+      </div>
     </ion-card-header>
+
+    <ion-card-content class="instructions">
+      <p>
+        Draw a single digit (0–9) in the box below.  
+        Pause for a moment after drawing and the predicted
+        number will appear above.
+      </p>
+    </ion-card-content>
   </ion-card>
 
-  <div class="ion-text-center">
+  <!-- Canvas -->
+  <div class="canvas-container">
     <canvas
       class="canvas"
       #canvas
@@ -23,7 +39,9 @@
       (touchmove)="onTouchMove($event)"
     ></canvas>
   </div>
-  <div style="width: 50%">
-    <ion-button class="block" (click)="clear()">Clear</ion-button>
+
+  <!-- Clear button -->
+  <div class="button-container">
+    <ion-button expand="block" (click)="clear()">Clear</ion-button>
   </div>
 </ion-content>
