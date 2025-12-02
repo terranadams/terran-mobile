@@ -1,24 +1,43 @@
 .img-hor {
-  transform: rotateY(180deg); // Rotate 180 degrees along the y-axis
+  transform: rotateY(180deg);
 }
-// ion-segment-button {
-//   // --background-checked: var(--ion-color-success);
-//   // --color-checked: var(--ion-color-success-contrast);
-// }
 
 ion-segment {
   background-color: gray;
 }
 
+/* ❌ remove this, it stops normal scrolling/layout behavior */
 ion-content {
-  --overflow: hidden;
+  // --overflow: hidden;
 }
 
-.fixed-button {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 30px;
-  width: 90%; /* Optional: if you want the button to be full width */
-  margin: auto;
+/* Default (mobile-first) — looks good already */
+
+/* Tablet & Desktop (768px and up) */
+@media (min-width: 768px) {
+  ion-card {
+    max-width: 600px;         /* Limit how wide the card can get */
+    margin: 0 auto;           /* Center horizontally */
+    padding-bottom: 16px;
+  }
+
+  ion-card ion-img {
+    max-height: 180px;        /* Shrink the Pokémon sprites a bit */
+    object-fit: contain;
+  }
+
+  ion-card-title {
+    font-size: 1.4rem;        /* Slightly smaller title */
+  }
+}
+
+/* Larger desktop (1280px and up) */
+@media (min-width: 1280px) {
+  ion-card {
+    max-width: 500px;         /* Even narrower on big monitors */
+  }
+
+  ion-card ion-img {
+    max-height: 150px;
+  }
 }

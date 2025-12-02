@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-text-center ion-padding" #content >
+<ion-content class="ion-text-center ion-padding" #content>
   <ion-segment (ionChange)="methodToggle($event)" value="random">
     <ion-segment-button value="random">
       <ion-label>Random</ion-label>
@@ -18,23 +18,22 @@
   </ion-segment>
 
   <div *ngIf="method === 'random'" class="ion-padding">
-
     <ion-card *ngIf="randomPokemon.name" [routerLink]="['./', 'detail']">
       <ion-card-header>
-        <ion-card-title>{{this.randomPokemon.name}}</ion-card-title>
+        <ion-card-title>{{ randomPokemon.name }}</ion-card-title>
         <ion-grid>
           <ion-row>
             <ion-col
-              [sizeSm]="!this.randomPokemon.shinySprite ? 12 : 6"
+              [sizeSm]="!randomPokemon.shinySprite ? 12 : 6"
               sizeLg="3"
               offsetLg="3"
             >
-              <ion-img [src]="this.randomPokemon.defaultSprite"></ion-img>
+              <ion-img [src]="randomPokemon.defaultSprite"></ion-img>
             </ion-col>
-            <ion-col *ngIf="this.randomPokemon.shinySprite" size="6" sizeLg="3">
+            <ion-col *ngIf="randomPokemon.shinySprite" size="6" sizeLg="3">
               <ion-img
                 class="img-hor"
-                [src]="this.randomPokemon.shinySprite"
+                [src]="randomPokemon.shinySprite"
               ></ion-img>
             </ion-col>
           </ion-row>
@@ -44,23 +43,19 @@
         <ion-grid>
           <ion-row
             class="ion-text-center"
-            *ngFor="let type of this.randomPokemon.types"
+            *ngFor="let type of randomPokemon.types"
           >
             <ion-col>
-              {{type.charAt(0).toUpperCase() + type.slice(1)}}
+              {{ type.charAt(0).toUpperCase() + type.slice(1) }}
             </ion-col>
           </ion-row>
         </ion-grid>
       </ion-card-content>
     </ion-card>
-
-    <ion-button class="fixed-button" (click)="newPokemon()" color="primary"
-      >Generate a random pokemon 🙂</ion-button
-    >
   </div>
 
   <div *ngIf="method === 'search'" class="ion-padding">
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
       <ion-grid>
         <ion-row>
           <ion-col>
@@ -126,6 +121,13 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-    </form>
-  </div>
+    </form>  </div>
 </ion-content>
+
+<ion-footer *ngIf="method === 'random'">
+  <ion-toolbar>
+    <ion-button expand="block" (click)="newPokemon()" color="primary">
+      Generate a random pokemon 🙂
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
