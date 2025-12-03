@@ -7,14 +7,29 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" #content>
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12" size-md="4" offset-md="4">
-        <ion-img [src]="this.pokemon.defaultSprite"></ion-img>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <p class="ion-text-center">{{this.pokemon.description}}</p>
-  <ion-button [disabled]="pokemonAdded" class="favButton ion-padding" color="warning" (click)="catch()">Catch this Pokémon!</ion-button>
+<ion-content class="ion-padding">
+  <div class="pokemon-detail">
+    <ion-img
+      class="pokemon-image"
+      [src]="pokemon.defaultSprite"
+    ></ion-img>
+
+    <p class="pokemon-description">
+      {{ pokemon.description }}
+    </p>
+
+      <div class="catch-wrapper">
+
+    <ion-button
+      [disabled]="pokemonAdded"
+      class="favButton ion-padding"
+      color="warning"
+      (click)="catch()"
+    >
+      CATCH THIS POKÉMON!
+    </ion-button>
+    </div>
+  </div>
 </ion-content>
+
+

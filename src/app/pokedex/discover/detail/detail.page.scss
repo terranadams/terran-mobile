@@ -1,10 +1,54 @@
-.favButton {
-  position: fixed;
-  left: 0;
-  bottom: 20px;
-  right: 0;
+.pokemon-detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;    
+  text-align: center;      
+  width: 100%;
 }
 
-ion-content {
-  --overflow: hidden;
+.pokemon-image {
+  display: block;        
+  width: 60vw;
+  max-width: 350px;
+  height: auto;
+  margin-bottom: 24px;
+}
+
+@media (min-width: 600px) {
+  .pokemon-image {
+    width: 40vw;
+    max-width: 400px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pokemon-image {
+    width: 25vw;
+    max-width: 450px;
+  }
+}
+
+.pokemon-description {
+  margin: 0 16px 24px 16px;
+  line-height: 1.4;
+  max-width: 700px;
+}
+
+.favButton {
+  align-self: center;     
+  width: 80%;
+  max-width: 400px;
+}
+
+.catch-wrapper {
+  position: absolute;
+  bottom: 0;                
+  left: 0;
+  width: 100%;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  pointer-events: auto;      
+  background: transparent;   
 }
