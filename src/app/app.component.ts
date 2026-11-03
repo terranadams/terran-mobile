@@ -35,4 +35,8 @@ export class AppComponent {
   toAccela() {
     this.router.navigateByUrl('/accela', { replaceUrl: true })
   }
+
+  toFlashcards() {
+    this.router.navigateByUrl('/flashcards', { replaceUrl: true})
+  }
 }

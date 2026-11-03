@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'accela',
     loadChildren: () => import('./accela/accela.module').then( m => m.AccelaPageModule)
   },
+  {
+    path: 'flashcards',
+    loadChildren: () => import('./flashcards/flashcards.module').then( m => m.FlashcardsPageModule)
+  },
 ];
 
 @NgModule({
