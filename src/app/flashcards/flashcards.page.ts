@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-flashcards',
@@ -14,7 +15,7 @@ export class FlashcardsPage {
   isLoading = false;
   message = '';
 
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService, private router: Router) { }
 
   toggleMode() { // Switches between login and registration.
     this.isRegistering = !this.isRegistering; // Flips the current mode.
@@ -57,6 +58,7 @@ export class FlashcardsPage {
           this.isLoading = false;
           this.password = '';
           this.message = 'Signed in successfully!';
+          this.router.navigate(['/flashcards/decks']);
         },
         error: onError
       });

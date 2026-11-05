@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: FlashcardsPage
+  },
+  {
+    path: 'decks',
+    loadChildren: () => import('./decks/decks.module').then( m => m.DecksPageModule)
   }
 ];
 
