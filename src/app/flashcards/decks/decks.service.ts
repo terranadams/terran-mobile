@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { AuthService } from '../auth.service';
 
+
 export interface Deck {
   id: number;
   name: string;
@@ -10,11 +11,28 @@ export interface Deck {
   createdAt: string;
 }
 
+export interface DeckDetail extends Pick<Deck, 'id' | 'name' | 'description'> {
+  cards: { id: number; spanish: string; english: string }[];
+}
+
 @Injectable({ providedIn: 'root' })
 export class DecksService {
   private readonly url = 'http://localhost:5050/api/decks';
 
-  constructor(private http: HttpClient, private auth: AuthService) {}
+  constructor(private http: HttpClient, private auth: AuthService) { }
+
+  getDeck(deckId: number) {
+    const token = this.auth.getAccessToken();
+
+    if (!token) {
+      return throwError(new Error('Sign in to view this deck.'));
+    }
+
+    return this.http.get<DeckDetail>(`${this.url}/${deckId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+  }
+
 
   getDecks() {
     const token = this.auth.getAccessToken();

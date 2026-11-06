@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: DecksPage
+  },
+  {
+    path: ':deck-detail',
+    loadChildren: () => import('./deck-detail/deck-detail.module').then( m => m.DeckDetailPageModule)
   }
 ];
 

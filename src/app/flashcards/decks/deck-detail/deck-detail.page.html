@@ -1,0 +1,10 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>deck-detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <p *ngIf="loadError" role="alert">{{ loadError }}</p>
+  <pre *ngIf="deck">{{ deck | json }}</pre>
+</ion-content>

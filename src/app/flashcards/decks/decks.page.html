@@ -20,18 +20,11 @@
   <form (ngSubmit)="createDeck()">
     <ion-item>
       <ion-label position="stacked">Deck name</ion-label>
-      <ion-input
-        name="deckName"
-        [(ngModel)]="name"
-        [disabled]="saving"
-        required>
+      <ion-input name="deckName" [(ngModel)]="name" [disabled]="saving" required>
       </ion-input>
     </ion-item>
 
-    <ion-button
-      type="submit"
-      expand="block"
-      [disabled]="loading || saving || !!loadError || !name.trim()">
+    <ion-button type="submit" expand="block" [disabled]="loading || saving || !!loadError || !name.trim()">
       {{ saving ? 'Creating…' : 'Create Deck' }}
     </ion-button>
   </form>
@@ -44,7 +37,7 @@
   </p>
 
   <ion-list *ngIf="!loading && !loadError && decks.length">
-    <ion-item *ngFor="let deck of decks">
+    <ion-item *ngFor="let deck of decks" [routerLink]="['/flashcards/decks', deck.id]">
       <ion-label>{{ deck.name }}</ion-label>
     </ion-item>
   </ion-list>
