@@ -22,7 +22,7 @@ export class DecksPage {
     this.loadError = '';
 
     this.decksService.getDecks()
-      .pipe(finalize(() => this.loading = false))
+      .pipe(finalize(() => this.loading = false)) // this runs only after either 'next' is executed or 'error' is executed below
       .subscribe({
         next: decks => this.decks = decks,
         error: error => {
