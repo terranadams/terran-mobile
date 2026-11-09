@@ -20,34 +20,24 @@
     </ion-segment-button>
   </ion-segment>
 
-  <div *ngIf="method === 'random'" class="ion-padding">
+  <div *ngIf="method === 'random'" class="ion-padding random-result">
     <ion-card *ngIf="randomPokemon.name" [routerLink]="['./', 'detail']">
       <ion-card-header>
         <ion-card-title>{{ randomPokemon.name }}</ion-card-title>
         <ion-grid>
           <ion-row>
-            <ion-col
-              [sizeSm]="!randomPokemon.shinySprite ? 12 : 6"
-              sizeLg="3"
-              offsetLg="3"
-            >
+            <ion-col [sizeSm]="!randomPokemon.shinySprite ? 12 : 6" sizeLg="3" offsetLg="3">
               <ion-img [src]="randomPokemon.defaultSprite"></ion-img>
             </ion-col>
             <ion-col *ngIf="randomPokemon.shinySprite" size="6" sizeLg="3">
-              <ion-img
-                class="img-hor"
-                [src]="randomPokemon.shinySprite"
-              ></ion-img>
+              <ion-img class="img-hor" [src]="randomPokemon.shinySprite"></ion-img>
             </ion-col>
           </ion-row>
         </ion-grid>
       </ion-card-header>
       <ion-card-content>
         <ion-grid>
-          <ion-row
-            class="ion-text-center"
-            *ngFor="let type of randomPokemon.types"
-          >
+          <ion-row class="ion-text-center" *ngFor="let type of randomPokemon.types">
             <ion-col>
               {{ type.charAt(0).toUpperCase() + type.slice(1) }}
             </ion-col>
@@ -57,66 +47,40 @@
     </ion-card>
   </div>
 
-  <div *ngIf="method === 'search'" class="ion-padding">
-<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <div *ngIf="method === 'search'" class="ion-padding search-panel">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
       <ion-grid>
         <ion-row>
           <ion-col>
             <ion-list style="border-radius: 12px">
               <ion-item>
                 <ion-label position="floating">Name</ion-label>
-                <ion-input
-                  ngModel
-                  type="text"
-                  name="name"
-                  [(ngModel)]="inputValue"
-                ></ion-input>
+                <ion-input ngModel type="text" name="name" [(ngModel)]="inputValue"></ion-input>
               </ion-item>
             </ion-list>
           </ion-col>
           <ion-button type="submit" color="medium"> Search </ion-button>
         </ion-row>
-        <ion-row class="ion-text-center">
+        <ion-row class="ion-text-center search-result">
           <ion-col>
-            <ion-card
-              *ngIf="searchedPokemon.name"
-              [routerLink]="['./', 'detail']"
-            >
+            <ion-card *ngIf="searchedPokemon.name" [routerLink]="['./', 'detail']">
               <ion-card-header>
                 <ion-card-title>{{this.searchedPokemon.name}}</ion-card-title>
                 <ion-grid>
                   <ion-row>
-                    <ion-col
-                      [sizeSm]="!this.searchedPokemon.shinySprite ? 12 : 6"
-                      sizeLg="3"
-                      offsetLg="3"
-                    >
-                      <ion-img
-                        [src]="this.searchedPokemon.defaultSprite"
-                      ></ion-img>
+                    <ion-col [sizeSm]="!this.searchedPokemon.shinySprite ? 12 : 6" sizeLg="3" offsetLg="3">
+                      <ion-img [src]="this.searchedPokemon.defaultSprite"></ion-img>
                     </ion-col>
-                    <ion-col
-                      *ngIf="this.searchedPokemon.shinySprite"
-                      size="6"
-                      sizeLg="3"
-                    >
-                      <ion-img
-                        class="img-hor"
-                        [src]="this.searchedPokemon.shinySprite"
-                      ></ion-img>
+                    <ion-col *ngIf="this.searchedPokemon.shinySprite" size="6" sizeLg="3">
+                      <ion-img class="img-hor" [src]="this.searchedPokemon.shinySprite"></ion-img>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
               </ion-card-header>
               <ion-card-content>
                 <ion-grid>
-                  <ion-row
-                    class="ion-text-center"
-                    *ngFor="let type of this.searchedPokemon.types"
-                  >
-                    <ion-col
-                      >{{type.charAt(0).toUpperCase() + type.slice(1)}}</ion-col
-                    >
+                  <ion-row class="ion-text-center" *ngFor="let type of this.searchedPokemon.types">
+                    <ion-col>{{type.charAt(0).toUpperCase() + type.slice(1)}}</ion-col>
                   </ion-row>
                 </ion-grid>
               </ion-card-content>
@@ -124,7 +88,8 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-    </form>  </div>
+    </form>
+  </div>
 </ion-content>
 
 <ion-footer *ngIf="method === 'random'">

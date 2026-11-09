@@ -1,0 +1,18 @@
+.deck-list {
+  margin: 16px 0 0;
+  padding: 0;
+  background: transparent;
+}
+
+.deck-card {
+  --background: var(--ion-card-background);
+  --min-height: 56px;
+
+  border: 1px solid var(--ion-border-color);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.deck-card + .deck-card {
+  margin-top: 10px;
+}

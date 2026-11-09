@@ -1,6 +1,17 @@
-ion-content {
-  --overflow: hidden;
-}
 .img-hor {
   transform: rotateY(180deg); // Rotate 180 degrees along the y-axis
+}
+
+:host-context(html.theme-dark) ion-card-content {
+  color: #0f172a;
+}
+
+ion-content::part(scroll) {
+  display: flex;
+  flex-direction: column;
+}
+
+.caught-detail-body {
+  flex-shrink: 0;
+  margin-block: auto;
 }

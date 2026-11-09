@@ -14,16 +14,15 @@
     </ion-buttons>
     <ion-title>Decks</ion-title>
     <ion-buttons slot="end">
-      <app-theme-toggle></app-theme-toggle>
       <ion-button type="button" (click)="signOut()">
         Sign Out
+      </ion-button>
+      <ion-button [routerLink]="['/flashcards/account-settings']" aria-label="Account settings">
+        <ion-icon slot="icon-only" name="settings-outline" aria-hidden="true"></ion-icon>
       </ion-button>
       <ion-buttons slot="end" class="ion-padding-end">
         <app-theme-toggle></app-theme-toggle>
       </ion-buttons>
-      <ion-button [routerLink]="['/flashcards/account-settings']" aria-label="Account settings">
-        <ion-icon slot="icon-only" name="settings-outline" aria-hidden="true"></ion-icon>
-      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -59,8 +58,8 @@
     Create your first deck to get started.
   </p>
 
-  <ion-list *ngIf="!loading && !loadError && decks.length">
-    <ion-item *ngFor="let deck of decks" [routerLink]="['/flashcards/decks', deck.id]">
+  <ion-list class="deck-list" *ngIf="!loading && !loadError && decks.length">
+    <ion-item *ngFor="let deck of decks" class="deck-card" lines="none" [routerLink]="['/flashcards/decks', deck.id]">
       <ion-label>{{ deck.name }}</ion-label>
     </ion-item>
   </ion-list>

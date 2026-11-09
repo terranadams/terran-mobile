@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { DetailPageRoutingModule } from './detail-routing.module';
 
 import { DetailPage } from './detail.page';
+import { ThemeToggleModule } from 'src/app/shared/theme-toggle.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DetailPageRoutingModule
-  ],
+    DetailPageRoutingModule,
+    ThemeToggleModule
+],
   declarations: [DetailPage]
 })
 export class DetailPageModule {}

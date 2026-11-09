@@ -33,3 +33,13 @@ ion-content {
   --overflow: hidden;
 }
 
+:host-context(html.theme-dark) .prediction-card {
+  ion-card-subtitle,
+  ion-card-title {
+    --color: #0f172a;
+  }
+
+  .instructions p {
+    color: #0f172a;
+  }
+}
