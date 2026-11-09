@@ -1,10 +1,68 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>deck-detail</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/flashcards/decks"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ deck?.name || 'Practice' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
   <p *ngIf="loadError" role="alert">{{ loadError }}</p>
-  <pre *ngIf="deck">{{ deck | json }}</pre>
+  <p *ngIf="!deck && !loadError" role="status">Loading deck…</p>
+
+  <ion-button *ngIf="deck" type="button" [disabled]="savingCard" [attr.aria-expanded]="showAddCard"
+    [attr.aria-label]="showAddCard ? 'Close add card form' : 'Add card'" (click)="toggleAddCard()">
+    {{ showAddCard ? 'Cancel' : '+' }}
+  </ion-button>
+
+  <form *ngIf="showAddCard" (ngSubmit)="addCard()">
+    <ion-item>
+      <ion-label position="stacked">Front (English)</ion-label>
+      <ion-input name="english" [(ngModel)]="english" [disabled]="savingCard" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Back (Spanish)</ion-label>
+      <ion-input name="spanish" [(ngModel)]="spanish" [disabled]="savingCard" required></ion-input>
+    </ion-item>
+
+    <ion-button type="submit" [disabled]="savingCard || !english.trim() || !spanish.trim()">
+      {{ savingCard ? 'Saving…' : 'Save Card' }}
+    </ion-button>
+
+    <p *ngIf="addCardError" role="alert">{{ addCardError }}</p>
+  </form>
+
+  <p *ngIf="deck && shuffledCards.length === 0">
+    This deck has no cards yet.
+  </p>
+
+  <div *ngIf="currentCard as card" class="ion-text-center">
+    <p>{{ currentIndex + 1 }} / {{ shuffledCards.length }}</p>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>
+          {{ isFlipped ? 'Español' : 'Inglés' }}
+        </ion-card-subtitle>
+        <ion-card-title [attr.lang]="isFlipped ? 'es' : 'en'">
+          {{ isFlipped ? card.spanish : card.english }}
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-button (click)="flipCard()">Flip Card</ion-button>
+        <ion-button *ngIf="canSpeak" fill="outline" (click)="speakCurrentCard()">
+          Listen
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button fill="outline" [disabled]="currentIndex === 0" (click)="previousCard()">
+      Previous Card
+    </ion-button>
+
+    <ion-button (click)="nextCard()">Next Card</ion-button>
+  </div>
 </ion-content>

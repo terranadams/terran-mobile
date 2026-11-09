@@ -57,4 +57,18 @@ export class DecksService {
       headers: { Authorization: `Bearer ${token}` }
     });
   }
+
+  addCard(deckId: number, english: string, spanish: string) {
+    const token = this.auth.getAccessToken();
+
+    if (!token) {
+      return throwError(new Error('Sign in to add a card.'));
+    }
+
+    return this.http.post<DeckDetail['cards'][number]>(
+      `${this.url}/${deckId}/cards`,
+      { english, spanish },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+  }
 }
