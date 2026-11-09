@@ -14,40 +14,28 @@
     <form #authForm="ngForm" (ngSubmit)="submit()">
       <ion-item>
         <ion-label position="stacked">Email</ion-label>
-        <ion-input
-          type="email"
-          name="email"
-          [(ngModel)]="email"
-          required
-          email
-          autocomplete="username">
+        <ion-input type="email" name="email" [(ngModel)]="email" required email autocomplete="username">
         </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked">Password</ion-label>
-        <ion-input
-          type="password"
-          name="password"
-          [(ngModel)]="password"
-          required
+        <ion-input type="password" name="password" [(ngModel)]="password" required
           [autocomplete]="isRegistering ? 'new-password' : 'current-password'">
         </ion-input>
       </ion-item>
 
-      <ion-button
-        expand="block"
-        type="submit"
-        [disabled]="authForm.invalid || isLoading">
+      <ion-button expand="block" type="submit" [disabled]="authForm.invalid || isLoading">
         {{ isLoading ? 'Please wait…' : (isRegistering ? 'Create Account' : 'Sign In') }}
       </ion-button>
     </form>
 
-    <ion-button
-      fill="clear"
-      expand="block"
-      (click)="toggleMode()"
-      [disabled]="isLoading">
+    <ion-button *ngIf="!isRegistering" type="button" expand="block" fill="outline" [disabled]="isLoading"
+      (click)="signInAsGuest()">
+      Sign in as Guest
+    </ion-button>
+
+    <ion-button fill="clear" expand="block" (click)="toggleMode()" [disabled]="isLoading">
       {{ isRegistering ? 'Already have an account? Sign in' : 'Create an account' }}
     </ion-button>
 

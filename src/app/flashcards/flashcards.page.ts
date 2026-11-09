@@ -64,4 +64,23 @@ export class FlashcardsPage {
       });
     }
   }
+
+  signInAsGuest(): void {
+    if (this.isLoading) return;
+
+    this.isLoading = true;
+    this.message = '';
+
+    this.auth.signInAsGuest().subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.password = '';
+        this.router.navigate(['/flashcards/decks']);
+      },
+      error: () => {
+        this.isLoading = false;
+        this.message = 'Guest sign-in is unavailable. Please try again.';
+      }
+    });
+  }
 }

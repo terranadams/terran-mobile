@@ -32,4 +32,10 @@ export class AuthService {
   getAccessToken(): string | null {
     return this.accessToken;
   }
+
+  signInAsGuest() {
+    return this.http.post<LoginResponse>(`${this.baseUrl}/guest`, {}).pipe(
+      tap(response => this.accessToken = response.accessToken)
+    );
+  }
 }

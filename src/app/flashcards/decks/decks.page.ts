@@ -15,7 +15,15 @@ export class DecksPage {
   loadError = '';
   saveError = '';
 
-  constructor(private decksService: DecksService) {}
+  showAddDeck = false;
+
+  closeAddDeckForm(): void {
+    this.showAddDeck = false;
+    this.name = '';
+    this.saveError = '';
+  }
+
+  constructor(private decksService: DecksService) { }
 
   ionViewWillEnter(): void {
     this.loading = true;
@@ -28,7 +36,7 @@ export class DecksPage {
         error: error => {
           this.loadError = error instanceof Error ? error.message
             : error.status === 401 ? 'Sign in again to view your decks.'
-            : 'Could not load your decks.';
+              : 'Could not load your decks.';
         }
       });
   }
@@ -46,12 +54,12 @@ export class DecksPage {
       .subscribe({
         next: deck => {
           this.decks = [...this.decks, deck];
-          this.name = '';
+          this.closeAddDeckForm();
         },
         error: error => {
           this.saveError = error instanceof Error ? error.message
             : error.status === 401 ? 'Sign in again to create a deck.'
-            : 'Could not create the deck.';
+              : 'Could not create the deck.';
         }
       });
   }

@@ -17,22 +17,33 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form (ngSubmit)="createDeck()">
+  <ion-button *ngIf="!showAddDeck" type="button" expand="block" [disabled]="loading || !!loadError"
+    (click)="showAddDeck = true">
+    Add Deck
+  </ion-button>
+
+  <form *ngIf="showAddDeck" (ngSubmit)="createDeck()">
     <ion-item>
       <ion-label position="stacked">Deck name</ion-label>
-      <ion-input name="deckName" [(ngModel)]="name" [disabled]="saving" required>
+      <ion-input name="deckName" [(ngModel)]="name" [disabled]="saving">
       </ion-input>
     </ion-item>
 
     <ion-button type="submit" expand="block" [disabled]="loading || saving || !!loadError || !name.trim()">
       {{ saving ? 'Creating…' : 'Create Deck' }}
     </ion-button>
+
+    <ion-button type="button" fill="clear" [disabled]="saving" (click)="closeAddDeckForm()">
+      Cancel
+    </ion-button>
+
+    <p *ngIf="saveError" role="alert">{{ saveError }}</p>
   </form>
 
   <p *ngIf="loading" role="status">Loading decks…</p>
   <p *ngIf="loadError" role="alert">{{ loadError }}</p>
-  <p *ngIf="saveError" role="alert">{{ saveError }}</p>
-  <p *ngIf="!loading && !loadError && decks.length === 0">
+
+  <p *ngIf="!loading && !loadError && !showAddDeck && decks.length === 0">
     Create your first deck to get started.
   </p>
 
