@@ -104,9 +104,12 @@ export class DeckDetailPage implements OnInit {
   }
 
   previousCard(): void {
-    if (this.currentIndex === 0) return;
+    if (this.shuffledCards.length === 0) return;
 
-    this.currentIndex--;
+    this.currentIndex = this.currentIndex === 0
+      ? this.shuffledCards.length - 1
+      : this.currentIndex - 1;
+
     this.isFlipped = false;
   }
 
@@ -136,6 +139,55 @@ export class DeckDetailPage implements OnInit {
 
     this.currentIndex = 0;
     this.isFlipped = false;
+  }
+
+  editingCardId: number | null = null;
+  editEnglish = '';
+  editSpanish = '';
+  savingEdit = false;
+  editCardError = '';
+
+  startEdit(card: DeckDetail['cards'][number]): void {
+    if (this.savingEdit || this.deletingCardId !== null) return;
+
+    this.editingCardId = card.id;
+    this.editEnglish = card.english;
+    this.editSpanish = card.spanish;
+    this.editCardError = '';
+  }
+
+  cancelEdit(): void {
+    this.editingCardId = null;
+    this.editCardError = '';
+  }
+
+  saveEdit(): void {
+    const deck = this.deck;
+    const cardId = this.editingCardId;
+    const english = this.editEnglish.trim();
+    const spanish = this.editSpanish.trim();
+
+    if (!deck || cardId === null || !english || !spanish || this.savingEdit) return;
+
+    this.savingEdit = true;
+    this.editCardError = '';
+
+    this.decksService.updateCard(deck.id, cardId, english, spanish).subscribe({
+      next: updated => {
+        deck.cards = deck.cards.map(card => card.id === updated.id ? updated : card);
+        this.shuffledCards = this.shuffledCards.map(card =>
+          card.id === updated.id ? updated : card
+        );
+        this.savingEdit = false;
+        this.cancelEdit();
+      },
+      error: error => {
+        this.savingEdit = false;
+        this.editCardError = error.status === 401
+          ? 'Sign in again to edit this card.'
+          : error.error?.message || 'Could not update the card. Please try again.';
+      }
+    });
   }
 
   deletingCardId: number | null = null;

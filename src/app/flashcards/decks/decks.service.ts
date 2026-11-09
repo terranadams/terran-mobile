@@ -72,6 +72,20 @@ export class DecksService {
     );
   }
 
+  updateCard(deckId: number, cardId: number, english: string, spanish: string) {
+    const token = this.auth.getAccessToken();
+
+    if (!token) {
+      return throwError(new Error('Sign in to edit a card.'));
+    }
+
+    return this.http.put<DeckDetail['cards'][number]>(
+      `${this.url}/${deckId}/cards/${cardId}`,
+      { english, spanish },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+  }
+
   deleteCard(deckId: number, cardId: number) {
     const token = this.auth.getAccessToken();
 
