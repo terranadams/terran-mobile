@@ -38,4 +38,22 @@ export class AuthService {
       tap(response => this.accessToken = response.accessToken)
     );
   }
+
+  updateAccount(field: 'email' | 'password', value: string, currentPassword: string) {
+    return this.http.put<void>(
+      `${this.baseUrl}/account/${field}`,
+      { value, currentPassword },
+      { headers: { Authorization: `Bearer ${this.getAccessToken()}` } }
+    );
+  }
+
+  deleteAccount() {
+    return this.http.delete<void>(`${this.baseUrl}/account`, {
+      headers: { Authorization: `Bearer ${this.getAccessToken()}` }
+    });
+  }
+
+  signOut(): void {
+    this.accessToken = null;
+  }
 }

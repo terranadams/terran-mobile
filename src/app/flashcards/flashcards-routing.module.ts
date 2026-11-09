@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'decks',
     loadChildren: () => import('./decks/decks.module').then( m => m.DecksPageModule)
+  },
+  {
+    path: 'account-settings',
+    loadChildren: () => import('./account-settings/account-settings.module').then( m => m.AccountSettingsPageModule)
   }
 ];
 

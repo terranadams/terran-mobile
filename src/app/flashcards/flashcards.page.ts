@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
@@ -16,6 +17,18 @@ export class FlashcardsPage {
   message = '';
 
   constructor(private auth: AuthService, private router: Router) { }
+
+  @ViewChild('authForm') authForm?: NgForm;
+
+  ionViewWillEnter(): void {
+    this.isRegistering = false;
+    this.message = '';
+    this.password = '';
+    this.authForm?.resetForm({
+      email: this.email,
+      password: ''
+    });
+  }
 
   toggleMode() { // Switches between login and registration.
     this.isRegistering = !this.isRegistering; // Flips the current mode.

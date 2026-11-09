@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/flashcards/decks"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Account Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-button class="settings-action" expand="block" [disabled]="busy" (click)="openForm('email')">
+    Update Email
+  </ion-button>
+
+  <ion-button class="settings-action" expand="block" [disabled]="busy" (click)="openForm('password')">
+    Update Password
+  </ion-button>
+
+  <form *ngIf="mode" (ngSubmit)="saveChange()">
+    <ion-item>
+      <ion-label position="stacked">
+        {{ mode === 'email' ? 'New email' : 'New password' }}
+      </ion-label>
+      <ion-input name="value" [type]="mode === 'email' ? 'email' : 'password'"
+        [autocomplete]="mode === 'email' ? 'email' : 'new-password'" [(ngModel)]="value" [disabled]="busy">
+      </ion-input>
+    </ion-item>
+
+    <ion-button type="submit" [disabled]="busy || !value.trim()">
+      Save Changes
+    </ion-button>
+
+    <ion-button type="button" fill="clear" [disabled]="busy" (click)="openForm(null)">
+      Cancel
+    </ion-button>
+  </form>
+
+  <p *ngIf="message" role="alert">{{ message }}</p>
+
+
+  <ion-button class="settings-action" type="button" expand="block" fill="outline" color="danger" [disabled]="busy"
+    (click)="confirmDelete()">
+    Delete Account
+  </ion-button>
+</ion-content>ƒ

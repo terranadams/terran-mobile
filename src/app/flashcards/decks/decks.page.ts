@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { Deck, DecksService } from './decks.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-decks',
@@ -23,8 +25,17 @@ export class DecksPage {
     this.saveError = '';
   }
 
-  constructor(private decksService: DecksService) { }
+  constructor(
+    private decksService: DecksService,
+    private auth: AuthService,
+    private router: Router
+  ) { }
 
+  signOut(): void {
+    this.auth.signOut();
+    void this.router.navigate(['/flashcards'], { replaceUrl: true });
+  }
+  
   ionViewWillEnter(): void {
     this.loading = true;
     this.loadError = '';
