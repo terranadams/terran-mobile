@@ -137,4 +137,47 @@ export class DeckDetailPage implements OnInit {
     this.currentIndex = 0;
     this.isFlipped = false;
   }
+
+  deletingCardId: number | null = null;
+  deleteCardError = '';
+
+  deleteCard(cardId: number): void {
+    const deck = this.deck;
+
+    if (!deck || this.deletingCardId !== null) return;
+
+    this.deletingCardId = cardId;
+    this.deleteCardError = '';
+
+    this.decksService.deleteCard(deck.id, cardId).subscribe({
+      next: () => {
+        const activeCardId = this.currentCard?.id;
+
+        deck.cards = deck.cards.filter(card => card.id !== cardId);
+        this.shuffledCards = this.shuffledCards.filter(card => card.id !== cardId);
+
+        const activeIndex = this.shuffledCards.findIndex(card => card.id === activeCardId);
+
+        if (activeIndex >= 0) {
+          this.currentIndex = activeIndex;
+        } else {
+          this.currentIndex = Math.max(
+            0,
+            Math.min(this.currentIndex, this.shuffledCards.length - 1)
+          );
+          this.isFlipped = false;
+        }
+
+        this.deletingCardId = null;
+      },
+      error: error => {
+        this.deletingCardId = null;
+        this.deleteCardError = error.status === 401 || !error.status && error instanceof Error
+          ? (error.status === 401 ? 'Sign in again to delete a card.' : error.message)
+          : 'Could not delete the card. Please try again.';
+      }
+    });
+    // This keeps your place if a different card is deleted. If you delete the card you’re viewing, 
+    // the next available card opens on its English side. Deleting the last card brings back your empty-deck message.
+  }
 }

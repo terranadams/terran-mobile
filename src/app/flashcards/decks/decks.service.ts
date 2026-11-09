@@ -71,4 +71,16 @@ export class DecksService {
       { headers: { Authorization: `Bearer ${token}` } }
     );
   }
+
+  deleteCard(deckId: number, cardId: number) {
+    const token = this.auth.getAccessToken();
+
+    if (!token) {
+      return throwError(new Error('Sign in to delete a card.'));
+    }
+
+    return this.http.delete<void>(`${this.url}/${deckId}/cards/${cardId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+  }
 }

@@ -64,5 +64,12 @@
     </ion-button>
 
     <ion-button (click)="nextCard()">Next Card</ion-button>
+    <br>
+    <br>
+    <ion-button type="button" fill="clear" color="danger" aria-label="Delete card" [disabled]="deletingCardId !== null"
+      (click)="deleteCard(card.id)">
+      <ion-icon slot="icon-only" name="trash-outline" aria-hidden="true"></ion-icon>
+    </ion-button>
   </div>
+  <p *ngIf="deleteCardError" role="alert">{{ deleteCardError }}</p>
 </ion-content>
