@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { FlashcardsPageRoutingModule } from './flashcards-routing.module';
 
 import { FlashcardsPage } from './flashcards.page';
+import { ThemeToggleModule } from '../shared/theme-toggle.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FlashcardsPageRoutingModule
-  ],
+    FlashcardsPageRoutingModule,
+    ThemeToggleModule
+],
   declarations: [FlashcardsPage]
 })
 export class FlashcardsPageModule {}

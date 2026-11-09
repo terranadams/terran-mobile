@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { DecksPageRoutingModule } from './decks-routing.module';
 
 import { DecksPage } from './decks.page';
+import { ThemeToggleModule } from 'src/app/shared/theme-toggle.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DecksPageRoutingModule
-  ],
+    DecksPageRoutingModule,
+    ThemeToggleModule
+],
   declarations: [DecksPage]
 })
 export class DecksPageModule {}

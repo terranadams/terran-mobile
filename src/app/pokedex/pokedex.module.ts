@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { PokedexPageRoutingModule } from './pokedex-routing.module';
 
 import { PokedexPage } from './pokedex.page';
+import { ThemeToggleModule } from '../shared/theme-toggle.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PokedexPageRoutingModule
-  ],
+    PokedexPageRoutingModule,
+    ThemeToggleModule
+],
   declarations: [PokedexPage]
 })
 export class PokedexPageModule {}

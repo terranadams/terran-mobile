@@ -11,6 +11,7 @@ import { AccelaPage } from './accela.page';
 import { SignInFormComponent } from './sign-in-form/sign-in-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RecordsListComponent } from './records-list/records-list.component';
+import { ThemeToggleModule } from '../shared/theme-toggle.module';
 
 @NgModule({
   imports: [
@@ -18,8 +19,9 @@ import { RecordsListComponent } from './records-list/records-list.component';
     FormsModule,
     IonicModule,
     AccelaPageRoutingModule,
-    HttpClientModule
-  ],
+    HttpClientModule,
+    ThemeToggleModule
+],
   declarations: [AccelaPage, SignInFormComponent, RecordsListComponent],
 })
 export class AccelaPageModule {}
