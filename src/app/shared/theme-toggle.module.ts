@@ -4,13 +4,25 @@ import { IonicModule } from '@ionic/angular';
 @Component({
   selector: 'app-theme-toggle',
   template: `
+  <ion-icon name="moon-outline" aria-hidden="true"></ion-icon>
     <ion-toggle
       aria-label="Dark mode"
       color="primary"
       [checked]="darkMode"
       (ionChange)="setDarkMode($any($event).detail.checked)">
     </ion-toggle>
-  `
+  `,
+  styles: [`
+    :host {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    ion-icon {
+      font-size: 20px;
+    }
+  `]
 })
 export class ThemeToggleComponent {
   get darkMode(): boolean {
@@ -28,4 +40,4 @@ export class ThemeToggleComponent {
   declarations: [ThemeToggleComponent],
   exports: [ThemeToggleComponent]
 })
-export class ThemeToggleModule {}
+export class ThemeToggleModule { }
